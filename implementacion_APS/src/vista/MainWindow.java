@@ -1,12 +1,16 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuarioImpl;
+import controlador.ControllerPrincipalAdministrador;
+import controlador.ControllerPrincipalAdministradorImpl;
+import modelo.DatabaseImpl;
 
 public class MainWindow extends JFrame{
 
@@ -27,16 +31,23 @@ public class MainWindow extends JFrame{
 
     private void crearVistas(){
 
-        ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
-        viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
-        controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
+        try{
+            DatabaseImpl.createDatabase();
 
-        // aca crear el controller del viewprincipalAdmin
-        viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this);
-        // y aca setearselo
-        controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
-       
-        viewLoginUsuario.mostrarse();
+            ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
+            viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
+            controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
+
+            ControllerPrincipalAdministrador controllerPrincipalAdministrador = new ControllerPrincipalAdministradorImpl();
+            viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this);
+            controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+            controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+        
+            viewLoginUsuario.mostrarse();
+        } catch(Exception e){
+            // TODO: no es lo mas feliz del mundo pero sino nose donde creamos la DB.
+            e.printStackTrace();
+        }
     }
 
 	

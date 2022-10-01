@@ -4,14 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class DataBaseImpl {
-
-  public static final String urlDB = "jdbc:sqlite:./dictionary.db";
+public class DatabaseImpl {
 
   public static void createDatabase() throws Exception{
     Statement statement = null;
     try {
+        
       statement = connectToDB();
+      
       if (statement != null) {
         statement.executeUpdate("create table if not exists carrera (codigo integer PRIMARY KEY, nombre string)");
         statement.executeUpdate("create table if not exists plan(anio integer, codigo integer, foreign key(codigo) references carrera(codigo))");
@@ -20,7 +20,8 @@ public class DataBaseImpl {
       }
       addInfoToDB();
     } catch (SQLException e) {
-      throw new Exception("An error occurred during DB creation.");
+      e.printStackTrace();
+      //throw new Exception("An error occurred during DB creation.");
     } finally {
       closeConnection(statement);
     }
@@ -134,7 +135,8 @@ public class DataBaseImpl {
   //Methods for connection and disconnection from db
 
   private static Statement connectToDB() throws SQLException {
-    Connection connection = DriverManager.getConnection(urlDB);
+    String urlDB = "jdbc:sqlite:./dictionary.db";
+    Connection connection = DriverManager.getConnection(urlDB); //TODO: esta linea da error.
     Statement statement = connection.createStatement();
     statement.setQueryTimeout(30);
 

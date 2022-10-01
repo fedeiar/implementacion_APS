@@ -1,7 +1,7 @@
 package controlador;
 
 import modelo.Administrador;
-import modelo.DataBaseImpl;
+import modelo.DatabaseImpl;
 import vista.ViewLoginUsuario;
 import vista.ViewPrincipalAdministrador;
 
@@ -33,7 +33,7 @@ public class ControllerLoginUsuarioImpl implements ControllerLoginUsuario{
     private boolean comprobrarAdministrador(int legajo) {
         boolean encontrado = false;
         try{
-            Administrador admin= DataBaseImpl.getAdmin(legajo);
+            Administrador admin = DatabaseImpl.getAdmin(legajo);
             encontrado = admin != null;
         }catch(Exception e){
             //todo
