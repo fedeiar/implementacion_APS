@@ -90,7 +90,8 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
     private void inicializarListeners(){
         btnLogin.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerLoginUsuario.autenticarUsuario(TFLogin.getText(), new String(TFContrasena.getPassword()));
+                int legajo = Integer.parseInt(TFLogin.getText());   //todo bloquear solo int
+                controllerLoginUsuario.autenticarUsuario(legajo, new String(TFContrasena.getPassword()));
             }
         });
     }
