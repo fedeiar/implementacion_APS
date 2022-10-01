@@ -14,11 +14,6 @@ import modelo.DatabaseImpl;
 
 public class MainWindow extends JFrame{
 
-
-    private ViewLoginUsuario viewLoginUsuario;
-    private ViewPrincipalAdministrador viewPrincipalAdministrador;
-
-
 	public MainWindow() {
 		super("Obra social SanAr");
 		this.setBounds(100, 100, 1000, 600);
@@ -33,14 +28,19 @@ public class MainWindow extends JFrame{
         DatabaseImpl.createDatabase();
 
         ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
-        viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
+        ViewLoginUsuario viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
         controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
 
         ControllerPrincipalAdministrador controllerPrincipalAdministrador = new ControllerPrincipalAdministradorImpl();
-        viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this);
+        ViewPrincipalAdministrador viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this, controllerPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
-    
+
+        // Crear el controlador
+        ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumnoImpl(this);
+        // Setearlo
+        controllerPrincipalAdministrador.setViewAdminAltaAlumno(viewAdminAltaAlumno);
+
         viewLoginUsuario.mostrarse();
     }
 
