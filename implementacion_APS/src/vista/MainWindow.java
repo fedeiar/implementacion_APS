@@ -30,8 +30,6 @@ public class MainWindow extends JFrame{
 	}
 
     private void crearVistas(){
-
-        
         DatabaseImpl.createDatabase();
 
         ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
@@ -44,7 +42,6 @@ public class MainWindow extends JFrame{
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
     
         viewLoginUsuario.mostrarse();
-       
     }
 
 	

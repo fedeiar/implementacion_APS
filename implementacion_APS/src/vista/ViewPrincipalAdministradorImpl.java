@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -39,6 +41,14 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
     public void mostrarse(){
         mainWindow.setContentPane(this);
         mainWindow.revalidate();
+    }
+
+    public void operacionExitosa(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null,mensaje,titulo,JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void operacionFallida(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
     }
 
 }

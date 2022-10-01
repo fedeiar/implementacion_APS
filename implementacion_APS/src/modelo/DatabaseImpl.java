@@ -31,6 +31,7 @@ public class DatabaseImpl {
     }
 
     private static void addInfoToDB() throws Exception {
+        //TODO: si fernando nos dice algo, agregarle lo de md5 a las contraseñas.
         saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Suarez", "Pablo", 1));
         saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Perez", "Juan", 2));
         saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Gonzalez", "Rodrigo", 3));
@@ -60,20 +61,38 @@ public class DatabaseImpl {
 
     public static Administrador getAdmin(int legajo_administrador) throws Exception {
         Administrador admin = null;
-        Statement statement = null;
         try{
-            statement = connectToDB();
-            if(statement != null){
-                ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "'");
-                resultSet.next();
+            Statement statement = connectToDB();
+
+            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "'");
+            if(resultSet.next()){
                 admin = new Administrador(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("apellido"), resultSet.getString("nombre"), legajo_administrador);
             }
-        } catch (SQLException e){
-            throw new Exception("An error occurred while recovering admin.");
-        } finally{
+
             closeConnection(statement);
-        }
+        } catch (SQLException e){
+            System.out.println("entre 1");
+            e.printStackTrace();
+            throw new Exception("An error occurred while recovering admin.");
+        } 
         return admin;
+    }
+
+    public static boolean checkAdminPassword(int legajo_administrador, String password) throws Exception{
+        boolean password_matches = false;
+        try{
+            Statement statement = connectToDB();
+            
+            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "' AND contrasenia = '"+ password +"'");
+            if(resultSet.next()){ // Ya que es una sola fila, si hubo match es porque coincide la contraseña, sino devuelve false
+                password_matches = true;
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("An error occurred while checking password");
+        }
+        return password_matches;
     }
 
     public static Alumno getStudent(int legajo_alumno) throws Exception{

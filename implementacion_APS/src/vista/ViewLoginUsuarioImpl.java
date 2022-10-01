@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import controlador.ControllerLoginUsuario;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
@@ -90,11 +91,20 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
     private void inicializarListeners(){
         btnLogin.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                int legajo = Integer.parseInt(TFLogin.getText());   //todo bloquear solo int
-                controllerLoginUsuario.autenticarUsuario(legajo, new String(TFContrasena.getPassword()));
+                if(!controllerLoginUsuario.isUsernameInteger(TFLogin.getText())){
+                    return;
+                }
+                int legajo = Integer.parseInt(TFLogin.getText());  // TODO: bloquear solo int
+                if(RBAdministrador.isSelected()){
+                    controllerLoginUsuario.autenticarUsuarioAdministrador(legajo, new String(TFContrasena.getPassword()));
+                } else{
+                    //TODO: llamar al otro autenticar
+                }
             }
         });
     }
+
+    
 
 	public Container getContent(){
         return this;
@@ -103,6 +113,14 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
     public void mostrarse(){
         mainWindow.setContentPane(this);
         mainWindow.revalidate();
+    }
+
+    public void operacionExitosa(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null,mensaje,titulo,JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void operacionFallida(String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
     }
 
 }
