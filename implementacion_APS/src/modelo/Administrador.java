@@ -1,6 +1,6 @@
 package modelo;
 
-class Administrador{
+public class Administrador{
     private String email;
     private String password;
     private String surname;

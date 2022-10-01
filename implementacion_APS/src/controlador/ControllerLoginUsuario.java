@@ -10,6 +10,6 @@ public interface ControllerLoginUsuario {
 
     public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador);
 
-    public void autenticarUsuario(String username, String password);
+    public void autenticarUsuario(int username, String password);
 
 }
