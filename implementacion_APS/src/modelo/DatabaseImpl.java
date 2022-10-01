@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class DataBaseImpl {
 
   public static final String urlDB = "jdbc:sqlite:./dictionary.db";
@@ -18,6 +19,12 @@ public class DataBaseImpl {
         statement.executeUpdate("create table if not exists administrador(email string, contrasenia char(32), apellido string, nombre string, legajo_administrador integer PRIMARY KEY)");
         statement.executeUpdate("create table if not exists alumno(email string, contrasenia char(32), apellido string, nombre string, legajo_alumno integer PRIMARY KEY)");
       }
+      saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Suarez", "Pablo", 1));
+      saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Perez", "Juan", 2));
+      saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Gonzalez", "Rodrigo", 3));
+      saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Rodriguez", "Patricio", 4));
+      saveCarreer(1, "Licenciatura en Aprender a Leer");
+      saveCarreer(2, "Licenciatura en Sumar Enteros");
     } catch (SQLException e) {
       throw new Exception("An error occurred during DB creation.");
     } finally {
@@ -112,7 +119,7 @@ public class DataBaseImpl {
     try {
       statement = connectToDB();
       if (statement != null) {
-        statement.executeUpdate("replace into alumno values('" + fixIncompatibleSyntax(alumno.getEmail()) + "', '" + fixIncompatibleSyntax(alumno.getPassword()) + "', '" + fixIncompatibleSyntax(alumno.getSurname()) + "', '" + fixIncompatibleSyntax(alumno.getName()) + "', '" + admin.getLegajo_alumno() + "')");
+        statement.executeUpdate("replace into alumno values('" + fixIncompatibleSyntax(alumno.getEmail()) + "', '" + fixIncompatibleSyntax(alumno.getPassword()) + "', '" + fixIncompatibleSyntax(alumno.getSurname()) + "', '" + fixIncompatibleSyntax(alumno.getName()) + "', '" + alumno.getLegajo_alumno() + "')");
       }
     } catch (SQLException e) {
       throw new Exception("An error occurred during saving.");

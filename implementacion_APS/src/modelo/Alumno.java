@@ -5,14 +5,14 @@ public class Alumno {
     private String password;
     private String surname;
     private String name;
-    private int legajo_administrador;
+    private int legajo_alumno;
 
-    public Alumno(String email, String password, String surname, String name, int legajo_administrador) {
+    public Alumno(String email, String password, String surname, String name, int legajo_alumno) {
         this.email = email;
         this.password = password;
         this.surname = surname;
         this.name = name;
-        this.legajo_administrador = legajo_administrador;
+        this.legajo_alumno = legajo_alumno;
     }
 
     public String getEmail() {
@@ -47,12 +47,12 @@ public class Alumno {
         this.name = name;
     }
 
-    public int getLegajo_administrador() {
-        return legajo_administrador;
+    public int getLegajo_alumno() {
+        return legajo_alumno;
     }
 
-    public void setLegajo_administrador(int legajo_administrador) {
-        this.legajo_administrador = legajo_administrador;
+    public void setLegajo_alumno(int legajo_alumno) {
+        this.legajo_alumno = legajo_alumno;
     }
 
     
