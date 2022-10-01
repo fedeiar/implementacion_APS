@@ -1,6 +1,5 @@
 
 package modelo;
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,17 +18,21 @@ public class DataBaseImpl {
         statement.executeUpdate("create table if not exists administrador(email string, contrasenia char(32), apellido string, nombre string, legajo_administrador integer PRIMARY KEY)");
         statement.executeUpdate("create table if not exists alumno(email string, contrasenia char(32), apellido string, nombre string, legajo_alumno integer PRIMARY KEY)");
       }
-      saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Suarez", "Pablo", 1));
-      saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Perez", "Juan", 2));
-      saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Gonzalez", "Rodrigo", 3));
-      saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Rodriguez", "Patricio", 4));
-      saveCarreer(1, "Licenciatura en Aprender a Leer");
-      saveCarreer(2, "Licenciatura en Sumar Enteros");
+      addInfoToDB();
     } catch (SQLException e) {
       throw new Exception("An error occurred during DB creation.");
     } finally {
       closeConnection(statement);
     }
+  }
+
+  private static void addInfoToDB() throws Exception {
+    saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Suarez", "Pablo", 1));
+    saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Perez", "Juan", 2));
+    saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Gonzalez", "Rodrigo", 3));
+    saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Rodriguez", "Patricio", 4));
+    saveCarreer(1, "Licenciatura en Aprender a Leer");
+    saveCarreer(2, "Licenciatura en Sumar Enteros");
   }
 
   public static ArrayList<String> getNamesOfCarreers() throws Exception{
