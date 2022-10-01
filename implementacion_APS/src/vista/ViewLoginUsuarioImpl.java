@@ -1,10 +1,15 @@
 package vista;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import controlador.ControllerLoginUsuario;
+
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -12,11 +17,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JButton;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.*;
+
 public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
 
+    private MainWindow mainWindow;
+    private ControllerLoginUsuario controllerLoginUsuario;
 
 	private JTextField TFLogin;
-	private JTextField TFContrasena;
+	private JPasswordField TFContrasena;
     private JLabel lblUsername;
     private JLabel lblContrasena;
     private JLabel lblSeleccionUsuario;
@@ -25,7 +36,9 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
     private ButtonGroup BGgrupoUsuarios;
     private JButton btnLogin;
 	
-	public ViewLoginUsuarioImpl() {
+	public ViewLoginUsuarioImpl(MainWindow mainWindow, ControllerLoginUsuario controllerLoginUsuario) {
+        this.mainWindow = mainWindow;
+        this.controllerLoginUsuario = controllerLoginUsuario;
         this.setBounds(100, 100, 1000, 600);
         setLayout(null);
 
@@ -43,7 +56,7 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
         lblUsername.setBounds(345, 164, 67, 14);
         add(lblUsername);
         
-        TFContrasena = new JTextField();
+        TFContrasena = new JPasswordField();
         TFContrasena.setColumns(10);
         TFContrasena.setBounds(422, 192, 164, 20);
         add(TFContrasena);
@@ -75,10 +88,19 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
     }
 
     private void inicializarListeners(){
-        
+        btnLogin.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerLoginUsuario.autenticarUsuario(TFLogin.getText(), new String(TFContrasena.getPassword()));
+            }
+        });
     }
 
 	public Container getContent(){
         return this;
     }
+
+    public void mostrarse(){
+        mainWindow.setContentPane(this);
+    }
+
 }
