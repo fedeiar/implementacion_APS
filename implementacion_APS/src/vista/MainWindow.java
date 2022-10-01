@@ -31,23 +31,20 @@ public class MainWindow extends JFrame{
 
     private void crearVistas(){
 
-        try{
-            DatabaseImpl.createDatabase();
-
-            ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
-            viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
-            controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
-
-            ControllerPrincipalAdministrador controllerPrincipalAdministrador = new ControllerPrincipalAdministradorImpl();
-            viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this);
-            controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
-            controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         
-            viewLoginUsuario.mostrarse();
-        } catch(Exception e){
-            // TODO: no es lo mas feliz del mundo pero sino nose donde creamos la DB.
-            e.printStackTrace();
-        }
+        DatabaseImpl.createDatabase();
+
+        ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
+        viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
+        controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
+
+        ControllerPrincipalAdministrador controllerPrincipalAdministrador = new ControllerPrincipalAdministradorImpl();
+        viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this);
+        controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+        controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+    
+        viewLoginUsuario.mostrarse();
+       
     }
 
 	
