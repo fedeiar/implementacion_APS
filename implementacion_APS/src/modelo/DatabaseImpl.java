@@ -15,6 +15,8 @@ public class DataBaseImpl {
       if (statement != null) {
         statement.executeUpdate("create table if not exists carrera (codigo integer PRIMARY KEY, nombre string)");
         statement.executeUpdate("create table if not exists plan(anio integer, codigo integer, foreign key(codigo) references carrera(codigo))");
+        statement.executeUpdate("create table if not exists administrador(email string, contrasenia char(32), apellido string, nombre string, legajo_administrador integer PRIMARY KEY)");
+        statement.executeUpdate("create table if not exists alumno(email string, contrasenia char(32), apellido string, nombre string, legajo_alumno integer PRIMARY KEY)");
       }
     } catch (SQLException e) {
       throw new Exception("An error occurred during DB creation.");
@@ -22,31 +24,67 @@ public class DataBaseImpl {
       closeConnection(statement);
     }
   }
-/*
-  public static ArrayList<String> getTitlesOfAllSavedPages() throws Exception{
-    ArrayList<String> titles = new ArrayList<>();
+
+  public static ArrayList<String> getNamesOfCarreers() throws Exception{
+    ArrayList<String> carreers = new ArrayList<>();
     Statement statement = null;
     try {
       statement = connectToDB();
       if (statement != null) {
-        ResultSet resultSet = statement.executeQuery("select * from catalog");
+        ResultSet resultSet = statement.executeQuery("select * from carrera");
         while (resultSet.next())
-          titles.add(resultSet.getString("title"));
+        carreers.add(resultSet.getString("nombre"));
       }
     } catch (SQLException e) {
-      throw new Exception("An error occurred while recovering saved page's titles.");
+      throw new Exception("An error occurred while recovering carreers.");
     } finally {
       closeConnection(statement);
     }
-    return titles;
+    return carreers;
   }
 
-  public static void saveInfoOfPage(String pageTitle, String pageContent) throws Exception{
+  public static Administrador getAdmin(int legajo_administrador) throws Exception{
+    Administrador admin = null;
     Statement statement = null;
     try {
       statement = connectToDB();
       if (statement != null) {
-        statement.executeUpdate("replace into catalog values(null, '" + fixIncompatibleSyntax(pageTitle) + "', '" + fixIncompatibleSyntax(pageContent) + "', 1)");
+        ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "'");
+        resultSet.next();
+        admin = new Administrador(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("apellido"), resultSet.getString("nombre"), legajo_administrador);
+      }
+    } catch (SQLException e) {
+      throw new Exception("An error occurred while recovering admin.");
+    } finally {
+      closeConnection(statement);
+    }
+    return admin;
+  }
+
+  public static Alumno getStudent(int legajo_alumno) throws Exception{
+    Alumno alumno = null;
+    Statement statement = null;
+    try {
+      statement = connectToDB();
+      if (statement != null) {
+        ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "'");
+        resultSet.next();
+        alumno = new Alumno(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("apellido"), resultSet.getString("nombre"), legajo_alumno);
+      }
+    } catch (SQLException e) {
+      throw new Exception("An error occurred while recovering student.");
+    } finally {
+      closeConnection(statement);
+    }
+    return alumno;
+  }
+
+  public static void saveCarreer(int code, String name) throws Exception{
+    Statement statement = null;
+    try {
+      statement = connectToDB();
+      if (statement != null) {
+        statement.executeUpdate("replace into carrera values('" + code + "', '" + fixIncompatibleSyntax(name) + "')");
       }
     } catch (SQLException e) {
       throw new Exception("An error occurred during saving.");
@@ -55,52 +93,34 @@ public class DataBaseImpl {
     }
   }
 
-  public static String getPageContent(String title) throws Exception{
-    String pageContent = null;
+  public static void saveAdmin(Administrador admin) throws Exception{
     Statement statement = null;
     try {
       statement = connectToDB();
       if (statement != null) {
-        ResultSet resultSet = statement.executeQuery("select * from catalog WHERE title = '" + title + "'");
-        resultSet.next();
-        pageContent = resultSet.getString("content");
+        statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.getEmail()) + "', '" + fixIncompatibleSyntax(admin.getPassword()) + "', '" + fixIncompatibleSyntax(admin.getSurname()) + "', '" + fixIncompatibleSyntax(admin.getName()) + "', '" + admin.getLegajo_administrador() + "')");
       }
     } catch (SQLException e) {
-      throw new Exception("An error occurred while recovering page content.");
-    } finally {
-      closeConnection(statement);
-    }
-    return pageContent;
-  }
-
-  public static void deleteEntryFromDB(String pageTitle) throws Exception {
-    Statement statement = null;
-    try {
-      statement = connectToDB();
-      if (statement != null) {
-        statement.executeUpdate("DELETE FROM catalog WHERE title = '" + fixIncompatibleSyntax(pageTitle) + "'");
-      }
-    } catch (SQLException e) {
-      throw new Exception("An error occurred during deletion.");
+      throw new Exception("An error occurred during saving.");
     } finally {
       closeConnection(statement);
     }
   }
 
-  public static void deleteAllEntries() throws Exception{
+  public static void saveStudent(Alumno alumno) throws Exception{
     Statement statement = null;
     try {
       statement = connectToDB();
       if (statement != null) {
-        statement.executeUpdate("DELETE FROM catalog");
+        statement.executeUpdate("replace into alumno values('" + fixIncompatibleSyntax(alumno.getEmail()) + "', '" + fixIncompatibleSyntax(alumno.getPassword()) + "', '" + fixIncompatibleSyntax(alumno.getSurname()) + "', '" + fixIncompatibleSyntax(alumno.getName()) + "', '" + admin.getLegajo_alumno() + "')");
       }
     } catch (SQLException e) {
-      throw new Exception("An error occurred during deletion of DB.");
+      throw new Exception("An error occurred during saving.");
     } finally {
       closeConnection(statement);
     }
   }
-*/
+
   //Methods for connection and disconnection from db
 
   private static Statement connectToDB() throws SQLException {
@@ -120,7 +140,7 @@ public class DataBaseImpl {
     }
   }
 
-  private static String fixIncompatibleSyntax(String originalText){
-    return originalText.replace("'", "`");
+  private static String fixIncompatibleSyntax(String name){
+    return name.replace("'", "`");
   }
 }
