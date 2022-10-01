@@ -101,6 +101,7 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
 
     public void mostrarse(){
         mainWindow.setContentPane(this);
+        mainWindow.revalidate();
     }
 
 }
