@@ -1,0 +1,17 @@
+Esquema para la base de datos:
+
+Carrera: nombre, codigo
+Plan: año, [Carrera]
+Materia: nombre, codigo
+Plan-Materia: [Plan], [Materia]
+Correlativa-Debil: [Plan-Materia], [Materia]
+Correlativa-Fuerte: [Plan-Materia], [Materia]
+Usuario: email, contraseña
+Alumno: [Usuario], apellido, nombre, legajo_universitario, ...
+Profesor: [Usuario], apellido, nombre, legajo_docente, ...
+Administrador: [Usuario], apellido, nombre, legajo_administrador, ...
+Inscripciones: [Alumno], [Plan]
+Cursada: [Materia], [Profesor], año, cuatrimestre
+Examen: [Materia], [Profesor], fecha
+Cursada-Alumno: [Cursada], [Alumno], resultado
+Examen-Alumno: [Examen], [Alumno], resultado
