@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controlador.ControllerAdminAltaAlumno;
+import controlador.ControllerAdminAltaAlumnoImpl;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuarioImpl;
 import controlador.ControllerPrincipalAdministrador;
@@ -36,12 +38,13 @@ public class MainWindow extends JFrame{
         controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
 
-        // Crear el controlador
+        ControllerAdminAltaAlumno controllerAdminAltaAlumno = new ControllerAdminAltaAlumnoImpl();
         ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumnoImpl(this);
-        // Setearlo
+        controllerAdminAltaAlumno.setViewAdminAltaAlumno(viewAdminAltaAlumno);
         controllerPrincipalAdministrador.setViewAdminAltaAlumno(viewAdminAltaAlumno);
 
         viewLoginUsuario.mostrarse();
+        
     }
 
 	

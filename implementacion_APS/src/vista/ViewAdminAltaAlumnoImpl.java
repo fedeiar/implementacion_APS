@@ -24,6 +24,8 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
 	private JTextField TFEmail;
 	private JTextField TFContrasena;
 	private JTextField TFLegajo;
+    private JButton btnRegistrar, btnCancelar;
+    private JLabel lblEmail, lblAltaUsuario, lblContrasena, lblApellido, lblNombre, lblLegajo;
 	
 	public ViewAdminAltaAlumnoImpl(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -35,6 +37,12 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
 	}
 	
 	private void inicializarComponentes(){
+        lblAltaUsuario = new JLabel("Alta de Usuario");
+        lblAltaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblAltaUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+        lblAltaUsuario.setBounds(358, 31, 210, 29);
+        add(lblAltaUsuario);
+
 		TFNombre = new JTextField();
         TFNombre.setBounds(389, 133, 160, 20);
         add(TFNombre);
@@ -54,49 +62,51 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
         TFContrasena.setColumns(10);
         TFContrasena.setBounds(389, 231, 160, 20);
         add(TFContrasena);
-        
-        JLabel lblEmail = new JLabel("Email:");
-        lblEmail.setBounds(295, 202, 56, 17);
-        add(lblEmail);
-        
-        JLabel lblNewLabel = new JLabel("Alta de Usuario");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setBounds(358, 31, 210, 29);
-        add(lblNewLabel);
-        
-        JLabel lblContrasena = new JLabel("Contraseña:");
-        lblContrasena.setBounds(295, 233, 70, 17);
-        add(lblContrasena);
-        
-        JLabel lblApellido = new JLabel("Apellido");
-        lblApellido.setBounds(295, 169, 56, 17);
-        add(lblApellido);
-        
-        JLabel lblNombre = new JLabel("Nombre:");
-        lblNombre.setBounds(295, 136, 56, 17);
-        add(lblNombre);
-        
+
         TFLegajo = new JTextField();
         TFLegajo.setColumns(10);
         TFLegajo.setBounds(389, 268, 160, 20);
         add(TFLegajo);
+
+        lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(295, 136, 56, 17);
+        add(lblNombre);
         
-        JLabel lblLegajo = new JLabel("Legajo:");
+        lblApellido = new JLabel("Apellido");
+        lblApellido.setBounds(295, 169, 56, 17);
+        add(lblApellido);
+
+        lblEmail = new JLabel("Email:");
+        lblEmail.setBounds(295, 202, 56, 17);
+        add(lblEmail);
+
+        lblContrasena = new JLabel("Contraseña:");
+        lblContrasena.setBounds(295, 233, 70, 17);
+        add(lblContrasena);
+        
+        lblLegajo = new JLabel("Legajo:");
         lblLegajo.setBounds(295, 271, 70, 17);
         add(lblLegajo);
         
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(61, 546, 89, 23);
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setBounds(61, 500, 89, 23);
         add(btnCancelar);
         
-        JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(811, 546, 106, 23);
+        btnRegistrar = new JButton("Registrar");
+        btnRegistrar.setBounds(811, 500, 106, 23);
         add(btnRegistrar);
 	}
 
     private void inicializarListeners(){
 
+        btnRegistrar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                String nombre = TFNombre.getText();
+                String apellido = TFApellido.getText();
+                String email = TFEmail.getText();
+                // SEGUIR
+            }
+        });
     }
 
     public Container getContent(){
