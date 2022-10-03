@@ -10,8 +10,6 @@ public interface ControllerLoginUsuario {
 
     public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador);
 
-    public boolean isUsernameInteger(String legajo);
-
     public void autenticarUsuarioAdministrador(int username, String password);
 
 }

@@ -3,15 +3,15 @@ package modelo;
 public class Alumno {
     private String email;
     private String password;
-    private String surname;
-    private String name;
+    private String apellido;
+    private String nombre;
     private int legajo_alumno;
 
-    public Alumno(String email, String password, String surname, String name, int legajo_alumno) {
+    public Alumno(String email, String password, String nombre, String apellido, int legajo_alumno) {
         this.email = email;
         this.password = password;
-        this.surname = surname;
-        this.name = name;
+        this.apellido = apellido;
+        this.nombre = apellido;
         this.legajo_alumno = legajo_alumno;
     }
 
@@ -31,20 +31,20 @@ public class Alumno {
         this.password = password;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setApellido(String surname) {
+        this.apellido = surname;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String name) {
+        this.nombre = name;
     }
 
     public int getLegajo_alumno() {

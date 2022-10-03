@@ -24,16 +24,6 @@ public class ControllerLoginUsuarioImpl implements ControllerLoginUsuario{
         this.viewPrincipalAdministrador = viewPrincipalAdministrador;
     }
 
-    public boolean isUsernameInteger(String legajo){
-        try{
-            Integer.parseInt(legajo);
-            return true;
-        } catch(Exception e){
-            viewLoginUsuario.operacionFallida("Error: username", "El nombre de usuario debe ser un numero entero que represente un legajo");
-            return false;
-        }
-    }
-
     public void autenticarUsuarioAdministrador(int legajo, String password) {
         try{
             if(existeAdministrador(legajo)){ 

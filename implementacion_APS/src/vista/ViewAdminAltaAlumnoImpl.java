@@ -4,11 +4,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import controlador.ControllerAdminAltaAlumno;
+import modelo.Alumno;
 
 import java.awt.Container;
 import javax.swing.JButton;
@@ -19,16 +23,20 @@ import java.awt.event.ActionEvent;
 public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlumno{
 
 	private MainWindow mainWindow;
+    private ControllerAdminAltaAlumno controllerAdminAltaAlumno;
+
 	private JTextField TFNombre;
 	private JTextField TFApellido;
 	private JTextField TFEmail;
-	private JTextField TFContrasena;
+	private JPasswordField TFPassword;
 	private JTextField TFLegajo;
     private JButton btnRegistrar, btnCancelar;
     private JLabel lblEmail, lblAltaUsuario, lblContrasena, lblApellido, lblNombre, lblLegajo;
+    
 	
-	public ViewAdminAltaAlumnoImpl(MainWindow mainWindow) {
+	public ViewAdminAltaAlumnoImpl(MainWindow mainWindow, ControllerAdminAltaAlumno controllerAdminAltaAlumno) {
         this.mainWindow = mainWindow;
+        this.controllerAdminAltaAlumno = controllerAdminAltaAlumno;
         this.setBounds(100, 100, 1000, 600);
         setLayout(null);
                 
@@ -58,10 +66,10 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
         TFEmail.setBounds(389, 200, 160, 20);
         add(TFEmail);
         
-        TFContrasena = new JTextField();
-        TFContrasena.setColumns(10);
-        TFContrasena.setBounds(389, 231, 160, 20);
-        add(TFContrasena);
+        TFPassword = new JPasswordField();
+        TFPassword.setColumns(10);
+        TFPassword.setBounds(389, 231, 160, 20);
+        add(TFPassword);
 
         TFLegajo = new JTextField();
         TFLegajo.setColumns(10);
@@ -104,7 +112,21 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
                 String nombre = TFNombre.getText();
                 String apellido = TFApellido.getText();
                 String email = TFEmail.getText();
-                // SEGUIR
+                String password = new String(TFPassword.getPassword());
+                if(!utils.Utilities.isFieldInteger(TFLegajo.getText())){ //TODO: en realidad habría que obtener el legajo mas alto de la DB, sumarle 1 y colocarlo pero paja, si alguno lo quiere hacer joya.
+                    operacionFallida("Error: legajo", "El legajo debe ser un numero entero");
+                    return;
+                }
+                int legajo = Integer.parseInt(TFLegajo.getText());
+                Alumno alumno = new Alumno(email, password, nombre, apellido, legajo);
+
+                controllerAdminAltaAlumno.darDeAltaAlumno(alumno);
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerAdminAltaAlumno.regresarMenuPrincipalAdmin();
             }
         });
     }

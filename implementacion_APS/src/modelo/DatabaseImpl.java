@@ -17,9 +17,9 @@ public class DatabaseImpl {
                 statement.executeUpdate(
                         "create table if not exists plan(anio integer, codigo integer, foreign key(codigo) references carrera(codigo))");
                 statement.executeUpdate(
-                        "create table if not exists administrador(email string, contrasenia char(32), apellido string, nombre string, legajo_administrador integer PRIMARY KEY)");
+                        "create table if not exists administrador(email string, contrasenia char(32), nombre string, apellido string, legajo_administrador integer PRIMARY KEY)");
                 statement.executeUpdate(
-                        "create table if not exists alumno(email string, contrasenia char(32), apellido string, nombre string, legajo_alumno integer PRIMARY KEY)");
+                        "create table if not exists alumno(email string, contrasenia char(32), nombre string, apellido string, legajo_alumno integer PRIMARY KEY)");
             }
             addInfoToDB();
 
@@ -32,10 +32,10 @@ public class DatabaseImpl {
 
     private static void addInfoToDB() throws Exception {
         //TODO: si fernando nos dice algo, agregarle lo de md5 a las contraseñas.
-        saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Suarez", "Pablo", 1));
-        saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Perez", "Juan", 2));
-        saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Gonzalez", "Rodrigo", 3));
-        saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Rodriguez", "Patricio", 4));
+        saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Pablo", "Suarez", 1));
+        saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Juan", "Perez", 2));
+        saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Rodrigo", "Gonzalez", 1));
+        saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
         saveCarreer(1, "Licenciatura en Aprender a Leer");
         saveCarreer(2, "Licenciatura en Sumar Enteros");
     }
@@ -66,7 +66,7 @@ public class DatabaseImpl {
 
             ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "'");
             if(resultSet.next()){
-                admin = new Administrador(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("apellido"), resultSet.getString("nombre"), legajo_administrador);
+                admin = new Administrador(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_administrador);
             }
 
             closeConnection(statement);
@@ -88,8 +88,8 @@ public class DatabaseImpl {
                 password_matches = true;
             }
 
+            closeConnection(statement);
         } catch(SQLException e){
-            e.printStackTrace();
             throw new Exception("An error occurred while checking password");
         }
         return password_matches;
@@ -103,7 +103,7 @@ public class DatabaseImpl {
             if(statement != null){
                 ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "'");
                 resultSet.next();
-                alumno = new Alumno(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("apellido"), resultSet.getString("nombre"), legajo_alumno);
+                alumno = new Alumno(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_alumno);
             }
         } catch(SQLException e){
             throw new Exception("An error occurred while recovering student.");
@@ -134,7 +134,7 @@ public class DatabaseImpl {
             if (statement != null) {
                 statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.getEmail())
                         + "', '" + fixIncompatibleSyntax(admin.getPassword()) + "', '"
-                        + fixIncompatibleSyntax(admin.getSurname()) + "', '" + fixIncompatibleSyntax(admin.getName())
+                        + fixIncompatibleSyntax(admin.getNombre()) + "', '" + fixIncompatibleSyntax(admin.getApellido())
                         + "', '" + admin.getLegajo_administrador() + "')");
             }
         } catch (SQLException e) {
@@ -148,14 +148,15 @@ public class DatabaseImpl {
         Statement statement = null;
         try {
             statement = connectToDB();
-            if (statement != null) {
-                statement.executeUpdate("replace into alumno values('" + fixIncompatibleSyntax(alumno.getEmail())
-                        + "', '" + fixIncompatibleSyntax(alumno.getPassword()) + "', '"
-                        + fixIncompatibleSyntax(alumno.getSurname()) + "', '" + fixIncompatibleSyntax(alumno.getName())
-                        + "', '" + alumno.getLegajo_alumno() + "')");
-            }
+            
+            statement.executeUpdate("replace into alumno values('" + fixIncompatibleSyntax(alumno.getEmail())
+                    + "', '" + fixIncompatibleSyntax(alumno.getPassword()) + "', '"
+                    + fixIncompatibleSyntax(alumno.getNombre()) + "', '" + fixIncompatibleSyntax(alumno.getApellido())
+                    + "', '" + alumno.getLegajo_alumno() + "')");
+            
         } catch(SQLException e){
-            throw new Exception("An error occurred during saving.");
+            e.printStackTrace();
+            throw new Exception("An error occurred during saving a student.");
         } finally {
             closeConnection(statement);
         }

@@ -58,6 +58,8 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
                 controllerPrincipalAdministrador.cambiarVentanaAltaAlumno();
             }
         });
+
+        
     }
 
     public Container getContent(){

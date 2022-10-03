@@ -9,6 +9,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controlador.ControllerLoginUsuario;
+import utils.Utilities;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -91,7 +92,8 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
     private void inicializarListeners(){
         btnLogin.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                if(!controllerLoginUsuario.isUsernameInteger(TFLogin.getText())){
+                if(!Utilities.isFieldInteger(TFLogin.getText())){
+                    operacionFallida("Error: username", "El nombre de usuario debe ser un numero entero que represente un legajo");
                     return;
                 }
                 int legajo = Integer.parseInt(TFLogin.getText());  // TODO: bloquear solo int

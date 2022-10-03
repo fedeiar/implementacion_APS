@@ -39,8 +39,9 @@ public class MainWindow extends JFrame{
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
 
         ControllerAdminAltaAlumno controllerAdminAltaAlumno = new ControllerAdminAltaAlumnoImpl();
-        ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumnoImpl(this);
+        ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumnoImpl(this, controllerAdminAltaAlumno);
         controllerAdminAltaAlumno.setViewAdminAltaAlumno(viewAdminAltaAlumno);
+        controllerAdminAltaAlumno.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewAdminAltaAlumno(viewAdminAltaAlumno);
 
         viewLoginUsuario.mostrarse();
