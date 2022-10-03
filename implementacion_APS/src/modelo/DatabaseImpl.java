@@ -17,9 +17,9 @@ public class DatabaseImpl {
                 statement.executeUpdate(
                         "create table if not exists plan(anio integer, codigo integer, foreign key(codigo) references carrera(codigo))");
                 statement.executeUpdate(
-                        "create table if not exists administrador(email string, contrasenia char(32), nombre string, apellido string, legajo_administrador integer PRIMARY KEY)");
+                        "create table if not exists administrador(email string, contrasenia char(32), nombre string, apellido string, legajo_administrador integer AUTO_INCREMENT PRIMARY KEY)");
                 statement.executeUpdate(
-                        "create table if not exists alumno(email string, contrasenia char(32), nombre string, apellido string, legajo_alumno integer PRIMARY KEY)");
+                        "create table if not exists alumno(email string, contrasenia char(32), nombre string, apellido string, legajo_alumno integer AUTO_INCREMENT PRIMARY KEY)");
             }
             addInfoToDB();
 

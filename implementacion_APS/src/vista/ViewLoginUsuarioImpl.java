@@ -106,11 +106,6 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
         });
     }
 
-    
-
-	public Container getContent(){
-        return this;
-    }
 
     public void mostrarse(){
         mainWindow.setContentPane(this);

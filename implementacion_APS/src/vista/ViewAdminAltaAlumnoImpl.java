@@ -131,10 +131,6 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
         });
     }
 
-    public Container getContent(){
-        return this;
-    }
-
     public void mostrarse(){
         mainWindow.setContentPane(this);
         mainWindow.revalidate();

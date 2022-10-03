@@ -62,10 +62,6 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
         
     }
 
-    public Container getContent(){
-        return this;
-    }
-
     public void mostrarse(){
         mainWindow.setContentPane(this);
         mainWindow.revalidate();

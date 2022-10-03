@@ -3,8 +3,6 @@ package vista;
 import java.awt.Container;
 
 public interface ViewAdminAltaAlumno {
-    
-    public Container getContent();
 
     public void mostrarse();
 
