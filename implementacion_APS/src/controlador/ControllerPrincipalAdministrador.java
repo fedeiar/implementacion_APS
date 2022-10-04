@@ -17,7 +17,7 @@ public interface ControllerPrincipalAdministrador{
 
     public void cambiarVentanaAltaAlumno();
 
-    public void CambiarVentanaLogin();
+    public void cambiarVentanaLogin();
     public void setViewAdminAltaCarrera(ViewAdminAltaCarrera viewAdminAltaCarrera);
 
     public void setViewAdminAltaPlan(ViewAdminAltaPlan viewAdminAltaPlan);

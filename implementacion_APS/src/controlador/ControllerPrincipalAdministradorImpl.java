@@ -43,7 +43,7 @@ public class ControllerPrincipalAdministradorImpl implements ControllerPrincipal
         this.viewAdminAltaAlumno.mostrarse();
     }
 
-    public void CambiarVentanaLogin(){
+    public void cambiarVentanaLogin(){
         viewLoginUsuario.mostrarse();
     }
     

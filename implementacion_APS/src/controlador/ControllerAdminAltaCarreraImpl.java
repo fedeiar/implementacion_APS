@@ -3,7 +3,6 @@ package controlador;
 import modelo.Carrera;
 import modelo.DatabaseImpl;
 import vista.ViewAdminAltaCarrera;
-import vista.ViewAdminAltaCarreraImpl;
 import vista.ViewPrincipalAdministrador;
 
 public class ControllerAdminAltaCarreraImpl implements ControllerAdminAltaCarrera {

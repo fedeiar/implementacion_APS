@@ -16,6 +16,8 @@ import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuarioImpl;
 import controlador.ControllerPrincipalAdministrador;
 import controlador.ControllerPrincipalAdministradorImpl;
+import controlador.ControllerPrincipalAlumno;
+import controlador.ControllerPrincipalAlumnoImpl;
 import modelo.DatabaseImpl;
 
 public class MainWindow extends JFrame{
@@ -44,9 +46,11 @@ public class MainWindow extends JFrame{
         controllerPrincipalAdministrador.setViewLoginUsuario(viewLoginUsuario);
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         
-
         // controller para la ventana principal del alumno
-        ViewPrincipalAlumno viewPrincipalAlumno = new ViewPrincipalAlumnoImpl(this);
+        ControllerPrincipalAlumno controllerPrincipalAlumno = new ControllerPrincipalAlumnoImpl();
+        ViewPrincipalAlumno viewPrincipalAlumno = new ViewPrincipalAlumnoImpl(this, controllerPrincipalAlumno);
+        controllerPrincipalAlumno.setViewPrincipalAlumno(viewPrincipalAlumno);
+        controllerPrincipalAlumno.setViewLoginUsuario(viewLoginUsuario);
         // pasarle al controller el viewprincipalAlumno
         controllerLoginUsuario.setViewPrincipalAlumno(viewPrincipalAlumno);
 

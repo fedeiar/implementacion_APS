@@ -20,16 +20,21 @@ import javax.swing.SwingConstants;
 
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerPrincipalAdministrador;
+import controlador.ControllerPrincipalAlumno;
 
 
 public class ViewPrincipalAlumnoImpl extends JPanel implements ViewPrincipalAlumno{
     
 
     private MainWindow mainWindow;
-    private JLabel lblBienvenidoAlumno;
+    private ControllerPrincipalAlumno controllerPrincipalAlumno;
 
-    public ViewPrincipalAlumnoImpl(MainWindow mainWindow){
+    private JLabel lblBienvenidoAlumno;
+    private JButton btnLogOut;
+
+    public ViewPrincipalAlumnoImpl(MainWindow mainWindow, ControllerPrincipalAlumno controllerPrincipalAlumno){
         this.mainWindow = mainWindow;
+        this.controllerPrincipalAlumno = controllerPrincipalAlumno;
 
         this.setBounds(100, 100, 1000, 600);
         setLayout(null);
@@ -45,14 +50,18 @@ public class ViewPrincipalAlumnoImpl extends JPanel implements ViewPrincipalAlum
         lblBienvenidoAlumno.setBounds(365, 36, 255, 60);
         add(lblBienvenidoAlumno);
 
-        
+        btnLogOut = new JButton("Logout");
+        btnLogOut.setBounds(100, 500, 162, 23);
+        add(btnLogOut);
     }
 
     private void inicializarListeners(){
-        
+        btnLogOut.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAlumno.cambiarVentanaLogin();
+            }
+        });
     }
-
-
 
     public void mostrarse(){
         mainWindow.setContentPane(this);
