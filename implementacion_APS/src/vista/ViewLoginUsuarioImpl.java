@@ -100,7 +100,7 @@ public class ViewLoginUsuarioImpl extends JPanel implements ViewLoginUsuario{
                 if(RBAdministrador.isSelected()){
                     controllerLoginUsuario.autenticarUsuarioAdministrador(legajo, new String(TFContrasena.getPassword()));
                 } else{
-                    //TODO: llamar al otro autenticar
+                    controllerLoginUsuario.autenticarUsuarioAlumno(legajo, new String(TFContrasena.getPassword()));
                 }
             }
         });

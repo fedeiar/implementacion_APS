@@ -39,7 +39,7 @@ public class ViewPrincipalAlumnoImpl extends JPanel implements ViewPrincipalAlum
     }
 
     private void inicializarComponentes(){
-        lblBienvenidoAlumno = new JLabel("Bienvenido Administrador.");
+        lblBienvenidoAlumno = new JLabel("Bienvenido Alumno.");
         lblBienvenidoAlumno.setHorizontalAlignment(SwingConstants.CENTER);
         lblBienvenidoAlumno.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblBienvenidoAlumno.setBounds(365, 36, 255, 60);

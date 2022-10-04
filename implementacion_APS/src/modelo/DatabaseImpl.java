@@ -100,9 +100,9 @@ public class DatabaseImpl {
         Statement statement = null;
         try{
             statement = connectToDB();
-            if(statement != null){
-                ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "'");
-                resultSet.next();
+            
+            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "'");
+            if(resultSet.next()){
                 alumno = new Alumno(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_alumno);
             }
         } catch(SQLException e){
@@ -111,6 +111,23 @@ public class DatabaseImpl {
             closeConnection(statement);
         }
         return alumno;
+    }
+
+    public static boolean checkAlumnoPassword(int legajo_alumno, String password) throws Exception{
+        boolean password_matches = false;
+        try{
+            Statement statement = connectToDB();
+            
+            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "' AND contrasenia = '"+ password +"'");
+            if(resultSet.next()){ // Ya que es una sola fila, si hubo match es porque coincide la contraseña, sino devuelve false
+                password_matches = true;
+            }
+
+            closeConnection(statement);
+        } catch(SQLException e){
+            throw new Exception("An error occurred while checking password");
+        }
+        return password_matches;
     }
 
     public static void saveCarreer(int code, String name) throws Exception {
