@@ -58,11 +58,11 @@ public class ViewAdminAltaCarreraImpl extends JPanel implements ViewAdminAltaCar
         add(TFCodigo);
 
         lblNombre = new JLabel("Nombre de la carrera:");
-        lblNombre.setBounds(295, 136, 56, 17);
+        lblNombre.setBounds(260, 136, 200, 17);
         add(lblNombre);
         
         lblCodigo = new JLabel("Código de la carrera:");
-        lblCodigo.setBounds(295, 169, 56, 17);
+        lblCodigo.setBounds(260, 169, 200, 17);
         add(lblCodigo);
         
         btnCancelar = new JButton("Cancelar");
