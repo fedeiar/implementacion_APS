@@ -29,6 +29,7 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
 
     private JLabel lblBienvenido;
     private JButton btnDarDeAltaAlumno;
+    private JButton btnDarDeAltaCarrera;
 
 	public ViewPrincipalAdministradorImpl(MainWindow mainWindow, ControllerPrincipalAdministrador controllerPrincipalAdministrador) {
         this.mainWindow = mainWindow;
@@ -50,6 +51,10 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
         btnDarDeAltaAlumno = new JButton("Dar de alta alumno");
         btnDarDeAltaAlumno.setBounds(174, 445, 162, 23);
         add(btnDarDeAltaAlumno);
+
+        btnDarDeAltaCarrera = new JButton("Dar de alta carrera");
+        btnDarDeAltaCarrera.setBounds(474, 445, 162, 23);
+        add(btnDarDeAltaCarrera);
     }
 
     private void inicializarListeners(){

@@ -100,11 +100,11 @@ public class ViewAdminAltaCarreraImpl extends JPanel implements ViewAdminAltaAlu
         mainWindow.revalidate();
     }
 
-    public void operacionExitosa(String titulo, String mensaje) {
+    public  void operacionExitosa(String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null,mensaje,titulo,JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void operacionFallida(String titulo, String mensaje) {
+    public  void operacionFallida(String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
     }
 }
