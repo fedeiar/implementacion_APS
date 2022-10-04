@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import controlador.ControllerAdminAltaCarreraImpl;
-import modelo.Alumno;
+import controlador.ControllerAdminAltaCarrera;
+import modelo.Carrera;
 
 import java.awt.Container;
 import javax.swing.JButton;
@@ -20,17 +20,17 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ViewAdminAltaCarreraImpl extends JPanel implements ViewAdminAltaAlumno{
+public class ViewAdminAltaCarreraImpl extends JPanel implements ViewAdminAltaCarrera {
 
 	private MainWindow mainWindow;
-    private ControllerAdminAltaCarreraImpl controllerAdminAltaCarrera;
+    private ControllerAdminAltaCarrera controllerAdminAltaCarrera;
 
 	private JTextField TFNombre, TFCodigo;
     private JButton btnRegistrar, btnCancelar;
     private JLabel lblNombre, lblCodigo, lblAltaCarrera;
     
 	
-	public ViewAdminAltaCarreraImpl(MainWindow mainWindow, ControllerAdminAltaCarreraImpl controllerAdminAltaCarrera) {
+	public ViewAdminAltaCarreraImpl(MainWindow mainWindow, ControllerAdminAltaCarrera controllerAdminAltaCarrera) {
         this.mainWindow = mainWindow;
         this.controllerAdminAltaCarrera = controllerAdminAltaCarrera;
         this.setBounds(100, 100, 1000, 600);
@@ -84,7 +84,9 @@ public class ViewAdminAltaCarreraImpl extends JPanel implements ViewAdminAltaAlu
                     operacionFallida("Error: codigo", "El codigo debe ser un numero entero");
                     return;
                 }
-                controllerAdminAltaCarrera.darDeAltaCarrera(nombre,codigo);
+
+                Carrera carrera = new Carrera(nombre, codigo);
+                controllerAdminAltaCarrera.darDeAltaCarrera(carrera);
             }
         });
 

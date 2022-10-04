@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 
 import controlador.ControllerAdminAltaAlumno;
 import controlador.ControllerAdminAltaAlumnoImpl;
+import controlador.ControllerAdminAltaCarrera;
+import controlador.ControllerAdminAltaCarreraImpl;
+import controlador.ControllerAdminAltaPlan;
+import controlador.ControllerAdminAltaPlanImpl;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuarioImpl;
 import controlador.ControllerPrincipalAdministrador;
@@ -51,6 +55,18 @@ public class MainWindow extends JFrame{
         controllerAdminAltaAlumno.setViewAdminAltaAlumno(viewAdminAltaAlumno);
         controllerAdminAltaAlumno.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewAdminAltaAlumno(viewAdminAltaAlumno);
+
+        ControllerAdminAltaCarrera controllerAdminAltaCarrera = new ControllerAdminAltaCarreraImpl();
+        ViewAdminAltaCarrera viewAdminAltaCarrera = new ViewAdminAltaCarreraImpl(this, controllerAdminAltaCarrera);
+        controllerAdminAltaCarrera.setViewAdminAltaCarrera(viewAdminAltaCarrera);
+        controllerAdminAltaCarrera.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+        controllerPrincipalAdministrador.setViewAdminAltaCarrera(viewAdminAltaCarrera);
+
+        ControllerAdminAltaPlan controllerAdminAltaPlan = new ControllerAdminAltaPlanImpl();
+        ViewAdminAltaPlan viewAdminAltaPlan = new ViewAdminAltaPlanImpl(this, controllerAdminAltaPlan);
+        controllerAdminAltaPlan.setViewAdminAltaPlan(viewAdminAltaPlan);
+        controllerAdminAltaPlan.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+        controllerPrincipalAdministrador.setViewAdminAltaPlan(viewAdminAltaPlan);
 
         viewLoginUsuario.mostrarse();
         

@@ -36,8 +36,8 @@ public class DatabaseImpl {
         saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Juan", "Perez", 2));
         saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Rodrigo", "Gonzalez", 1));
         saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
-        saveCarreer(1, "Licenciatura en Aprender a Leer");
-        saveCarreer(2, "Licenciatura en Sumar Enteros");
+        saveCarreer(new Carrera("Licenciatura en Aprender a Leer",1));
+        saveCarreer(new Carrera("Licenciatura en Sumar Enteros", 2));
     }
 
     public static ArrayList<String> getNamesOfCarreers() throws Exception {
@@ -130,12 +130,12 @@ public class DatabaseImpl {
         return password_matches;
     }
 
-    public static void saveCarreer(int code, String name) throws Exception {
+    public static void saveCarreer(Carrera carrera) throws Exception {
         Statement statement = null;
         try{
             statement = connectToDB();
             if (statement != null) {
-                statement.executeUpdate("replace into carrera values('" + code + "', '" + fixIncompatibleSyntax(name) + "')");
+                statement.executeUpdate("replace into carrera values('" + carrera.getCodigo() + "', '" + fixIncompatibleSyntax(carrera.getNombre()) + "')");
             }
         } catch(SQLException e){
             throw new Exception("An error occurred during saving.");
@@ -174,6 +174,22 @@ public class DatabaseImpl {
         } catch(SQLException e){
             e.printStackTrace();
             throw new Exception("An error occurred during saving a student.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static void savePlan(Plan plan) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("replace into plan values('" + plan.getAnio()
+                    + "', '" + plan.getCodCarrera() + "')");
+            
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("An error occurred during saving a plan.");
         } finally {
             closeConnection(statement);
         }

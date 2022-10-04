@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlumno{
+public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlumno {
 
 	private MainWindow mainWindow;
     private ControllerAdminAltaAlumno controllerAdminAltaAlumno;

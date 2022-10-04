@@ -1,15 +1,15 @@
 package controlador;
 
-import modelo.Alumno;
+import modelo.Carrera;
 import modelo.DatabaseImpl;
-import vista.ViewAdminAltaAlumno;
+import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaCarreraImpl;
 import vista.ViewPrincipalAdministrador;
 
-public class ControllerAdminAltaCarreraImpl {
+public class ControllerAdminAltaCarreraImpl implements ControllerAdminAltaCarrera {
     
 
-    private ViewAdminAltaCarreraImpl viewAdminAltaCarrera;
+    private ViewAdminAltaCarrera viewAdminAltaCarrera;
     private ViewPrincipalAdministrador viewPrincipalAdministrador;
 
 
@@ -17,7 +17,7 @@ public class ControllerAdminAltaCarreraImpl {
 
     }
 
-    public void setViewAdminAltaCarrera(ViewAdminAltaCarreraImpl viewAdminAltaCarrera){
+    public void setViewAdminAltaCarrera(ViewAdminAltaCarrera viewAdminAltaCarrera){
         this.viewAdminAltaCarrera = viewAdminAltaCarrera;
     }
 
@@ -29,10 +29,10 @@ public class ControllerAdminAltaCarreraImpl {
         viewPrincipalAdministrador.mostrarse();
     }
 
-    public void darDeAltaCarrera(String nombre, int codigo){ 
+    public void darDeAltaCarrera(Carrera carrera){ 
         try {
-            DatabaseImpl.saveCarreer(codigo,nombre);
-            viewAdminAltaCarrera.operacionExitosa("Registro exitoso", "Carrera registrado exitosamente.");
+            DatabaseImpl.saveCarreer(carrera);
+            viewAdminAltaCarrera.operacionExitosa("Registro exitoso", "Carrera registrada exitosamente.");
         } catch (Exception e) {
             viewAdminAltaCarrera.operacionFallida("Error: ", e.getMessage());
         }

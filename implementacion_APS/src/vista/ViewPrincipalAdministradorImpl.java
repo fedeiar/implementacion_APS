@@ -31,6 +31,7 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
     private JButton btnLogOut;
     private JButton btnDarDeAltaAlumno;
     private JButton btnDarDeAltaCarrera;
+    private JButton btnDarDeAltaPlan;
 
 	public ViewPrincipalAdministradorImpl(MainWindow mainWindow, ControllerPrincipalAdministrador controllerPrincipalAdministrador) {
         this.mainWindow = mainWindow;
@@ -54,8 +55,12 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
         add(btnDarDeAltaAlumno);
 
         btnDarDeAltaCarrera = new JButton("Dar de alta carrera");
-        btnDarDeAltaCarrera.setBounds(474, 445, 162, 23);
+        btnDarDeAltaCarrera.setBounds(374, 445, 162, 23);
         add(btnDarDeAltaCarrera);
+
+        btnDarDeAltaPlan = new JButton("Dar de alta plan");
+        btnDarDeAltaPlan.setBounds(574, 445, 162, 23);
+        add(btnDarDeAltaPlan);
 
         btnLogOut = new JButton("Logout");
         btnLogOut.setBounds(100, 500, 162, 23);
@@ -68,6 +73,17 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
                 controllerPrincipalAdministrador.cambiarVentanaAltaAlumno();
             }
         });
+
+        btnDarDeAltaCarrera.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAdministrador.cambiarVentanaAltaCarrera();
+            }
+        });
+        btnDarDeAltaPlan.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAdministrador.cambiarVentanaAltaPlan();
+            }
+        });   
 
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){

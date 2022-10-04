@@ -10,8 +10,8 @@ public class Alumno {
     public Alumno(String email, String password, String nombre, String apellido, int legajo_alumno) {
         this.email = email;
         this.password = password;
+        this.nombre = nombre;
         this.apellido = apellido;
-        this.nombre = apellido;
         this.legajo_alumno = legajo_alumno;
     }
 
