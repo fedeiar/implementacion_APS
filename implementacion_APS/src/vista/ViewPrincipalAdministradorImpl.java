@@ -28,6 +28,7 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
     private ControllerPrincipalAdministrador controllerPrincipalAdministrador;
 
     private JLabel lblBienvenido;
+    private JButton btnLogOut;
     private JButton btnDarDeAltaAlumno;
     private JButton btnDarDeAltaCarrera;
 
@@ -55,6 +56,10 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
         btnDarDeAltaCarrera = new JButton("Dar de alta carrera");
         btnDarDeAltaCarrera.setBounds(474, 445, 162, 23);
         add(btnDarDeAltaCarrera);
+
+        btnLogOut = new JButton("Logout");
+        btnLogOut.setBounds(100, 500, 162, 23);
+        add(btnLogOut);
     }
 
     private void inicializarListeners(){
@@ -64,7 +69,11 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
             }
         });
 
-        
+        btnLogOut.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAdministrador.CambiarVentanaLogin();
+            }
+        });
     }
 
     public void mostrarse(){

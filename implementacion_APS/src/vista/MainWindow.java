@@ -22,6 +22,7 @@ public class MainWindow extends JFrame{
         this.getContentPane().setBounds(100, 100, 1000, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
+        this.setResizable(false);
 
         crearVistas();
 	}
@@ -36,7 +37,9 @@ public class MainWindow extends JFrame{
         ControllerPrincipalAdministrador controllerPrincipalAdministrador = new ControllerPrincipalAdministradorImpl();
         ViewPrincipalAdministrador viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this, controllerPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+        controllerPrincipalAdministrador.setViewLoginUsuario(viewLoginUsuario);
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
+        
 
         // controller para la ventana principal del alumno
         ViewPrincipalAlumno viewPrincipalAlumno = new ViewPrincipalAlumnoImpl(this);
