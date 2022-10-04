@@ -53,11 +53,11 @@ public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
         add(TFCodCarrera);
 
         lblAnio = new JLabel("Año del plan:");
-        lblAnio.setBounds(295, 136, 56, 17);
+        lblAnio.setBounds(295, 136, 100, 17);
         add(lblAnio);
         
-        lblCodCarrera = new JLabel("Código de Carrera");
-        lblCodCarrera.setBounds(295, 169, 56, 17);
+        lblCodCarrera = new JLabel("Código de Carrera:");
+        lblCodCarrera.setBounds(265, 169, 200, 17);
         add(lblCodCarrera);
         
         btnCancelar = new JButton("Cancelar");
