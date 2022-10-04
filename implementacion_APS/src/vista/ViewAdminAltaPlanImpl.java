@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controlador.ControllerAdminAltaPlan;
+import modelo.DatabaseImpl;
 import modelo.Plan;
 
 public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
@@ -20,9 +22,9 @@ public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
     private ControllerAdminAltaPlan controllerAdminAltaPlan;
 
 	private JTextField TFAnio;
-	private JTextField TFCodCarrera;
     private JButton btnRegistrar, btnCancelar;
-    private JLabel lblAltaPlan, lblCodCarrera, lblAnio;
+    private JLabel lblAltaPlan, lblElijaCarrera, lblAnio;
+    private JComboBox<String> cbElegirCarrera;
     
 	
 	public ViewAdminAltaPlanImpl(MainWindow mainWindow, ControllerAdminAltaPlan controllerAdminAltaPlan) {
@@ -47,18 +49,16 @@ public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
         TFAnio.setBounds(389, 133, 160, 20);
         add(TFAnio);
         
-        TFCodCarrera = new JTextField();
-        TFCodCarrera.setColumns(10);
-        TFCodCarrera.setBounds(389, 167, 160, 20);
-        add(TFCodCarrera);
+        armarComboBox();
 
         lblAnio = new JLabel("Año del plan:");
         lblAnio.setBounds(295, 136, 100, 17);
         add(lblAnio);
         
-        lblCodCarrera = new JLabel("Código de Carrera:");
-        lblCodCarrera.setBounds(265, 169, 200, 17);
-        add(lblCodCarrera);
+        lblElijaCarrera = new JLabel("Elija una carrera:");
+        lblElijaCarrera.setBounds(265, 169, 200, 17);
+        
+        add(lblElijaCarrera);
         
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(61, 500, 89, 23);
@@ -78,12 +78,15 @@ public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
                     return;
                 }
                 int anio = Integer.parseInt(TFAnio.getText());
-                if(!utils.Utilities.isFieldInteger(TFCodCarrera.getText())){ //TODO: en realidad habría que obtener el legajo mas alto de la DB, sumarle 1 y colocarlo pero paja, si alguno lo quiere hacer joya.
-                    operacionFallida("Error: código de carrera", "El código de la carrera debe ser un numero entero");
-                    return;
+                String nombreCarrera = cbElegirCarrera.getSelectedItem().toString();
+                int codigoCarrera = -1;
+                try{
+                    codigoCarrera = DatabaseImpl.getCodigoCarrera(nombreCarrera);
+                } catch(Exception e){
+                    operacionFallida("Error", e.getMessage());
                 }
-                int codCarrera = Integer.parseInt(TFCodCarrera.getText());
-                Plan plan = new Plan(anio, codCarrera);
+
+                Plan plan = new Plan(anio, codigoCarrera);
 
                 controllerAdminAltaPlan.darDeAltaPlan(plan);
             }
@@ -94,6 +97,19 @@ public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
                 controllerAdminAltaPlan.regresarMenuPrincipalAdmin();
             }
         });
+    }
+
+    private void armarComboBox(){
+        cbElegirCarrera = new JComboBox<String>();
+        cbElegirCarrera.setBounds(389, 167, 160, 21);
+        add(cbElegirCarrera);
+        try{
+            for(String carrera : DatabaseImpl.getNamesOfCarreers()){
+                cbElegirCarrera.addItem(carrera);
+            }
+        } catch(Exception e){
+            this.operacionFallida("Error", e.getMessage());
+        }
     }
 
     public void mostrarse(){

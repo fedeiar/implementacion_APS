@@ -12,10 +12,11 @@ public class DatabaseImpl {
             statement = connectToDB();
 
             if(statement != null){
+                System.out.println("entro?");
                 statement.executeUpdate(
-                        "create table if not exists carrera(codigo integer PRIMARY KEY, nombre string)");
+                        "create table if not exists carrera(codigo integer PRIMARY KEY, nombre string UNIQUE)");
                 statement.executeUpdate(
-                        "create table if not exists plan(anio integer, codigo integer, foreign key(codigo) references carrera(codigo))");
+                        "create table if not exists plan(anio integer, codigo integer, CONSTRAINT fk_codigo FOREIGN KEY(codigo) REFERENCES carrera(codigo))");
                 statement.executeUpdate(
                         "create table if not exists administrador(email string, contrasenia char(32), nombre string, apellido string, legajo_administrador integer AUTO_INCREMENT PRIMARY KEY)");
                 statement.executeUpdate(
@@ -57,6 +58,25 @@ public class DatabaseImpl {
             closeConnection(statement);
         }
         return careers;
+    }
+
+    public static int getCodigoCarrera(String nombreCarrera) throws Exception {
+        int codigoCarrera = -1;
+        try{
+            Statement statement = connectToDB();
+
+            ResultSet resultSet = statement.executeQuery("select * from carrera WHERE nombre = '" + nombreCarrera + "'");
+            if(resultSet.next()){
+                codigoCarrera = resultSet.getInt("codigo");
+            }
+
+            closeConnection(statement);
+        } catch (SQLException e){
+            System.out.println("entre 1");
+            e.printStackTrace();
+            throw new Exception("An error occurred while recovering admin.");
+        } 
+        return codigoCarrera;
     }
 
     public static Administrador getAdmin(int legajo_administrador) throws Exception {

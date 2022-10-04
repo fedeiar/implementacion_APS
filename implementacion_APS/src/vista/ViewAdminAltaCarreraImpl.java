@@ -79,11 +79,11 @@ public class ViewAdminAltaCarreraImpl extends JPanel implements ViewAdminAltaCar
         btnRegistrar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 String nombre = TFNombre.getText();
-                int codigo = Integer.parseInt(TFCodigo.getText());
                 if(!utils.Utilities.isFieldInteger(TFCodigo.getText())){ 
                     operacionFallida("Error: codigo", "El codigo debe ser un numero entero");
                     return;
                 }
+                int codigo = Integer.parseInt(TFCodigo.getText());
 
                 Carrera carrera = new Carrera(nombre, codigo);
                 controllerAdminAltaCarrera.darDeAltaCarrera(carrera);
