@@ -1,7 +1,5 @@
 package vista;
 
-import java.awt.Container;
-
 public interface ViewAdminAltaAlumno {
 
     public void mostrarse();

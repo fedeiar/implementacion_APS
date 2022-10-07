@@ -12,7 +12,6 @@ public class DatabaseImpl {
             statement = connectToDB();
 
             if(statement != null){
-                System.out.println("entro?");
                 statement.executeUpdate(
                         "create table if not exists carrera(codigo integer PRIMARY KEY, nombre string UNIQUE)");
                 statement.executeUpdate(
@@ -72,7 +71,6 @@ public class DatabaseImpl {
 
             closeConnection(statement);
         } catch (SQLException e){
-            System.out.println("entre 1");
             e.printStackTrace();
             throw new Exception("An error occurred while recovering admin.");
         } 
@@ -91,7 +89,6 @@ public class DatabaseImpl {
 
             closeConnection(statement);
         } catch (SQLException e){
-            System.out.println("entre 1");
             e.printStackTrace();
             throw new Exception("An error occurred while recovering admin.");
         } 

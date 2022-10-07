@@ -1,10 +1,6 @@
 package vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -14,7 +10,6 @@ import javax.swing.SwingConstants;
 import controlador.ControllerAdminAltaCarrera;
 import modelo.Carrera;
 
-import java.awt.Container;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;

@@ -1,10 +1,6 @@
 package vista;
 
-import java.awt.EventQueue;
-import java.sql.SQLException;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import controlador.ControllerAdminAltaAlumno;
 import controlador.ControllerAdminAltaAlumnoImpl;
@@ -29,7 +25,7 @@ public class MainWindow extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
         this.setResizable(false);
-
+        
         crearVistas();
 	}
 

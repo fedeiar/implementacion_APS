@@ -2,24 +2,13 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Container;
 import javax.swing.SwingConstants;
 
-import controlador.ControllerLoginUsuario;
-import controlador.ControllerPrincipalAdministrador;
 import controlador.ControllerPrincipalAlumno;
 
 
