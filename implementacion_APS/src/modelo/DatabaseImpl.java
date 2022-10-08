@@ -218,6 +218,7 @@ public class DatabaseImpl {
         String urlDB = "jdbc:sqlite:./dictionary.db";
         Connection connection = DriverManager.getConnection(urlDB);
         Statement statement = connection.createStatement();
+        statement.execute("PRAGMA foreign_keys = ON");
         statement.setQueryTimeout(30);
 
         return statement;

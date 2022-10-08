@@ -38,5 +38,7 @@ public class ControllerAdminAltaPlanImpl implements ControllerAdminAltaPlan{
         }
     }
 
+    //TODO: un metodo que actualice el comboBox de la vista cuando se agrega una carrera.
+
     
 }
