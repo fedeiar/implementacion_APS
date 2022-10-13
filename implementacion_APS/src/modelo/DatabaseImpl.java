@@ -11,18 +11,21 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
 
+            //TODO: le agregamos un codigo a plan?
             if(statement != null){
                 statement.executeUpdate(
-                        "create table if not exists carrera(codigo integer PRIMARY KEY, nombre string UNIQUE)");
+                        "create table if not exists carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
                 statement.executeUpdate(
-                        "create table if not exists plan(anio integer, codigo integer, PRIMARY KEY (anio, codigo), FOREIGN KEY(codigo) REFERENCES carrera(codigo))");
+                        "create table if not exists plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) )");
                 statement.executeUpdate(
-                        "create table if not exists administrador(email string, contrasenia char(32), nombre string, apellido string, legajo_administrador integer AUTO_INCREMENT PRIMARY KEY)");
+                        "create table if not exists administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
                 statement.executeUpdate(
-                        "create table if not exists alumno(email string, contrasenia char(32), nombre string, apellido string, legajo_alumno integer AUTO_INCREMENT PRIMARY KEY)");
-                //statement.executeUpdate(
-                        //"create table if not exists inscripciones(legajo_alumno INTEGER, ");
-
+                        "create table if not exists alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
+                statement.executeUpdate(
+                        "create table if not exists inscripciones(legajo_alumno INTEGER, codigo INTEGER, PRIMARY KEY (legajo_alumno, codigo), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno), FOREIGN KEY(codigo) REFERENCES plan(codigo) )");
+                statement.executeUpdate(
+                        "create table if not exists materia(nombre STRING, codigo INTEGER, PRIMARY KEY (codigo))");
+    
             }
             addInfoToDB();
 
