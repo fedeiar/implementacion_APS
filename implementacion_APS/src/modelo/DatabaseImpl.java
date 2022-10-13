@@ -11,22 +11,14 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
 
-            //TODO: le agregamos un codigo a plan?
-            if(statement != null){
-                statement.executeUpdate(
-                        "create table if not exists carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
-                statement.executeUpdate(
-                        "create table if not exists plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) )");
-                statement.executeUpdate(
-                        "create table if not exists administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
-                statement.executeUpdate(
-                        "create table if not exists alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
-                statement.executeUpdate(
-                        "create table if not exists inscripciones(legajo_alumno INTEGER, codigo INTEGER, PRIMARY KEY (legajo_alumno, codigo), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno), FOREIGN KEY(codigo) REFERENCES plan(codigo) )");
-                statement.executeUpdate(
-                        "create table if not exists materia(nombre STRING, codigo INTEGER, PRIMARY KEY (codigo))");
+            statement.executeUpdate("create table if not exists carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
+            statement.executeUpdate("create table if not exists plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) )");
+            statement.executeUpdate("create table if not exists administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
+            statement.executeUpdate("create table if not exists alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
+            statement.executeUpdate("create table if not exists inscripciones(legajo_alumno INTEGER, codigo INTEGER, PRIMARY KEY (legajo_alumno, codigo), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno), FOREIGN KEY(codigo) REFERENCES plan(codigo) )");
+            statement.executeUpdate("create table if not exists materia(codigo INTEGER, nombre STRING, PRIMARY KEY (codigo))");
+            statement.executeUpdate("create table if not exists plan_materia(anio_plan INTEGER, codigo_carrera INTEGER, codigo_materia INTEGER, PRIMARY KEY (anio_plan, codigo_carrera, codigo_materia), FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera), FOREIGN KEY(codigo_materia) REFERENCES materia(codigo))");
     
-            }
             addInfoToDB();
 
             closeConnection(statement);
@@ -158,7 +150,7 @@ public class DatabaseImpl {
         try{
             statement = connectToDB();
             if (statement != null) {
-                statement.executeUpdate("replace into carrera values('" + carrera.getCodigo() + "', '" + fixIncompatibleSyntax(carrera.getNombre()) + "')");
+                statement.executeUpdate("replace into carrera values('" + carrera.codigo + "', '" + fixIncompatibleSyntax(carrera.nombre) + "')");
             }
         } catch(SQLException e){
             throw new Exception("An error occurred during saving.");
@@ -172,10 +164,10 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
             if (statement != null) {
-                statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.getEmail())
-                        + "', '" + fixIncompatibleSyntax(admin.getPassword()) + "', '"
-                        + fixIncompatibleSyntax(admin.getNombre()) + "', '" + fixIncompatibleSyntax(admin.getApellido())
-                        + "', '" + admin.getLegajo_administrador() + "')");
+                statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.email)
+                        + "', '" + fixIncompatibleSyntax(admin.password) + "', '"
+                        + fixIncompatibleSyntax(admin.nombre) + "', '" + fixIncompatibleSyntax(admin.apellido)
+                        + "', '" + admin.legajo_administrador + "')");
             }
         } catch (SQLException e) {
             throw new Exception("An error occurred during saving.");
@@ -189,10 +181,10 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
             
-            statement.executeUpdate("replace into alumno values('" + fixIncompatibleSyntax(alumno.getEmail())
-                    + "', '" + fixIncompatibleSyntax(alumno.getPassword()) + "', '"
-                    + fixIncompatibleSyntax(alumno.getNombre()) + "', '" + fixIncompatibleSyntax(alumno.getApellido())
-                    + "', '" + alumno.getLegajo_alumno() + "')");
+            statement.executeUpdate("REPLACE INTO alumno VALUES('" + fixIncompatibleSyntax(alumno.email)
+                    + "', '" + fixIncompatibleSyntax(alumno.password) + "', '"
+                    + fixIncompatibleSyntax(alumno.nombre) + "', '" + fixIncompatibleSyntax(alumno.apellido)
+                    + "', '" + alumno.legajo_alumno + "')");
             
         } catch(SQLException e){
             e.printStackTrace();
@@ -207,8 +199,7 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
             
-            statement.executeUpdate("insert into plan values('" + plan.getAnio()
-                    + "', '" + plan.getCodCarrera() + "')");
+            statement.executeUpdate("INSERT INTO plan VALUES('" + plan.anio + "', '" + plan.codCarrera + "')");
             
         } catch(SQLException e){
             throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
@@ -216,6 +207,35 @@ public class DatabaseImpl {
             closeConnection(statement);
         }
     }
+
+    public static void saveMateria(Materia materia) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("INSERT INTO materia VALUES('" + materia.codigo + "', '" + materia.nombre + "')");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static void savePlanMateria(Plan plan, Materia materia) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("INSERT INTO plan_materia VALUES('" + plan.anio + "', '" + plan.codCarrera + "', '"+ materia.codigo +"')");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
 
     // Methods for connection and disconnection from db
 
