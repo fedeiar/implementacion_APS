@@ -15,11 +15,14 @@ public class DatabaseImpl {
                 statement.executeUpdate(
                         "create table if not exists carrera(codigo integer PRIMARY KEY, nombre string UNIQUE)");
                 statement.executeUpdate(
-                        "create table if not exists plan(anio integer, codigo integer, CONSTRAINT fk_codigo FOREIGN KEY(codigo) REFERENCES carrera(codigo))");
+                        "create table if not exists plan(anio integer, codigo integer, PRIMARY KEY (anio, codigo), FOREIGN KEY(codigo) REFERENCES carrera(codigo))");
                 statement.executeUpdate(
                         "create table if not exists administrador(email string, contrasenia char(32), nombre string, apellido string, legajo_administrador integer AUTO_INCREMENT PRIMARY KEY)");
                 statement.executeUpdate(
                         "create table if not exists alumno(email string, contrasenia char(32), nombre string, apellido string, legajo_alumno integer AUTO_INCREMENT PRIMARY KEY)");
+                //statement.executeUpdate(
+                        //"create table if not exists inscripciones(legajo_alumno INTEGER, ");
+
             }
             addInfoToDB();
 
@@ -201,12 +204,11 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
             
-            statement.executeUpdate("replace into plan values('" + plan.getAnio()
+            statement.executeUpdate("insert into plan values('" + plan.getAnio()
                     + "', '" + plan.getCodCarrera() + "')");
             
         } catch(SQLException e){
-            e.printStackTrace();
-            throw new Exception("An error occurred during saving a plan.");
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
         } finally {
             closeConnection(statement);
         }
