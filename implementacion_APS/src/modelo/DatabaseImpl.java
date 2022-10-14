@@ -9,45 +9,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseImpl {
+public class DatabaseImpl{
 
-    public static void createDatabase() {
+    public static void createDatabase(){
         Statement statement = null;
         try {
             statement = connectToDB();
 
-            // TODO: probar si anda el borrado y actualizado en cascada con lo de modificar plan.
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) ON DELETE CASCADE ON UPDATE CASCADE)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS materia(codigo INTEGER, nombre STRING, PRIMARY KEY (codigo))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS plan_materia(anio_plan INTEGER, codigo_carrera INTEGER, codigo_materia INTEGER, PRIMARY KEY (anio_plan, codigo_carrera, codigo_materia), FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(codigo_materia) REFERENCES materia(codigo) ON DELETE CASCADE ON UPDATE CASCADE )");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS inscripcion(legajo_alumno INTEGER, anio_plan INTEGER, codigo_carrera INTEGER, PRIMARY KEY (legajo_alumno, anio_plan, codigo_carrera), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera) ON DELETE CASCADE ON UPDATE CASCADE )");
+            TableCreator.createTables(statement);
             
-            addInfoToDB();
-
             closeConnection(statement);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    private static void addInfoToDB() throws Exception {
-        //TODO: si fernando nos dice algo, agregarle lo de md5 a las contraseñas.
-        saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Pablo", "Suarez", 1));
-        saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Juan", "Perez", 2));
-        saveStudent(new Alumno("fulano3@hotmail.com", "4321", "Rodrigo", "Gonzalez", 1));
-        saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
-        saveCarreer(new Carrera("Licenciatura en Aprender a Leer",1));
-        saveCarreer(new Carrera("Licenciatura en Sumar Enteros", 2));
-        savePlan(new Plan(2012, 1));
-        savePlan(new Plan(2010, 2));
-        savePlan(new Plan(2022, 1));
-    }
-
-    public static ArrayList<String> getNamesOfCarreers() throws Exception {
+    
+    public static ArrayList<String> getNombresDeCarreras() throws Exception{
         ArrayList<String> careers = new ArrayList<>();
         Statement statement = null;
         try{
@@ -66,7 +44,7 @@ public class DatabaseImpl {
         return careers;
     }
 
-    public static int getCodigoCarrera(String nombreCarrera) throws Exception {
+    public static int getCodigoCarrera(String nombreCarrera) throws Exception{
         int codigoCarrera = -1;
         try{
             Statement statement = connectToDB();
@@ -84,7 +62,7 @@ public class DatabaseImpl {
         return codigoCarrera;
     }
 
-    public static String getNombreCarrera(int codigoCarrera) throws Exception {
+    public static String getNombreCarrera(int codigoCarrera) throws Exception{
         String nombreCarrera = "";
         try{
             Statement statement = connectToDB();
@@ -102,12 +80,12 @@ public class DatabaseImpl {
         return nombreCarrera;
     }
 
-    public static Administrador getAdmin(int legajo_administrador) throws Exception {
+    public static Administrador getAdmin(int legajo_administrador) throws Exception{
         Administrador admin = null;
         try{
             Statement statement = connectToDB();
 
-            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "'");
+            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo = '" + legajo_administrador + "'");
             if(resultSet.next()){
                 admin = new Administrador(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_administrador);
             }
@@ -125,7 +103,7 @@ public class DatabaseImpl {
         try{
             Statement statement = connectToDB();
             
-            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo_administrador = '" + legajo_administrador + "' AND contrasenia = '"+ password +"'");
+            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo = '" + legajo_administrador + "' AND contrasenia = '"+ password +"'");
             if(resultSet.next()){ // Ya que es una sola fila, si hubo match es porque coincide la contraseña, sino devuelve false
                 password_matches = true;
             }
@@ -143,7 +121,7 @@ public class DatabaseImpl {
         try{
             statement = connectToDB();
             
-            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "'");
+            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo = '" + legajo_alumno + "'");
             if(resultSet.next()){
                 alumno = new Alumno(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_alumno);
             }
@@ -178,7 +156,7 @@ public class DatabaseImpl {
         try{
             Statement statement = connectToDB();
             
-            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo_alumno = '" + legajo_alumno + "' AND contrasenia = '"+ password +"'");
+            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo = '" + legajo_alumno + "' AND contrasenia = '"+ password +"'");
             if(resultSet.next()){ // Ya que es una sola fila, si hubo match es porque coincide la contraseña, sino devuelve false
                 password_matches = true;
             }
@@ -190,7 +168,7 @@ public class DatabaseImpl {
         return password_matches;
     }
 
-    public static void saveCarreer(Carrera carrera) throws Exception {
+    public static void saveCarrera(Carrera carrera) throws Exception {
         Statement statement = null;
         try{
             statement = connectToDB();
@@ -253,8 +231,6 @@ public class DatabaseImpl {
         }
     }
 
-    //TODO: modificar plan.
-
     public static void saveMateria(Materia materia) throws Exception {
         Statement statement = null;
         try {
@@ -283,12 +259,40 @@ public class DatabaseImpl {
         }
     }
 
+    public static void deletePlanMateria(Plan plan, Materia materia) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("DELETE FROM plan_materia WHERE anio_plan = "+ plan.anio +" AND codigo_carrera = "+ plan.codCarrera +" AND codigo_materia = "+ materia.codigo +"  ");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
     public static void saveInscripcion(int legajo_alumno, Plan plan) throws Exception {
         Statement statement = null;
         try {
             statement = connectToDB();
             
             statement.executeUpdate("INSERT INTO inscripcion VALUES('" + legajo_alumno + "', '" + plan.anio + "', '"+ plan.codCarrera +"')");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static void saveCursada(Cursada cursada) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("INSERT INTO cursada VALUES('" + cursada.codigoMateria + "', '" + cursada.legajoProfesor + "', '"+ cursada.anio +"', '"+ cursada.cuatrimestre +"' )");
             
         } catch(SQLException e){
             throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");

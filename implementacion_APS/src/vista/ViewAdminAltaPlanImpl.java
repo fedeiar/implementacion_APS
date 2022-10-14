@@ -104,7 +104,7 @@ public class ViewAdminAltaPlanImpl extends JPanel implements ViewAdminAltaPlan {
         cbElegirCarrera.setBounds(389, 167, 160, 21);
         add(cbElegirCarrera);
         try{
-            for(String carrera : DatabaseImpl.getNamesOfCarreers()){
+            for(String carrera : DatabaseImpl.getNombresDeCarreras()){
                 cbElegirCarrera.addItem(carrera);
             }
         } catch(Exception e){

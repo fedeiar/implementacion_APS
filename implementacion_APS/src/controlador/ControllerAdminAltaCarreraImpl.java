@@ -30,7 +30,7 @@ public class ControllerAdminAltaCarreraImpl implements ControllerAdminAltaCarrer
 
     public void darDeAltaCarrera(Carrera carrera){ 
         try {
-            DatabaseImpl.saveCarreer(carrera);
+            DatabaseImpl.saveCarrera(carrera);
             viewAdminAltaCarrera.operacionExitosa("Registro exitoso", "Carrera registrada exitosamente.");
         } catch (Exception e) {
             viewAdminAltaCarrera.operacionFallida("Error: ", e.getMessage());
