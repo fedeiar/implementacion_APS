@@ -1,8 +1,13 @@
 
 package modelo;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseImpl {
 
@@ -12,7 +17,7 @@ public class DatabaseImpl {
             statement = connectToDB();
 
             statement.executeUpdate("create table if not exists carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
-            statement.executeUpdate("create table if not exists plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) )");
+            statement.executeUpdate("create table if not exists plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo))");
             statement.executeUpdate("create table if not exists administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
             statement.executeUpdate("create table if not exists alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
             statement.executeUpdate("create table if not exists inscripciones(legajo_alumno INTEGER, codigo INTEGER, PRIMARY KEY (legajo_alumno, codigo), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno), FOREIGN KEY(codigo) REFERENCES plan(codigo) )");
@@ -36,6 +41,9 @@ public class DatabaseImpl {
         saveStudent(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
         saveCarreer(new Carrera("Licenciatura en Aprender a Leer",1));
         saveCarreer(new Carrera("Licenciatura en Sumar Enteros", 2));
+        savePlan(new Plan(2012, 1));
+        savePlan(new Plan(2010, 2));
+        savePlan(new Plan(2022, 1));
     }
 
     public static ArrayList<String> getNamesOfCarreers() throws Exception {
@@ -73,6 +81,24 @@ public class DatabaseImpl {
             throw new Exception("An error occurred while recovering admin.");
         } 
         return codigoCarrera;
+    }
+
+    public static String getNombreCarrera(int codigoCarrera) throws Exception {
+        String nombreCarrera = "";
+        try{
+            Statement statement = connectToDB();
+
+            ResultSet resultSet = statement.executeQuery("select * from carrera WHERE codigo = '" + codigoCarrera + "'");
+            if(resultSet.next()){
+                nombreCarrera = resultSet.getString("nombre");
+            }
+
+            closeConnection(statement);
+        } catch (SQLException e){
+            e.printStackTrace();
+            throw new Exception("An error occurred while recovering admin.");
+        } 
+        return nombreCarrera;
     }
 
     public static Administrador getAdmin(int legajo_administrador) throws Exception {
@@ -126,6 +152,24 @@ public class DatabaseImpl {
             closeConnection(statement);
         }
         return alumno;
+    }
+
+    public static List<String> getPlansOfCareers() throws Exception{
+        List<String> plans = new ArrayList<>();
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            ResultSet resultSet = statement.executeQuery("select * from plan");
+            while(resultSet.next()) {
+                String p = "plan: " + resultSet.getInt("anio") + " carrera: " +  resultSet.getInt("codigo_carrera");
+                plans.add(p);
+            }
+        } catch(SQLException e){
+            throw new Exception("An error occurred while recovering plans.");
+        } finally{
+            closeConnection(statement);
+        }
+        return plans;
     }
 
     public static boolean checkAlumnoPassword(int legajo_alumno, String password) throws Exception{
@@ -262,4 +306,5 @@ public class DatabaseImpl {
     private static String fixIncompatibleSyntax(String name) {
         return name.replace("'", "`");
     }
+
 }

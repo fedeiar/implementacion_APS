@@ -4,6 +4,7 @@ import vista.ViewAdminAltaAlumno;
 import vista.ViewLoginUsuario;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaPlan;
+import vista.ViewAdminAgregarMatAPlan;
 import vista.ViewPrincipalAdministrador;
 
 public interface ControllerPrincipalAdministrador{
@@ -25,4 +26,8 @@ public interface ControllerPrincipalAdministrador{
     public void cambiarVentanaAltaCarrera();
 
     public void cambiarVentanaAltaPlan();
+
+    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan);
+
+    public void cambiarVentanaAgregarMatAPlan();
 }

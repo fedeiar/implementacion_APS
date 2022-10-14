@@ -109,7 +109,7 @@ public class ViewAdminAltaAlumnoImpl extends JPanel implements ViewAdminAltaAlum
                 String apellido = TFApellido.getText();
                 String email = TFEmail.getText();
                 String password = new String(TFPassword.getPassword());
-                if(!utils.Utilities.isFieldInteger(TFLegajo.getText())){ //TODO: en realidad habría que obtener el legajo mas alto de la DB, sumarle 1 y colocarlo pero paja, si alguno lo quiere hacer joya.
+                if(!utils.Utilities.isFieldInteger(TFLegajo.getText())){ //TODO: en realidad habría que obtener el legajo mas alto de la DB, sumarle 1 y colocarlo pero paja, si alguno lo quiere hacer joya.8
                     operacionFallida("Error: legajo", "El legajo debe ser un numero entero");
                     return;
                 }

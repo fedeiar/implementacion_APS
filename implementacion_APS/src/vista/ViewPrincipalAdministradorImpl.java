@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.nio.channels.NetworkChannel;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
     private JButton btnDarDeAltaAlumno;
     private JButton btnDarDeAltaCarrera;
     private JButton btnDarDeAltaPlan;
+    private JButton btnAgregarMatAPlan;
 
 	public ViewPrincipalAdministradorImpl(MainWindow mainWindow, ControllerPrincipalAdministrador controllerPrincipalAdministrador) {
         this.mainWindow = mainWindow;
@@ -52,6 +55,10 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
         btnDarDeAltaPlan.setBounds(574, 445, 162, 23);
         add(btnDarDeAltaPlan);
 
+        btnAgregarMatAPlan = new JButton("Agregar nueva materia a Plan");
+        btnAgregarMatAPlan.setBounds(274, 500, 300, 23);
+        add(btnAgregarMatAPlan);
+
         btnLogOut = new JButton("Logout");
         btnLogOut.setBounds(100, 500, 162, 23);
         add(btnLogOut);
@@ -73,7 +80,13 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
             public void actionPerformed(ActionEvent actionEvent){
                 controllerPrincipalAdministrador.cambiarVentanaAltaPlan();
             }
-        });   
+        }); 
+        
+        btnAgregarMatAPlan.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAdministrador.cambiarVentanaAgregarMatAPlan();
+            }
+        });
 
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){

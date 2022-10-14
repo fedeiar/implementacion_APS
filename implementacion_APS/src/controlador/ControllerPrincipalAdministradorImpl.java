@@ -5,6 +5,7 @@ import vista.ViewLoginUsuario;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaPlan;
 import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminAgregarMatAPlan;
 
 public class ControllerPrincipalAdministradorImpl implements ControllerPrincipalAdministrador{
 
@@ -13,8 +14,8 @@ public class ControllerPrincipalAdministradorImpl implements ControllerPrincipal
     private ViewLoginUsuario viewLoginUsuario;
     private ViewAdminAltaCarrera viewAdminAltaCarrera;
     private ViewAdminAltaPlan viewAdminAltaPlan;
+    private ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan;
     
-
     public ControllerPrincipalAdministradorImpl(){
 
     }
@@ -53,5 +54,13 @@ public class ControllerPrincipalAdministradorImpl implements ControllerPrincipal
 
     public void cambiarVentanaAltaPlan(){
         this.viewAdminAltaPlan.mostrarse();
+    }
+
+    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan){
+        this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
+    }
+
+    public void cambiarVentanaAgregarMatAPlan(){
+        this.viewAdminAgregarMatAPlan.mostrarse();
     }
 }
