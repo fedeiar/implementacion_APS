@@ -11,14 +11,15 @@ public class DatabaseImpl {
         try {
             statement = connectToDB();
 
-            statement.executeUpdate("create table if not exists carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
-            statement.executeUpdate("create table if not exists plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) )");
-            statement.executeUpdate("create table if not exists administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
-            statement.executeUpdate("create table if not exists alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
-            statement.executeUpdate("create table if not exists inscripciones(legajo_alumno INTEGER, codigo INTEGER, PRIMARY KEY (legajo_alumno, codigo), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno), FOREIGN KEY(codigo) REFERENCES plan(codigo) )");
-            statement.executeUpdate("create table if not exists materia(codigo INTEGER, nombre STRING, PRIMARY KEY (codigo))");
-            statement.executeUpdate("create table if not exists plan_materia(anio_plan INTEGER, codigo_carrera INTEGER, codigo_materia INTEGER, PRIMARY KEY (anio_plan, codigo_carrera, codigo_materia), FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera), FOREIGN KEY(codigo_materia) REFERENCES materia(codigo))");
-    
+            // TODO: probar si anda el borrado y actualizado en cascada con lo de modificar plan.
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS carrera(codigo INTEGER PRIMARY KEY, nombre STRING UNIQUE)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS plan(anio INTEGER, codigo_carrera INTEGER, PRIMARY KEY (anio, codigo_carrera), FOREIGN KEY(codigo_carrera) REFERENCES carrera(codigo) ON DELETE CASCADE ON UPDATE CASCADE)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS materia(codigo INTEGER, nombre STRING, PRIMARY KEY (codigo))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS plan_materia(anio_plan INTEGER, codigo_carrera INTEGER, codigo_materia INTEGER, PRIMARY KEY (anio_plan, codigo_carrera, codigo_materia), FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(codigo_materia) REFERENCES materia(codigo) ON DELETE CASCADE ON UPDATE CASCADE )");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS administrador(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_administrador INTEGER AUTO_INCREMENT PRIMARY KEY)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS alumno(email STRING, contrasenia CHAR(32), nombre STRING, apellido STRING, legajo_alumno INTEGER AUTO_INCREMENT PRIMARY KEY)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS inscripcion(legajo_alumno INTEGER, anio_plan INTEGER, codigo_carrera INTEGER, PRIMARY KEY (legajo_alumno, anio_plan, codigo_carrera), FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo_alumno) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera) ON DELETE CASCADE ON UPDATE CASCADE )");
+            
             addInfoToDB();
 
             closeConnection(statement);
@@ -208,6 +209,8 @@ public class DatabaseImpl {
         }
     }
 
+    //TODO: modificar plan.
+
     public static void saveMateria(Materia materia) throws Exception {
         Statement statement = null;
         try {
@@ -228,6 +231,20 @@ public class DatabaseImpl {
             statement = connectToDB();
             
             statement.executeUpdate("INSERT INTO plan_materia VALUES('" + plan.anio + "', '" + plan.codCarrera + "', '"+ materia.codigo +"')");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static void saveInscripcion(int legajo_alumno, Plan plan) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("INSERT INTO inscripcion VALUES('" + legajo_alumno + "', '" + plan.anio + "', '"+ plan.codCarrera +"')");
             
         } catch(SQLException e){
             throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
