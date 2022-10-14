@@ -273,6 +273,20 @@ public class DatabaseImpl{
         }
     }
 
+    public static void deletePlan(Plan plan) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("DELETE FROM plan WHERE anio_plan = "+ plan.anio +" AND codigo_carrera = "+ plan.codCarrera +" ");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
     public static void saveInscripcion(int legajo_alumno, Plan plan) throws Exception {
         Statement statement = null;
         try {
