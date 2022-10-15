@@ -40,11 +40,15 @@ public class ControllerPrincipalAdministradorImpl implements ControllerPrincipal
         this.viewAdminAltaPlan = viewAdminAltaPlan;
     }
 
+    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan){
+        this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
+    }
+
     public void cambiarVentanaAltaAlumno(){
         this.viewAdminAltaAlumno.mostrarse();
     }
 
-    public void cambiarVentanaLogin(){
+    public void cambiarVentanaLoginUsuario(){
         viewLoginUsuario.mostrarse();
     }
     
@@ -54,10 +58,6 @@ public class ControllerPrincipalAdministradorImpl implements ControllerPrincipal
 
     public void cambiarVentanaAltaPlan(){
         this.viewAdminAltaPlan.mostrarse();
-    }
-
-    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan){
-        this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
     }
 
     public void cambiarVentanaAgregarMatAPlan(){

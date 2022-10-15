@@ -16,18 +16,20 @@ public interface ControllerPrincipalAdministrador{
 
     public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario);
 
-    public void cambiarVentanaAltaAlumno();
-
-    public void cambiarVentanaLogin();
     public void setViewAdminAltaCarrera(ViewAdminAltaCarrera viewAdminAltaCarrera);
 
     public void setViewAdminAltaPlan(ViewAdminAltaPlan viewAdminAltaPlan);
 
+    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan);
+
+
+    public void cambiarVentanaAltaAlumno();
+
+    public void cambiarVentanaLoginUsuario();
+
     public void cambiarVentanaAltaCarrera();
 
     public void cambiarVentanaAltaPlan();
-
-    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan);
 
     public void cambiarVentanaAgregarMatAPlan();
 }

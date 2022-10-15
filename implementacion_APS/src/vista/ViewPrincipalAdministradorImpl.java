@@ -90,7 +90,7 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
 
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAdministrador.cambiarVentanaLogin();
+                controllerPrincipalAdministrador.cambiarVentanaLoginUsuario();
             }
         });
     }
