@@ -28,9 +28,11 @@ public class ControllerAdminAltaPlan{
         viewPrincipalAdministrador.mostrarse();
     }
 
-    public void darDeAltaPlan(Plan plan){ 
+    public void darDeAltaPlan(int anio, String nombreCarrera){ 
         try {
-            //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
+            int codigoCarrera = DatabaseImpl.getCodigoCarrera(nombreCarrera);
+            Plan plan = new Plan(anio, codigoCarrera);
+        
             DatabaseImpl.savePlan(plan);
             viewAdminAltaPlan.operacionExitosa("Registro exitoso", "Plan registrado exitosamente.");
         } catch (Exception e) {

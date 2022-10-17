@@ -57,7 +57,6 @@ public class ViewAdminAltaPlan extends JPanel{
         
         lblElijaCarrera = new JLabel("Elija una carrera:");
         lblElijaCarrera.setBounds(265, 169, 200, 17);
-        
         add(lblElijaCarrera);
         
         btnCancelar = new JButton("Cancelar");
@@ -73,22 +72,14 @@ public class ViewAdminAltaPlan extends JPanel{
 
         btnRegistrar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent) {
-                if(!utils.Utilities.isFieldInteger(TFAnio.getText())){ //TODO: en realidad habría que obtener el legajo mas alto de la DB, sumarle 1 y colocarlo pero paja, si alguno lo quiere hacer joya.
+                if(!utils.Utilities.isFieldInteger(TFAnio.getText())){
                     operacionFallida("Error: año", "El año debe ser un numero entero");
                     return;
                 }
                 int anio = Integer.parseInt(TFAnio.getText());
                 String nombreCarrera = cbElegirCarrera.getSelectedItem().toString();
-                int codigoCarrera = -1;
-                try{
-                    codigoCarrera = DatabaseImpl.getCodigoCarrera(nombreCarrera);
-                } catch(Exception e){
-                    operacionFallida("Error", e.getMessage());
-                }
 
-                Plan plan = new Plan(anio, codigoCarrera);
-
-                controllerAdminAltaPlan.darDeAltaPlan(plan);
+                controllerAdminAltaPlan.darDeAltaPlan(anio, nombreCarrera);
             }
         });
 

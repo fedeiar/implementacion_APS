@@ -67,7 +67,7 @@ public class DatabaseImpl{
         try{
             Statement statement = connectToDB();
 
-            ResultSet resultSet = statement.executeQuery("select * from carrera WHERE codigo = '" + codigoCarrera + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM carrera WHERE codigo = '" + codigoCarrera + "'");
             if(resultSet.next()){
                 nombreCarrera = resultSet.getString("nombre");
             }
@@ -78,6 +78,25 @@ public class DatabaseImpl{
             throw new Exception("An error occurred while recovering admin.");
         } 
         return nombreCarrera;
+    }
+
+    public static Plan getPlanMasRecienteDeCarrera(int codigoCarrera) throws Exception{
+        Plan plan = null;
+        try{
+            Statement statement = connectToDB();
+
+            ResultSet resultSet = statement.executeQuery("SELECT MAX(anio) AS anio FROM plan WHERE codigo_carrera = '" + codigoCarrera + "'");
+            if(resultSet.next()){
+                int anio = resultSet.getInt("anio");
+                plan = new Plan(anio, codigoCarrera);
+            }
+
+            closeConnection(statement);
+        } catch (SQLException e){
+            e.printStackTrace();
+            throw new Exception("Ocurrio un error al obtener el plan mas reciente.");
+        } 
+        return plan;
     }
 
     public static Administrador getAdmin(int legajo_administrador) throws Exception{

@@ -13,10 +13,10 @@ import javax.swing.SwingConstants;
 import controlador.ControllerAdminPrincipal;
 
 
-public class ViewAdminPrincipalImpl extends JPanel implements ViewAdminPrincipal{
+public class ViewAdminPrincipal extends JPanel{
 
     private MainWindow mainWindow;
-    private ControllerAdminPrincipal controllerPrincipalAdministrador;
+    private ControllerAdminPrincipal controllerAdminPrincipal;
 
     private JLabel lblBienvenido;
     private JButton btnLogOut;
@@ -25,9 +25,9 @@ public class ViewAdminPrincipalImpl extends JPanel implements ViewAdminPrincipal
     private JButton btnDarDeAltaPlan;
     private JButton btnAgregarMatAPlan;
 
-	public ViewAdminPrincipalImpl(MainWindow mainWindow, ControllerAdminPrincipal controllerPrincipalAdministrador) {
+	public ViewAdminPrincipal(MainWindow mainWindow, ControllerAdminPrincipal controllerPrincipalAdministrador) {
         this.mainWindow = mainWindow;
-        this.controllerPrincipalAdministrador = controllerPrincipalAdministrador;
+        this.controllerAdminPrincipal = controllerPrincipalAdministrador;
         this.setBounds(100, 100, 1000, 600);
         setLayout(null);
         
@@ -66,30 +66,30 @@ public class ViewAdminPrincipalImpl extends JPanel implements ViewAdminPrincipal
     private void inicializarListeners(){
         btnDarDeAltaAlumno.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAdministrador.cambiarVentanaAltaAlumno();
+                controllerAdminPrincipal.cambiarVentanaAltaAlumno();
             }
         });
 
         btnDarDeAltaCarrera.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAdministrador.cambiarVentanaAltaCarrera();
+                controllerAdminPrincipal.cambiarVentanaAltaCarrera();
             }
         });
         btnDarDeAltaPlan.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAdministrador.cambiarVentanaAltaPlan();
+                controllerAdminPrincipal.cambiarVentanaAltaPlan();
             }
         }); 
         
         btnAgregarMatAPlan.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAdministrador.cambiarVentanaAgregarMatAPlan();
+                controllerAdminPrincipal.cambiarVentanaAgregarMatAPlan();
             }
         });
 
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAdministrador.cambiarVentanaLoginUsuario();
+                controllerAdminPrincipal.cambiarVentanaLoginUsuario();
             }
         });
     }

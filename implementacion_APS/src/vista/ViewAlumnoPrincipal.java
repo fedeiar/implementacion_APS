@@ -20,7 +20,7 @@ public class ViewAlumnoPrincipal extends JPanel{
     private ControllerAlumnoPrincipal controllerPrincipalAlumno;
 
     private JLabel lblBienvenidoAlumno;
-    private JButton btnLogOut;
+    private JButton btnLogOut, btnInscripcionCarrera;
 
     public Alumno alumno;
 
@@ -40,15 +40,24 @@ public class ViewAlumnoPrincipal extends JPanel{
         lblBienvenidoAlumno.setHorizontalAlignment(SwingConstants.LEFT);
         lblBienvenidoAlumno.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblBienvenidoAlumno.setBounds(365, 36, 255, 60);
-       
         add(lblBienvenidoAlumno);
 
+        btnInscripcionCarrera = new JButton("Inscribirse a una carrera");
+        btnInscripcionCarrera.setBounds(70, 450, 200, 23);
+        add(btnInscripcionCarrera);
+
         btnLogOut = new JButton("Logout");
-        btnLogOut.setBounds(100, 500, 162, 23);
+        btnLogOut.setBounds(70, 500, 162, 23);
         add(btnLogOut);
     }
 
     private void inicializarListeners(){
+        btnInscripcionCarrera.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAlumno.cambiarVentanaInscripcionCarrera();
+            }
+        });
+
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 controllerPrincipalAlumno.cambiarVentanaLogin();
@@ -69,9 +78,10 @@ public class ViewAlumnoPrincipal extends JPanel{
         JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
     }
 
+    // TODO: nose que les parece esto, pero necesitamos almacenar al alumno actual para inscribirlo a la carrera.
     public void setAlumno(Alumno alumno){
         this.alumno = alumno;
-        lblBienvenidoAlumno.setSize(alumno.nombre.length() + alumno.apellido.length() * 50, 36);
+        lblBienvenidoAlumno.setSize(alumno.nombre.length() + alumno.apellido.length() * 50, 60);
         lblBienvenidoAlumno.setText("Bienvenido alumno " + alumno.nombre + " " + alumno.apellido);
     }
 }
