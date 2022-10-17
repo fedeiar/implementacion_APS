@@ -1,17 +1,42 @@
 package controlador;
 
 import modelo.Alumno;
+import modelo.DatabaseImpl;
 import vista.ViewAdminAltaAlumno;
 import vista.ViewAdminPrincipal;
 
-public interface ControllerAdminAltaAlumno {
+public class ControllerAdminAltaAlumno{
     
 
-    public void setViewAdminAltaAlumno(ViewAdminAltaAlumno viewAdminAltaAlumno);
+    private ViewAdminAltaAlumno viewAdminAltaAlumno;
+    private ViewAdminPrincipal viewPrincipalAdministrador;
 
-    public void darDeAltaAlumno(Alumno alumno);
 
-    public void regresarMenuPrincipalAdmin();
+    public ControllerAdminAltaAlumno(){
 
-    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador);
+    }
+
+    public void setViewAdminAltaAlumno(ViewAdminAltaAlumno viewAdminAltaAlumno){
+        this.viewAdminAltaAlumno = viewAdminAltaAlumno;
+    }
+
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
+        this.viewPrincipalAdministrador = viewPrincipalAdministrador;
+    }
+
+    public void regresarMenuPrincipalAdmin(){
+        viewPrincipalAdministrador.mostrarse();
+    }
+
+    public void darDeAltaAlumno(Alumno alumno){ 
+        try {
+            //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
+            DatabaseImpl.saveStudent(alumno);
+            viewAdminAltaAlumno.operacionExitosa("Registro exitoso", "Usuario alumno registrado exitosamente.");
+        } catch (Exception e) {
+            viewAdminAltaAlumno.operacionFallida("Error: ", e.getMessage());
+        }
+    }
+
+    
 }

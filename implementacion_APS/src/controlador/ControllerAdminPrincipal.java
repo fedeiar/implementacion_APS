@@ -4,32 +4,63 @@ import vista.ViewAdminAltaAlumno;
 import vista.ViewLoginUsuario;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaPlan;
-import vista.ViewAdminAgregarMatAPlan;
 import vista.ViewAdminPrincipal;
+import vista.ViewAdminAgregarMatAPlan;
 
-public interface ControllerAdminPrincipal{
+public class ControllerAdminPrincipal{
 
+    private ViewAdminPrincipal viewAdminPrincipal;
+    private ViewAdminAltaAlumno viewAdminAltaAlumno;
+    private ViewLoginUsuario viewLoginUsuario;
+    private ViewAdminAltaCarrera viewAdminAltaCarrera;
+    private ViewAdminAltaPlan viewAdminAltaPlan;
+    private ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan;
+    
+    public ControllerAdminPrincipal(){
 
-    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador);
+    }
 
-    public void setViewAdminAltaAlumno(ViewAdminAltaAlumno viewAdminAltaAlumno);
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
+        this.viewAdminPrincipal = viewPrincipalAdministrador;
+    }
 
-    public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario);
+    public void setViewAdminAltaAlumno(ViewAdminAltaAlumno viewAdminAltaAlumno){
+        this.viewAdminAltaAlumno = viewAdminAltaAlumno;
+    }
 
-    public void setViewAdminAltaCarrera(ViewAdminAltaCarrera viewAdminAltaCarrera);
+    public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario){
+        this.viewLoginUsuario = viewLoginUsuario;
+    }
+    
+    public void setViewAdminAltaCarrera(ViewAdminAltaCarrera viewAdminAltaCarrera){
+        this.viewAdminAltaCarrera = viewAdminAltaCarrera;
+    }
 
-    public void setViewAdminAltaPlan(ViewAdminAltaPlan viewAdminAltaPlan);
+    public void setViewAdminAltaPlan(ViewAdminAltaPlan viewAdminAltaPlan){
+        this.viewAdminAltaPlan = viewAdminAltaPlan;
+    }
 
-    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan);
+    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan){
+        this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
+    }
 
+    public void cambiarVentanaAltaAlumno(){
+        this.viewAdminAltaAlumno.mostrarse();
+    }
 
-    public void cambiarVentanaAltaAlumno();
+    public void cambiarVentanaLoginUsuario(){
+        viewLoginUsuario.mostrarse();
+    }
+    
+    public void cambiarVentanaAltaCarrera(){
+        this.viewAdminAltaCarrera.mostrarse();
+    }
 
-    public void cambiarVentanaLoginUsuario();
+    public void cambiarVentanaAltaPlan(){
+        this.viewAdminAltaPlan.mostrarse();
+    }
 
-    public void cambiarVentanaAltaCarrera();
-
-    public void cambiarVentanaAltaPlan();
-
-    public void cambiarVentanaAgregarMatAPlan();
+    public void cambiarVentanaAgregarMatAPlan(){
+        this.viewAdminAgregarMatAPlan.mostrarse();
+    }
 }

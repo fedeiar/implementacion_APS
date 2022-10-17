@@ -3,19 +3,14 @@ package vista;
 import javax.swing.JFrame;
 
 import controlador.ControllerAdminAltaAlumno;
-import controlador.ControllerAdminAltaAlumnoImpl;
-import controlador.ControllerAdminAgregarMatAPlanImpl;
+import controlador.ControllerAdminAltaAlumno;
 import controlador.ControllerAdminAltaCarrera;
-import controlador.ControllerAdminAltaCarreraImpl;
 import controlador.ControllerAdminAltaPlan;
-import controlador.ControllerAdminAltaPlanImpl;
 import controlador.ControllerAdminAgregarMatAPlan;
 import controlador.ControllerLoginUsuario;
-import controlador.ControllerLoginUsuarioImpl;
+import controlador.ControllerLoginUsuario;
 import controlador.ControllerAdminPrincipal;
-import controlador.ControllerAdminPrincipalImpl;
 import controlador.ControllerAlumnoPrincipal;
-import controlador.ControllerAlumnoPrincipalImpl;
 import modelo.DatabaseImpl;
 
 public class MainWindow extends JFrame{
@@ -34,42 +29,42 @@ public class MainWindow extends JFrame{
     private void crearVistas(){
         DatabaseImpl.createDatabase();
 
-        ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuarioImpl();
-        ViewLoginUsuario viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
+        ControllerLoginUsuario controllerLoginUsuario = new ControllerLoginUsuario();
+        ViewLoginUsuario viewLoginUsuario = new ViewLoginUsuario(this, controllerLoginUsuario);
         controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
 
-        ControllerAdminPrincipal controllerPrincipalAdministrador = new ControllerAdminPrincipalImpl();
+        ControllerAdminPrincipal controllerPrincipalAdministrador = new ControllerAdminPrincipal();
         ViewAdminPrincipal viewPrincipalAdministrador = new ViewAdminPrincipalImpl(this, controllerPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewLoginUsuario(viewLoginUsuario);
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         
-        ControllerAlumnoPrincipal controllerPrincipalAlumno = new ControllerAlumnoPrincipalImpl();
-        ViewAlumnoPrincipal viewAlumnoPrincipal = new ViewAlumnoPrincipalImpl(this, controllerPrincipalAlumno);
+        ControllerAlumnoPrincipal controllerPrincipalAlumno = new ControllerAlumnoPrincipal();
+        ViewAlumnoPrincipal viewAlumnoPrincipal = new ViewAlumnoPrincipal(this, controllerPrincipalAlumno);
         controllerPrincipalAlumno.setViewPrincipalAlumno(viewAlumnoPrincipal);
         controllerPrincipalAlumno.setViewLoginUsuario(viewLoginUsuario);
         controllerLoginUsuario.setViewPrincipalAlumno(viewAlumnoPrincipal);
 
-        ControllerAdminAltaAlumno controllerAdminAltaAlumno = new ControllerAdminAltaAlumnoImpl();
-        ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumnoImpl(this, controllerAdminAltaAlumno);
+        ControllerAdminAltaAlumno controllerAdminAltaAlumno = new ControllerAdminAltaAlumno();
+        ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumno(this, controllerAdminAltaAlumno);
         controllerAdminAltaAlumno.setViewAdminAltaAlumno(viewAdminAltaAlumno);
         controllerAdminAltaAlumno.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewAdminAltaAlumno(viewAdminAltaAlumno);
 
-        ControllerAdminAltaCarrera controllerAdminAltaCarrera = new ControllerAdminAltaCarreraImpl();
-        ViewAdminAltaCarrera viewAdminAltaCarrera = new ViewAdminAltaCarreraImpl(this, controllerAdminAltaCarrera);
+        ControllerAdminAltaCarrera controllerAdminAltaCarrera = new ControllerAdminAltaCarrera();
+        ViewAdminAltaCarrera viewAdminAltaCarrera = new ViewAdminAltaCarrera(this, controllerAdminAltaCarrera);
         controllerAdminAltaCarrera.setViewAdminAltaCarrera(viewAdminAltaCarrera);
         controllerAdminAltaCarrera.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewAdminAltaCarrera(viewAdminAltaCarrera);
 
-        ControllerAdminAltaPlan controllerAdminAltaPlan = new ControllerAdminAltaPlanImpl();
-        ViewAdminAltaPlan viewAdminAltaPlan = new ViewAdminAltaPlanImpl(this, controllerAdminAltaPlan);
+        ControllerAdminAltaPlan controllerAdminAltaPlan = new ControllerAdminAltaPlan();
+        ViewAdminAltaPlan viewAdminAltaPlan = new ViewAdminAltaPlan(this, controllerAdminAltaPlan);
         controllerAdminAltaPlan.setViewAdminAltaPlan(viewAdminAltaPlan);
         controllerAdminAltaPlan.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewAdminAltaPlan(viewAdminAltaPlan);
 
-        ControllerAdminAgregarMatAPlan controllerAdminAgregarMatAPlan = new ControllerAdminAgregarMatAPlanImpl();
-        ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan = new ViewAdminAgregarMatAPlanImpl(this, controllerAdminAgregarMatAPlan);
+        ControllerAdminAgregarMatAPlan controllerAdminAgregarMatAPlan = new ControllerAdminAgregarMatAPlan();
+        ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan = new ViewAdminAgregarMatAPlan(this, controllerAdminAgregarMatAPlan);
         controllerAdminAgregarMatAPlan.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);
         controllerAdminAgregarMatAPlan.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);

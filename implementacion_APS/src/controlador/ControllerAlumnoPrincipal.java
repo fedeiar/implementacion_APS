@@ -1,14 +1,26 @@
 package controlador;
 
-import vista.ViewLoginUsuario;
 import vista.ViewAlumnoPrincipal;
+import vista.ViewLoginUsuario;
 
-public interface ControllerAlumnoPrincipal {
+public class ControllerAlumnoPrincipal{
     
-    public void cambiarVentanaLogin();
+    private ViewAlumnoPrincipal viewPrincipalAlumno;
+    private ViewLoginUsuario viewLoginUsuario;
 
-    public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario);
+    public ControllerAlumnoPrincipal(){
+        
+    }
 
-    public void setViewPrincipalAlumno(ViewAlumnoPrincipal viewPrincipalAlumno);
+    public void setViewPrincipalAlumno(ViewAlumnoPrincipal viewAlumnoPrincipal){
+        this.viewPrincipalAlumno = viewAlumnoPrincipal;
+    }
 
+    public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario){
+        this.viewLoginUsuario = viewLoginUsuario;
+    }
+
+    public void cambiarVentanaLogin() {
+        this.viewLoginUsuario.mostrarse();
+    }
 }
