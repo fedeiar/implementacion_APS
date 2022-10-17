@@ -95,7 +95,7 @@ public class ViewAdminAgregarMatAPlan extends JPanel {
         cbElegirPlan.setBounds(389, 167, 160, 21);
         add(cbElegirPlan);
         try{
-            for(String plan : DatabaseImpl.getPlansOfCareers()){
+            for(String plan : DatabaseImpl.getPlanesDeCarreras()){
                 cbElegirPlan.addItem(plan);
             }
         } catch(Exception e){

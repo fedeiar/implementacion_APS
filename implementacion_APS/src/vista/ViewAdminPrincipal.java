@@ -23,6 +23,7 @@ public class ViewAdminPrincipal extends JPanel{
     private JButton btnDarDeAltaAlumno;
     private JButton btnDarDeAltaCarrera;
     private JButton btnDarDeAltaPlan;
+    private JButton btnDarDeAltaCursada;
     private JButton btnAgregarMatAPlan;
 
 	public ViewAdminPrincipal(MainWindow mainWindow, ControllerAdminPrincipal controllerPrincipalAdministrador) {
@@ -43,23 +44,27 @@ public class ViewAdminPrincipal extends JPanel{
         add(lblBienvenido);
 
         btnDarDeAltaAlumno = new JButton("Dar de alta alumno");
-        btnDarDeAltaAlumno.setBounds(174, 445, 162, 23);
+        btnDarDeAltaAlumno.setBounds(70, 445, 162, 23);
         add(btnDarDeAltaAlumno);
 
         btnDarDeAltaCarrera = new JButton("Dar de alta carrera");
-        btnDarDeAltaCarrera.setBounds(374, 445, 162, 23);
+        btnDarDeAltaCarrera.setBounds(270, 445, 162, 23);
         add(btnDarDeAltaCarrera);
 
         btnDarDeAltaPlan = new JButton("Dar de alta plan");
-        btnDarDeAltaPlan.setBounds(574, 445, 162, 23);
+        btnDarDeAltaPlan.setBounds(470, 445, 162, 23);
         add(btnDarDeAltaPlan);
 
-        btnAgregarMatAPlan = new JButton("Agregar nueva materia a Plan");
-        btnAgregarMatAPlan.setBounds(274, 500, 300, 23);
+        btnDarDeAltaCursada = new JButton("Dar de alta cursada");
+        btnDarDeAltaCursada.setBounds(670, 445, 162, 23);
+        add(btnDarDeAltaCursada);
+
+        btnAgregarMatAPlan = new JButton("Agregar nueva materia a un plan");
+        btnAgregarMatAPlan.setBounds(274, 500, 250, 23);
         add(btnAgregarMatAPlan);
 
         btnLogOut = new JButton("Logout");
-        btnLogOut.setBounds(100, 500, 162, 23);
+        btnLogOut.setBounds(70, 500, 162, 23);
         add(btnLogOut);
     }
 
@@ -75,11 +80,18 @@ public class ViewAdminPrincipal extends JPanel{
                 controllerAdminPrincipal.cambiarVentanaAltaCarrera();
             }
         });
+
         btnDarDeAltaPlan.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 controllerAdminPrincipal.cambiarVentanaAltaPlan();
             }
         }); 
+
+        btnDarDeAltaCursada.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                //TODO:
+            }
+        });
         
         btnAgregarMatAPlan.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){

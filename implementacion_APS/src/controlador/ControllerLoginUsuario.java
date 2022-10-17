@@ -80,7 +80,7 @@ public class ControllerLoginUsuario{
     private boolean existeAlumno(int legajo){
         boolean encontrado = false;
         try{
-            alumno = DatabaseImpl.getStudent(legajo);
+            alumno = DatabaseImpl.getAlumno(legajo);
             encontrado = alumno != null;
         }catch(Exception e){
             viewLoginUsuario.operacionFallida("Error", e.getMessage());

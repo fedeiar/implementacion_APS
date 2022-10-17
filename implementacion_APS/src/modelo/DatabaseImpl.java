@@ -80,24 +80,20 @@ public class DatabaseImpl{
         return nombreCarrera;
     }
 
-    public static Plan getPlanMasRecienteDeCarrera(int codigoCarrera) throws Exception{
-        Plan plan = null;
+    public static void saveCarrera(Carrera carrera) throws Exception {
+        Statement statement = null;
         try{
-            Statement statement = connectToDB();
-
-            ResultSet resultSet = statement.executeQuery("SELECT MAX(anio) AS anio FROM plan WHERE codigo_carrera = '" + codigoCarrera + "'");
-            if(resultSet.next()){
-                int anio = resultSet.getInt("anio");
-                plan = new Plan(anio, codigoCarrera);
+            statement = connectToDB();
+            if (statement != null) {
+                statement.executeUpdate("replace into carrera values('" + carrera.codigo + "', '" + fixIncompatibleSyntax(carrera.nombre) + "')");
             }
-
+        } catch(SQLException e){
+            throw new Exception("An error occurred during saving.");
+        } finally {
             closeConnection(statement);
-        } catch (SQLException e){
-            e.printStackTrace();
-            throw new Exception("Ocurrio un error al obtener el plan mas reciente.");
-        } 
-        return plan;
+        }
     }
+
 
     public static Administrador getAdmin(int legajo_administrador) throws Exception{
         Administrador admin = null;
@@ -134,7 +130,24 @@ public class DatabaseImpl{
         return password_matches;
     }
 
-    public static Alumno getStudent(int legajo_alumno) throws Exception{
+    public static void saveAdmin(Administrador admin) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            if (statement != null) {
+                statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.email)
+                        + "', '" + fixIncompatibleSyntax(admin.password) + "', '"
+                        + fixIncompatibleSyntax(admin.nombre) + "', '" + fixIncompatibleSyntax(admin.apellido)
+                        + "', '" + admin.legajo_administrador + "')");
+            }
+        } catch (SQLException e) {
+            throw new Exception("An error occurred during saving.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static Alumno getAlumno(int legajo_alumno) throws Exception{
         Alumno alumno = null;
         Statement statement = null;
         try{
@@ -152,24 +165,6 @@ public class DatabaseImpl{
         return alumno;
     }
 
-    public static List<String> getPlansOfCareers() throws Exception{
-        List<String> plans = new ArrayList<>();
-        Statement statement = null;
-        try{
-            statement = connectToDB();
-            ResultSet resultSet = statement.executeQuery("select * from plan");
-            while(resultSet.next()) {
-                String p = "plan: " + resultSet.getInt("anio") + " carrera: " +  resultSet.getInt("codigo_carrera");
-                plans.add(p);
-            }
-        } catch(SQLException e){
-            throw new Exception("An error occurred while recovering plans.");
-        } finally{
-            closeConnection(statement);
-        }
-        return plans;
-    }
-
     public static boolean checkAlumnoPassword(int legajo_alumno, String password) throws Exception{
         boolean password_matches = false;
         try{
@@ -185,37 +180,6 @@ public class DatabaseImpl{
             throw new Exception("An error occurred while checking password");
         }
         return password_matches;
-    }
-
-    public static void saveCarrera(Carrera carrera) throws Exception {
-        Statement statement = null;
-        try{
-            statement = connectToDB();
-            if (statement != null) {
-                statement.executeUpdate("replace into carrera values('" + carrera.codigo + "', '" + fixIncompatibleSyntax(carrera.nombre) + "')");
-            }
-        } catch(SQLException e){
-            throw new Exception("An error occurred during saving.");
-        } finally {
-            closeConnection(statement);
-        }
-    }
-
-    public static void saveAdmin(Administrador admin) throws Exception {
-        Statement statement = null;
-        try {
-            statement = connectToDB();
-            if (statement != null) {
-                statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.email)
-                        + "', '" + fixIncompatibleSyntax(admin.password) + "', '"
-                        + fixIncompatibleSyntax(admin.nombre) + "', '" + fixIncompatibleSyntax(admin.apellido)
-                        + "', '" + admin.legajo_administrador + "')");
-            }
-        } catch (SQLException e) {
-            throw new Exception("An error occurred during saving.");
-        } finally {
-            closeConnection(statement);
-        }
     }
 
     public static void saveStudent(Alumno alumno) throws Exception {
@@ -236,6 +200,43 @@ public class DatabaseImpl{
         }
     }
 
+    public static List<String> getPlanesDeCarreras() throws Exception{
+        List<String> plans = new ArrayList<>();
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            ResultSet resultSet = statement.executeQuery("select * from plan");
+            while(resultSet.next()) {
+                String p = "plan: " + resultSet.getInt("anio") + " carrera: " +  resultSet.getInt("codigo_carrera");
+                plans.add(p);
+            }
+        } catch(SQLException e){
+            throw new Exception("An error occurred while recovering plans.");
+        } finally{
+            closeConnection(statement);
+        }
+        return plans;
+    }
+
+    public static Plan getPlanMasRecienteDeCarrera(int codigoCarrera) throws Exception{
+        Plan plan = null;
+        try{
+            Statement statement = connectToDB();
+
+            ResultSet resultSet = statement.executeQuery("SELECT MAX(anio) AS anio FROM plan WHERE codigo_carrera = '" + codigoCarrera + "'");
+            if(resultSet.next()){
+                int anio = resultSet.getInt("anio");
+                plan = new Plan(anio, codigoCarrera);
+            }
+
+            closeConnection(statement);
+        } catch (SQLException e){
+            e.printStackTrace();
+            throw new Exception("Ocurrio un error al obtener el plan mas reciente.");
+        } 
+        return plan;
+    }
+
     public static void savePlan(Plan plan) throws Exception {
         Statement statement = null;
         try {
@@ -250,15 +251,16 @@ public class DatabaseImpl{
         }
     }
 
-    public static void saveMateria(Materia materia) throws Exception {
+    public static void saveMateria(String nombreMateria) throws Exception {
         Statement statement = null;
         try {
             statement = connectToDB();
             
-            statement.executeUpdate("INSERT INTO materia VALUES('" + materia.codigo + "', '" + materia.nombre + "')");
+            statement.executeUpdate("INSERT INTO materia(nombre) VALUES('" + nombreMateria + "')");
             
         } catch(SQLException e){
-            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+            e.printStackTrace();
+            throw new Exception("No puede crearse mas de una materia con el mismo codigo.");
         } finally {
             closeConnection(statement);
         }

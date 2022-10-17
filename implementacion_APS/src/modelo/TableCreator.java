@@ -45,7 +45,7 @@ public class TableCreator {
                 "contrasenia CHAR(32)," +
                 "nombre STRING," +
                 "apellido STRING," +
-                "legajo INTEGER AUTO_INCREMENT PRIMARY KEY )"
+                "legajo INTEGER PRIMARY KEY )"
         );
 
         statement.executeUpdate(
@@ -54,7 +54,7 @@ public class TableCreator {
                 "contrasenia CHAR(32)," +
                 "nombre STRING," +
                 "apellido STRING," +
-                "legajo INTEGER AUTO_INCREMENT PRIMARY KEY )"
+                "legajo INTEGER PRIMARY KEY )"
         );
         
         statement.executeUpdate(
@@ -63,7 +63,7 @@ public class TableCreator {
                 "contrasenia CHAR(32)," +
                 "nombre STRING," +
                 "apellido STRING," +
-                "legajo INTEGER AUTO_INCREMENT PRIMARY KEY )"
+                "legajo INTEGER PRIMARY KEY )"
         );
         
         statement.executeUpdate(
@@ -101,6 +101,11 @@ public class TableCreator {
         DatabaseImpl.savePlan(new Plan(2012, 1));
         DatabaseImpl.savePlan(new Plan(2010, 2));
         DatabaseImpl.savePlan(new Plan(2022, 1));
+
+        //TODO: solo le paso el nombre porque el codigo se autonicrementa al ser llave primaria, nose que opinan.
+        DatabaseImpl.saveMateria("Matematica 1");
+        DatabaseImpl.saveMateria("Algebra");
+        DatabaseImpl.saveMateria("Estadistica");
     }
 
 }
