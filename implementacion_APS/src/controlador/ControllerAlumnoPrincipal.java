@@ -1,14 +1,14 @@
 package controlador;
 
 import vista.ViewLoginUsuario;
-import vista.ViewPrincipalAlumno;
+import vista.ViewAlumnoPrincipal;
 
-public interface ControllerPrincipalAlumno {
+public interface ControllerAlumnoPrincipal {
     
     public void cambiarVentanaLogin();
 
     public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario);
 
-    public void setViewPrincipalAlumno(ViewPrincipalAlumno viewPrincipalAlumno);
+    public void setViewPrincipalAlumno(ViewAlumnoPrincipal viewPrincipalAlumno);
 
 }

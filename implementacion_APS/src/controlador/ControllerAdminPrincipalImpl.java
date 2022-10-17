@@ -4,24 +4,24 @@ import vista.ViewAdminAltaAlumno;
 import vista.ViewLoginUsuario;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaPlan;
-import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminPrincipal;
 import vista.ViewAdminAgregarMatAPlan;
 
-public class ControllerPrincipalAdministradorImpl implements ControllerPrincipalAdministrador{
+public class ControllerAdminPrincipalImpl implements ControllerAdminPrincipal{
 
-    private ViewPrincipalAdministrador viewPrincipalAdministrador;
+    private ViewAdminPrincipal viewAdminPrincipal;
     private ViewAdminAltaAlumno viewAdminAltaAlumno;
     private ViewLoginUsuario viewLoginUsuario;
     private ViewAdminAltaCarrera viewAdminAltaCarrera;
     private ViewAdminAltaPlan viewAdminAltaPlan;
     private ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan;
     
-    public ControllerPrincipalAdministradorImpl(){
+    public ControllerAdminPrincipalImpl(){
 
     }
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador){
-        this.viewPrincipalAdministrador = viewPrincipalAdministrador;
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
+        this.viewAdminPrincipal = viewPrincipalAdministrador;
     }
 
     public void setViewAdminAltaAlumno(ViewAdminAltaAlumno viewAdminAltaAlumno){

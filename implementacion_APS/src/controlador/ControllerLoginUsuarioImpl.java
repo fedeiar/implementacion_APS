@@ -4,14 +4,14 @@ import modelo.Administrador;
 import modelo.Alumno;
 import modelo.DatabaseImpl;
 import vista.ViewLoginUsuario;
-import vista.ViewPrincipalAdministrador;
-import vista.ViewPrincipalAlumno;
+import vista.ViewAdminPrincipal;
+import vista.ViewAlumnoPrincipal;
 
 public class ControllerLoginUsuarioImpl implements ControllerLoginUsuario{
     
     private ViewLoginUsuario viewLoginUsuario;
-    private ViewPrincipalAdministrador viewPrincipalAdministrador;
-    private ViewPrincipalAlumno viewPrincipalAlumno;
+    private ViewAdminPrincipal viewPrincipalAdministrador;
+    private ViewAlumnoPrincipal viewPrincipalAlumno;
 
     private Administrador admin;
     private Alumno alumno;
@@ -24,11 +24,11 @@ public class ControllerLoginUsuarioImpl implements ControllerLoginUsuario{
         this.viewLoginUsuario = viewLoginUsuario;
     }
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador){
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
         this.viewPrincipalAdministrador = viewPrincipalAdministrador;
     }
 
-    public void setViewPrincipalAlumno(ViewPrincipalAlumno viewPrincipalAlumno){
+    public void setViewPrincipalAlumno(ViewAlumnoPrincipal viewPrincipalAlumno){
         this.viewPrincipalAlumno = viewPrincipalAlumno;
     }
 
@@ -64,6 +64,7 @@ public class ControllerLoginUsuarioImpl implements ControllerLoginUsuario{
         try{
             if(existeAlumno(username)){
                 if(DatabaseImpl.checkAlumnoPassword(username, password)){
+                    viewPrincipalAlumno.setAlumno(alumno);
                     viewPrincipalAlumno.mostrarse();
                 } else{
                     viewLoginUsuario.operacionFallida("Error: contraseña incorrecta", "Reingrese su contraseña");

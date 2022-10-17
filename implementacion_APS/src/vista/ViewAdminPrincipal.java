@@ -1,6 +1,6 @@
 package vista;
 
-public interface ViewPrincipalAdministrador{
+public interface ViewAdminPrincipal{
 
     public void mostrarse();
 

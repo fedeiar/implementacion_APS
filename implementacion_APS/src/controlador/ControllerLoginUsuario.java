@@ -1,17 +1,17 @@
 package controlador;
 
 import vista.ViewLoginUsuario;
-import vista.ViewPrincipalAdministrador;
-import vista.ViewPrincipalAlumno;
+import vista.ViewAdminPrincipal;
+import vista.ViewAlumnoPrincipal;
 
 public interface ControllerLoginUsuario {
     
 
     public void setViewLoginUsuario(ViewLoginUsuario viewLoginUsuario);
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador);
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador);
 
-    public void setViewPrincipalAlumno(ViewPrincipalAlumno viewPrincipalAlumno);
+    public void setViewPrincipalAlumno(ViewAlumnoPrincipal viewAlumnoPrincipal);
 
     public void autenticarUsuarioAdministrador(int username, String password);
 

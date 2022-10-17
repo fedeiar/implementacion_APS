@@ -3,7 +3,7 @@ package controlador;
 import modelo.Materia;
 import modelo.Plan;
 import vista.ViewAdminAgregarMatAPlan;
-import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminPrincipal;
 
 public interface ControllerAdminAgregarMatAPlan {
     
@@ -14,5 +14,5 @@ public interface ControllerAdminAgregarMatAPlan {
 
     public void regresarMenuPrincipalAdmin();
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador);
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador);
 }

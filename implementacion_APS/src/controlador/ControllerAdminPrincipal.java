@@ -5,12 +5,12 @@ import vista.ViewLoginUsuario;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaPlan;
 import vista.ViewAdminAgregarMatAPlan;
-import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminPrincipal;
 
-public interface ControllerPrincipalAdministrador{
+public interface ControllerAdminPrincipal{
 
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador);
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador);
 
     public void setViewAdminAltaAlumno(ViewAdminAltaAlumno viewAdminAltaAlumno);
 

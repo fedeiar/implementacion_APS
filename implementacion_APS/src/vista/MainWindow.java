@@ -12,10 +12,10 @@ import controlador.ControllerAdminAltaPlanImpl;
 import controlador.ControllerAdminAgregarMatAPlan;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuarioImpl;
-import controlador.ControllerPrincipalAdministrador;
-import controlador.ControllerPrincipalAdministradorImpl;
-import controlador.ControllerPrincipalAlumno;
-import controlador.ControllerPrincipalAlumnoImpl;
+import controlador.ControllerAdminPrincipal;
+import controlador.ControllerAdminPrincipalImpl;
+import controlador.ControllerAlumnoPrincipal;
+import controlador.ControllerAlumnoPrincipalImpl;
 import modelo.DatabaseImpl;
 
 public class MainWindow extends JFrame{
@@ -38,19 +38,17 @@ public class MainWindow extends JFrame{
         ViewLoginUsuario viewLoginUsuario = new ViewLoginUsuarioImpl(this, controllerLoginUsuario);
         controllerLoginUsuario.setViewLoginUsuario(viewLoginUsuario);
 
-        ControllerPrincipalAdministrador controllerPrincipalAdministrador = new ControllerPrincipalAdministradorImpl();
-        ViewPrincipalAdministrador viewPrincipalAdministrador = new ViewPrincipalAdministradorImpl(this, controllerPrincipalAdministrador);
+        ControllerAdminPrincipal controllerPrincipalAdministrador = new ControllerAdminPrincipalImpl();
+        ViewAdminPrincipal viewPrincipalAdministrador = new ViewAdminPrincipalImpl(this, controllerPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         controllerPrincipalAdministrador.setViewLoginUsuario(viewLoginUsuario);
         controllerLoginUsuario.setViewPrincipalAdministrador(viewPrincipalAdministrador);
         
-        // controller para la ventana principal del alumno
-        ControllerPrincipalAlumno controllerPrincipalAlumno = new ControllerPrincipalAlumnoImpl();
-        ViewPrincipalAlumno viewPrincipalAlumno = new ViewPrincipalAlumnoImpl(this, controllerPrincipalAlumno);
-        controllerPrincipalAlumno.setViewPrincipalAlumno(viewPrincipalAlumno);
+        ControllerAlumnoPrincipal controllerPrincipalAlumno = new ControllerAlumnoPrincipalImpl();
+        ViewAlumnoPrincipal viewAlumnoPrincipal = new ViewAlumnoPrincipalImpl(this, controllerPrincipalAlumno);
+        controllerPrincipalAlumno.setViewPrincipalAlumno(viewAlumnoPrincipal);
         controllerPrincipalAlumno.setViewLoginUsuario(viewLoginUsuario);
-        // pasarle al controller el viewprincipalAlumno
-        controllerLoginUsuario.setViewPrincipalAlumno(viewPrincipalAlumno);
+        controllerLoginUsuario.setViewPrincipalAlumno(viewAlumnoPrincipal);
 
         ControllerAdminAltaAlumno controllerAdminAltaAlumno = new ControllerAdminAltaAlumnoImpl();
         ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumnoImpl(this, controllerAdminAltaAlumno);

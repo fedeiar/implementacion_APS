@@ -9,19 +9,22 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import controlador.ControllerPrincipalAlumno;
+import controlador.ControllerAlumnoPrincipal;
+import modelo.Alumno;
 
 
-public class ViewPrincipalAlumnoImpl extends JPanel implements ViewPrincipalAlumno{
+public class ViewAlumnoPrincipalImpl extends JPanel implements ViewAlumnoPrincipal{
     
 
     private MainWindow mainWindow;
-    private ControllerPrincipalAlumno controllerPrincipalAlumno;
+    private ControllerAlumnoPrincipal controllerPrincipalAlumno;
 
     private JLabel lblBienvenidoAlumno;
     private JButton btnLogOut;
 
-    public ViewPrincipalAlumnoImpl(MainWindow mainWindow, ControllerPrincipalAlumno controllerPrincipalAlumno){
+    public Alumno alumno;
+
+    public ViewAlumnoPrincipalImpl(MainWindow mainWindow, ControllerAlumnoPrincipal controllerPrincipalAlumno){
         this.mainWindow = mainWindow;
         this.controllerPrincipalAlumno = controllerPrincipalAlumno;
 
@@ -34,9 +37,10 @@ public class ViewPrincipalAlumnoImpl extends JPanel implements ViewPrincipalAlum
 
     private void inicializarComponentes(){
         lblBienvenidoAlumno = new JLabel("Bienvenido Alumno.");
-        lblBienvenidoAlumno.setHorizontalAlignment(SwingConstants.CENTER);
+        lblBienvenidoAlumno.setHorizontalAlignment(SwingConstants.LEFT);
         lblBienvenidoAlumno.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblBienvenidoAlumno.setBounds(365, 36, 255, 60);
+       
         add(lblBienvenidoAlumno);
 
         btnLogOut = new JButton("Logout");
@@ -63,5 +67,11 @@ public class ViewPrincipalAlumnoImpl extends JPanel implements ViewPrincipalAlum
 
     public void operacionFallida(String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void setAlumno(Alumno alumno){
+        this.alumno = alumno;
+        lblBienvenidoAlumno.setSize(alumno.nombre.length() + alumno.apellido.length() * 50, 36);
+        lblBienvenidoAlumno.setText("Bienvenido alumno " + alumno.nombre + " " + alumno.apellido);
     }
 }

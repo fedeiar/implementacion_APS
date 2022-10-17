@@ -2,7 +2,7 @@ package controlador;
 
 import modelo.Alumno;
 import vista.ViewAdminAltaAlumno;
-import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminPrincipal;
 
 public interface ControllerAdminAltaAlumno {
     
@@ -13,5 +13,5 @@ public interface ControllerAdminAltaAlumno {
 
     public void regresarMenuPrincipalAdmin();
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador);
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador);
 }

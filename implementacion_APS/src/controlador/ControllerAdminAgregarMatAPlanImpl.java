@@ -4,13 +4,13 @@ import modelo.DatabaseImpl;
 import modelo.Materia;
 import modelo.Plan;
 import vista.ViewAdminAgregarMatAPlan;
-import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminPrincipal;
 
 public class ControllerAdminAgregarMatAPlanImpl implements ControllerAdminAgregarMatAPlan{
     
 
     private ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan;
-    private ViewPrincipalAdministrador viewPrincipalAdministrador;
+    private ViewAdminPrincipal viewPrincipalAdministrador;
 
 
     public ControllerAdminAgregarMatAPlanImpl(){
@@ -21,7 +21,7 @@ public class ControllerAdminAgregarMatAPlanImpl implements ControllerAdminAgrega
         this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
     }
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador){
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
         this.viewPrincipalAdministrador = viewPrincipalAdministrador;
     }
 

@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.nio.channels.NetworkChannel;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,13 +10,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import controlador.ControllerPrincipalAdministrador;
+import controlador.ControllerAdminPrincipal;
 
 
-public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrincipalAdministrador{
+public class ViewAdminPrincipalImpl extends JPanel implements ViewAdminPrincipal{
 
     private MainWindow mainWindow;
-    private ControllerPrincipalAdministrador controllerPrincipalAdministrador;
+    private ControllerAdminPrincipal controllerPrincipalAdministrador;
 
     private JLabel lblBienvenido;
     private JButton btnLogOut;
@@ -26,7 +25,7 @@ public class ViewPrincipalAdministradorImpl extends JPanel implements ViewPrinci
     private JButton btnDarDeAltaPlan;
     private JButton btnAgregarMatAPlan;
 
-	public ViewPrincipalAdministradorImpl(MainWindow mainWindow, ControllerPrincipalAdministrador controllerPrincipalAdministrador) {
+	public ViewAdminPrincipalImpl(MainWindow mainWindow, ControllerAdminPrincipal controllerPrincipalAdministrador) {
         this.mainWindow = mainWindow;
         this.controllerPrincipalAdministrador = controllerPrincipalAdministrador;
         this.setBounds(100, 100, 1000, 600);

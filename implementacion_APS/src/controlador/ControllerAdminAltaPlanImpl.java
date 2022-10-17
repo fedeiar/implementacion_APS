@@ -3,13 +3,13 @@ package controlador;
 import modelo.Plan;
 import modelo.DatabaseImpl;
 import vista.ViewAdminAltaPlan;
-import vista.ViewPrincipalAdministrador;
+import vista.ViewAdminPrincipal;
 
 public class ControllerAdminAltaPlanImpl implements ControllerAdminAltaPlan{
     
 
     private ViewAdminAltaPlan viewAdminAltaPlan;
-    private ViewPrincipalAdministrador viewPrincipalAdministrador;
+    private ViewAdminPrincipal viewPrincipalAdministrador;
 
 
     public ControllerAdminAltaPlanImpl(){
@@ -20,7 +20,7 @@ public class ControllerAdminAltaPlanImpl implements ControllerAdminAltaPlan{
         this.viewAdminAltaPlan = viewAdminAltaPlan;
     }
 
-    public void setViewPrincipalAdministrador(ViewPrincipalAdministrador viewPrincipalAdministrador){
+    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
         this.viewPrincipalAdministrador = viewPrincipalAdministrador;
     }
 
