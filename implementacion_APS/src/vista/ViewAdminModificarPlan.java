@@ -22,7 +22,7 @@ public class ViewAdminModificarPlan extends JPanel {
 	private MainWindow mainWindow;
     private ControllerAdminModificarPlan controllerAdminAgregarMatAPlan;
 
-    private JButton btnCancelar, btnCrearYAgregarMateria;
+    private JButton btnCancelar, btnAgregarMateria, btnEliminarMateria;
     private JLabel lblAgregarMatAPlan, lblElegirPlanCarrera, lblElegirMateria;
     private JComboBox<String> cbElegirPlan;
     private JComboBox<String> cbElegirMateria;
@@ -55,14 +55,18 @@ public class ViewAdminModificarPlan extends JPanel {
         armarComboBoxPlanes();
 
         lblElegirMateria = new JLabel("Elija una materia:");
-        lblElegirMateria.setBounds(230, 119, 200, 17);
+        lblElegirMateria.setBounds(230, 169, 200, 17);
         add(lblElegirMateria);
 
         armarComboBoxMaterias();
         
-        btnCrearYAgregarMateria = new JButton("Crear y agregar materia");
-        btnCrearYAgregarMateria.setBounds(300, 500, 300, 23);
-        add(btnCrearYAgregarMateria);
+        btnAgregarMateria = new JButton("Agregar materia seleccionada");
+        btnAgregarMateria.setBounds(250, 350, 220, 23);
+        add(btnAgregarMateria);
+
+        btnEliminarMateria = new JButton("Quitar materia seleccionada");
+        btnEliminarMateria.setBounds(500, 350, 220, 23);
+        add(btnEliminarMateria);
         
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(61, 500, 89, 23);
@@ -71,7 +75,7 @@ public class ViewAdminModificarPlan extends JPanel {
 
     private void inicializarListeners(){
 
-        btnCrearYAgregarMateria.addActionListener(new ActionListener(){
+        btnAgregarMateria.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent) {
                 String plan = cbElegirPlan.getSelectedItem().toString();
                 try{
@@ -98,7 +102,7 @@ public class ViewAdminModificarPlan extends JPanel {
         try{
             planes = DatabaseImpl.getPlanesDeCarreras();
             for(Plan plan : planes){
-                cbElegirPlan.addItem("codigo carrera: " + plan.codCarrera +" - año:"+ plan.anio);
+                cbElegirPlan.addItem("codigo carrera: " + plan.codCarrera +" - año: "+ plan.anio);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());
@@ -107,12 +111,12 @@ public class ViewAdminModificarPlan extends JPanel {
 
     private void armarComboBoxMaterias(){
         cbElegirMateria = new JComboBox<String>();
-        cbElegirMateria.setBounds(389, 119, 200, 21);
+        cbElegirMateria.setBounds(389, 167, 200, 21);
         add(cbElegirMateria);
         try{
             materias = DatabaseImpl.getMaterias();
             for(Materia materia : materias){
-                cbElegirMateria.addItem(" - nombre: "+ materia.nombre + "codigo : " + materia.codigo);
+                cbElegirMateria.addItem("Mombre: "+ materia.nombre + " - codigo : " + materia.codigo);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());

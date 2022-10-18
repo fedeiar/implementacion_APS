@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -87,27 +88,31 @@ public class TableCreator {
             "FOREIGN KEY(legajo_profesor) REFERENCES profesor(legajo) ON DELETE CASCADE ON UPDATE CASCADE )"
         );
     
-        addInfoToDB();
+        addInfoToDB(statement);
     }
 
-    private static void addInfoToDB() throws Exception {
+    private static void addInfoToDB(Statement statement) throws Exception {
         //TODO: si fernando nos dice algo, agregarle lo de md5 a las contraseñas.
-        DatabaseImpl.saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Pablo", "Suarez", 1));
-        DatabaseImpl.saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Juan", "Perez", 2));
-        DatabaseImpl.saveAlumno(new Alumno("fulano3@hotmail.com", "4321", "Rodrigo", "Gonzalez", 1));
-        DatabaseImpl.saveAlumno(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
-        DatabaseImpl.saveProfesor(new Profesor("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 1));
-        DatabaseImpl.saveProfesor(new Profesor("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 2));
-        DatabaseImpl.saveCarrera(new Carrera("Licenciatura en Aprender a Leer",1));
-        DatabaseImpl.saveCarrera(new Carrera("Licenciatura en Sumar Enteros", 2));
-        DatabaseImpl.savePlan(new Plan(2012, 1));
-        DatabaseImpl.savePlan(new Plan(2010, 2));
-        DatabaseImpl.savePlan(new Plan(2022, 1));
 
-        //TODO: solo le paso el nombre porque el codigo se autonicrementa al ser llave primaria, nose que opinan.
-        DatabaseImpl.saveMateria("Matematica 1");
-        DatabaseImpl.saveMateria("Algebra");
-        DatabaseImpl.saveMateria("Estadistica");
+        Administrador admin = DatabaseImpl.getAdmin(1);
+        if(admin == null){
+            DatabaseImpl.saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Pablo", "Suarez", 1));
+            DatabaseImpl.saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Juan", "Perez", 2));
+            DatabaseImpl.saveAlumno(new Alumno("fulano3@hotmail.com", "4321", "Rodrigo", "Gonzalez", 1));
+            DatabaseImpl.saveAlumno(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
+            DatabaseImpl.saveProfesor(new Profesor("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 1));
+            DatabaseImpl.saveProfesor(new Profesor("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 2));
+            DatabaseImpl.saveCarrera(new Carrera("Licenciatura en Aprender a Leer",1));
+            DatabaseImpl.saveCarrera(new Carrera("Licenciatura en Sumar Enteros", 2));
+            DatabaseImpl.savePlan(new Plan(2012, 1));
+            DatabaseImpl.savePlan(new Plan(2010, 2));
+            DatabaseImpl.savePlan(new Plan(2022, 1));
+
+            //TODO: solo le paso el nombre porque el codigo se autonicrementa al ser llave primaria, nose que opinan.
+            DatabaseImpl.saveMateria("Matematica 1");
+            DatabaseImpl.saveMateria("Algebra");
+            DatabaseImpl.saveMateria("Estadistica");
+        }
     }
 
 }
