@@ -232,7 +232,7 @@ public class DatabaseImpl{
             
         } catch(SQLException e){
             e.printStackTrace();
-            throw new Exception("An error occurred during saving a student.");
+            throw new Exception("Sucedio un error al guardar el estudiante.");
         } finally {
             closeConnection(statement);
         }
@@ -248,7 +248,7 @@ public class DatabaseImpl{
                 plans.add(new Plan(resultSet.getInt("anio"), resultSet.getInt("codigo_carrera")));
             }
         } catch(SQLException e){
-            throw new Exception("An error occurred while recovering plans.");
+            throw new Exception("Sucedio un error al recuperar los planes.");
         } finally{
             closeConnection(statement);
         }
@@ -286,6 +286,26 @@ public class DatabaseImpl{
         } finally {
             closeConnection(statement);
         }
+    }
+
+    public static List<Materia> getMaterias() throws Exception{
+        List<Materia> materias = new ArrayList<>();
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            ResultSet resultSet = statement.executeQuery("select * from materia");
+            while(resultSet.next()) {
+                Materia materia = new Materia(resultSet.getString("nombre"));
+                materia.codigo = resultSet.getInt("codigo");
+                materias.add(materia);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Sucedio un error al recuperar las materias.");
+        } finally{
+            closeConnection(statement);
+        }
+        return materias;
     }
 
     public static void saveMateria(String nombreMateria) throws Exception {

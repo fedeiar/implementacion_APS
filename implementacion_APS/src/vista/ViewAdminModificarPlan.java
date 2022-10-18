@@ -3,6 +3,7 @@ package vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import controlador.ControllerAdminModificarPlan;
 import modelo.DatabaseImpl;
+import modelo.Materia;
 import modelo.Plan;
 
 public class ViewAdminModificarPlan extends JPanel {
@@ -21,8 +23,12 @@ public class ViewAdminModificarPlan extends JPanel {
     private ControllerAdminModificarPlan controllerAdminAgregarMatAPlan;
 
     private JButton btnCancelar, btnCrearYAgregarMateria;
-    private JLabel lblAgregarMatAPlan, lblElegirPlanCarrera;
+    private JLabel lblAgregarMatAPlan, lblElegirPlanCarrera, lblElegirMateria;
     private JComboBox<String> cbElegirPlan;
+    private JComboBox<String> cbElegirMateria;
+
+    private List<Plan> planes;
+    private List<Materia> materias;
     
 	
 	public ViewAdminModificarPlan(MainWindow mainWindow, ControllerAdminModificarPlan controllerAdminAgregarMatAPlan) {
@@ -42,11 +48,17 @@ public class ViewAdminModificarPlan extends JPanel {
         lblAgregarMatAPlan.setBounds(358, 31, 210, 29);
         add(lblAgregarMatAPlan);
 
-        armarComboBoxPlanesAsocACarrera();
-
         lblElegirPlanCarrera = new JLabel("Elija un plan de la carrera:");
-        lblElegirPlanCarrera.setBounds(295, 136, 200, 17);
+        lblElegirPlanCarrera.setBounds(230, 139, 200, 17);
         add(lblElegirPlanCarrera);
+
+        armarComboBoxPlanes();
+
+        lblElegirMateria = new JLabel("Elija una materia:");
+        lblElegirMateria.setBounds(230, 119, 200, 17);
+        add(lblElegirMateria);
+
+        armarComboBoxMaterias();
         
         btnCrearYAgregarMateria = new JButton("Crear y agregar materia");
         btnCrearYAgregarMateria.setBounds(300, 500, 300, 23);
@@ -79,13 +91,28 @@ public class ViewAdminModificarPlan extends JPanel {
         });
     }
 
-    private void armarComboBoxPlanesAsocACarrera(){
-        cbElegirPlan = new JComboBox<Plan>();
-        cbElegirPlan.setBounds(389, 167, 160, 21);
+    private void armarComboBoxPlanes(){
+        cbElegirPlan = new JComboBox<String>();
+        cbElegirPlan.setBounds(389, 137, 200, 21);
         add(cbElegirPlan);
         try{
-            for(Plan plan : DatabaseImpl.getPlanesDeCarreras()){
-                cbElegirPlan.addItem(plan);
+            planes = DatabaseImpl.getPlanesDeCarreras();
+            for(Plan plan : planes){
+                cbElegirPlan.addItem("codigo carrera: " + plan.codCarrera +" - año:"+ plan.anio);
+            }
+        } catch(Exception e){
+            this.operacionFallida("Error", e.getMessage());
+        }
+    }
+
+    private void armarComboBoxMaterias(){
+        cbElegirMateria = new JComboBox<String>();
+        cbElegirMateria.setBounds(389, 119, 200, 21);
+        add(cbElegirMateria);
+        try{
+            materias = DatabaseImpl.getMaterias();
+            for(Materia materia : materias){
+                cbElegirMateria.addItem(" - nombre: "+ materia.nombre + "codigo : " + materia.codigo);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());
