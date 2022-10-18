@@ -29,10 +29,10 @@ public class ControllerAdminAltaMateria{
         viewPrincipalAdministrador.mostrarse();
     }
 
-    public void darDeAltaMateria(Materia materia){ 
+    public void darDeAltaMateria(String nombre){ 
         try {
             //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
-            DatabaseImpl.saveMateria(materia);
+            DatabaseImpl.saveMateria(nombre);
             viewAdminAltaMateria.operacionExitosa("Registro exitoso", "Una materia registrado exitosamente.");
         } catch (Exception e) {
             viewAdminAltaMateria.operacionFallida("Error: ", e.getMessage());

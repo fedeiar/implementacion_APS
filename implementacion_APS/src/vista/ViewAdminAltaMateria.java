@@ -65,9 +65,8 @@ public class ViewAdminAltaMateria extends JPanel{
         btnRegistrar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 String nombre = TFNombre.getText();
-                Materia materia = new Materia(nombre);
 
-                controllerAdminAltaMateria.darDeAltaMateria(materia);
+                controllerAdminAltaMateria.darDeAltaMateria(nombre);
             }
         });
 
