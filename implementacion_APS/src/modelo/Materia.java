@@ -8,6 +8,5 @@ public class Materia{
 
     public Materia(String nombre){
         this.nombre = nombre;
-        
     }
 }

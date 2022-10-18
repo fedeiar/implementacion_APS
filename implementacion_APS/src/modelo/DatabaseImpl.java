@@ -25,15 +25,15 @@ public class DatabaseImpl{
     }
 
     
-    public static ArrayList<String> getNombresDeCarreras() throws Exception{
-        ArrayList<String> careers = new ArrayList<>();
+    public static ArrayList<Carrera> getCarreras() throws Exception{
+        ArrayList<Carrera> carreras = new ArrayList<>();
         Statement statement = null;
         try{
             statement = connectToDB();
             if(statement != null){
                 ResultSet resultSet = statement.executeQuery("select * from carrera");
                 while (resultSet.next()){
-                    careers.add(resultSet.getString("nombre"));
+                    carreras.add(new Carrera(resultSet.getString("nombre"), resultSet.getInt("codigo")));
                 }
             }
         } catch(SQLException e){
@@ -41,7 +41,7 @@ public class DatabaseImpl{
         } finally{
             closeConnection(statement);
         }
-        return careers;
+        return carreras;
     }
 
     public static int getCodigoCarrera(String nombreCarrera) throws Exception{
@@ -182,7 +182,7 @@ public class DatabaseImpl{
         return password_matches;
     }
 
-    public static void saveStudent(Alumno alumno) throws Exception {
+    public static void saveAlumno(Alumno alumno) throws Exception {
         Statement statement = null;
         try {
             statement = connectToDB();
@@ -191,6 +191,44 @@ public class DatabaseImpl{
                     + "', '" + fixIncompatibleSyntax(alumno.password) + "', '"
                     + fixIncompatibleSyntax(alumno.nombre) + "', '" + fixIncompatibleSyntax(alumno.apellido)
                     + "', '" + alumno.legajo_alumno + "')");
+            
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("An error occurred during saving a student.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static ArrayList<Profesor> getProfesores() throws Exception{
+        ArrayList<Profesor> profesores = new ArrayList<>();
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            if(statement != null){
+                ResultSet resultSet = statement.executeQuery("select * from profesor");
+                while (resultSet.next()){
+                    profesores.add(new Profesor(resultSet.getString("email"), resultSet.getString("password"), resultSet.getString("nombre"), resultSet.getString("apellido"), resultSet.getInt("legajo")));
+                }
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Sucedio un error al recuperar los profesores.");
+        } finally{
+            closeConnection(statement);
+        }
+        return profesores;
+    }
+
+    public static void saveProfesor(Profesor profesor) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("REPLACE INTO profesor VALUES('" + fixIncompatibleSyntax(profesor.email)
+                    + "', '" + fixIncompatibleSyntax(profesor.password) + "', '"
+                    + fixIncompatibleSyntax(profesor.nombre) + "', '" + fixIncompatibleSyntax(profesor.apellido)
+                    + "', '" + profesor.legajo_docente + "')");
             
         } catch(SQLException e){
             e.printStackTrace();

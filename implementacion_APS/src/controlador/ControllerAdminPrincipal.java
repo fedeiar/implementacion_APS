@@ -3,6 +3,7 @@ package controlador;
 import vista.ViewAdminAltaAlumno;
 import vista.ViewLoginUsuario;
 import vista.ViewAdminAltaCarrera;
+import vista.ViewAdminAltaCursada;
 import vista.ViewAdminAltaPlan;
 import vista.ViewAdminPrincipal;
 import vista.ViewAdminAgregarMatAPlan;
@@ -15,6 +16,7 @@ public class ControllerAdminPrincipal{
     private ViewAdminAltaCarrera viewAdminAltaCarrera;
     private ViewAdminAltaPlan viewAdminAltaPlan;
     private ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan;
+    private ViewAdminAltaCursada viewAdminAltaCursada;
     
     public ControllerAdminPrincipal(){
 
@@ -44,6 +46,10 @@ public class ControllerAdminPrincipal{
         this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
     }
 
+    public void setViewAdminAltaCursada(ViewAdminAltaCursada viewAdminAltaCursada){
+        this.viewAdminAltaCursada = viewAdminAltaCursada;
+    }
+
     public void cambiarVentanaAltaAlumno(){
         this.viewAdminAltaAlumno.mostrarse();
     }
@@ -62,5 +68,9 @@ public class ControllerAdminPrincipal{
 
     public void cambiarVentanaAgregarMatAPlan(){
         this.viewAdminAgregarMatAPlan.mostrarse();
+    }
+
+    public void cambiarVentanaAdminAltaCursada(){
+        viewAdminAltaCursada.mostrarse();
     }
 }

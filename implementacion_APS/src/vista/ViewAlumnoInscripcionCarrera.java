@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,6 +15,7 @@ import javax.swing.SwingConstants;
 
 import controlador.ControllerAlumnoInscripcionCarrera;
 import modelo.Alumno;
+import modelo.Carrera;
 import modelo.DatabaseImpl;
 
 public class ViewAlumnoInscripcionCarrera extends JPanel{
@@ -24,6 +27,8 @@ public class ViewAlumnoInscripcionCarrera extends JPanel{
     private JButton btnCancelar, btnInscribirse;
     private JLabel lblInscribirseCarrera, lblElijaCarrera;
     private JComboBox<String> cbElegirCarrera;
+
+    private List<Carrera> carreras;
 
     public ViewAlumnoInscripcionCarrera(MainWindow mainWindow, ControllerAlumnoInscripcionCarrera controllerAlumnoInscripcionPlan){
         this.mainWindow = mainWindow;
@@ -62,6 +67,7 @@ public class ViewAlumnoInscripcionCarrera extends JPanel{
         btnInscribirse.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 String nombreCarrera = cbElegirCarrera.getSelectedItem().toString();
+                //TODO: pasar el objeto carrera directamente.
                 controllerAlumnoInscripcionCarrera.inscribirAlumnoEnCarrera(alumno.legajo_alumno, nombreCarrera);
             }
         });
@@ -78,8 +84,9 @@ public class ViewAlumnoInscripcionCarrera extends JPanel{
         cbElegirCarrera.setBounds(389, 167, 160, 21);
         add(cbElegirCarrera);
         try{
-            for(String carrera : DatabaseImpl.getNombresDeCarreras()){
-                cbElegirCarrera.addItem(carrera);
+            carreras = DatabaseImpl.getCarreras();
+            for(Carrera carrera : carreras){
+                cbElegirCarrera.addItem(carrera.nombre);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());

@@ -3,6 +3,7 @@ package vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controlador.ControllerAdminAltaPlan;
+import modelo.Carrera;
 import modelo.DatabaseImpl;
 import modelo.Plan;
 
@@ -26,6 +28,7 @@ public class ViewAdminAltaPlan extends JPanel{
     private JLabel lblAltaPlan, lblElijaCarrera, lblAnio;
     private JComboBox<String> cbElegirCarrera;
     
+    private List<Carrera> carreras;
 	
 	public ViewAdminAltaPlan(MainWindow mainWindow, ControllerAdminAltaPlan controllerAdminAltaPlan) {
         this.mainWindow = mainWindow;
@@ -95,8 +98,9 @@ public class ViewAdminAltaPlan extends JPanel{
         cbElegirCarrera.setBounds(389, 167, 160, 21);
         add(cbElegirCarrera);
         try{
-            for(String carrera : DatabaseImpl.getNombresDeCarreras()){
-                cbElegirCarrera.addItem(carrera);
+            carreras = DatabaseImpl.getCarreras();
+            for(Carrera carrera : carreras){
+                cbElegirCarrera.addItem(carrera.nombre);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());

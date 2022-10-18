@@ -89,7 +89,7 @@ public class ViewAdminPrincipal extends JPanel{
 
         btnDarDeAltaCursada.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                //TODO:
+                controllerAdminPrincipal.cambiarVentanaAdminAltaCursada();
             }
         });
         

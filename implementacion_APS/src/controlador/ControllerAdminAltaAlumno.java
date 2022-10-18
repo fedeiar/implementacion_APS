@@ -31,7 +31,7 @@ public class ControllerAdminAltaAlumno{
     public void darDeAltaAlumno(Alumno alumno){ 
         try {
             //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
-            DatabaseImpl.saveStudent(alumno);
+            DatabaseImpl.saveAlumno(alumno);
             viewAdminAltaAlumno.operacionExitosa("Registro exitoso", "Usuario alumno registrado exitosamente.");
         } catch (Exception e) {
             viewAdminAltaAlumno.operacionFallida("Error: ", e.getMessage());
