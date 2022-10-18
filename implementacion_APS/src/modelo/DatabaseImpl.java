@@ -356,10 +356,15 @@ public class DatabaseImpl{
         try {
             statement = connectToDB();
             
-            statement.executeUpdate("DELETE FROM plan_materia WHERE anio_plan = "+ plan.anio +" AND codigo_carrera = "+ plan.codCarrera +" AND codigo_materia = "+ materia.codigo +"  ");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM plan_materia WHERE anio_plan = "+ plan.anio +" AND codigo_carrera = "+ plan.codCarrera +" AND codigo_materia = "+ materia.codigo +"");
+            if(!resultSet.next()){
+                throw new Exception("La materia no pertenece al plan");
+            }
+
+            statement.executeUpdate("DELETE FROM plan_materia WHERE anio_plan = "+ plan.anio +" AND codigo_carrera = "+ plan.codCarrera +" AND codigo_materia = "+ materia.codigo +"");
             
         } catch(SQLException e){
-            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+            throw new Exception("Error al eliminar la materia del plan");
         } finally {
             closeConnection(statement);
         }

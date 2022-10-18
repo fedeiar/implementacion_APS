@@ -9,8 +9,8 @@ import vista.ViewAdminPrincipal;
 public class ControllerAdminModificarPlan{
     
 
-    private ViewAdminModificarPlan viewAdminAgregarMatAPlan;
-    private ViewAdminPrincipal viewPrincipalAdministrador;
+    private ViewAdminModificarPlan viewAdminModificarPlan;
+    private ViewAdminPrincipal viewAdminPrincipal;
 
 
     public ControllerAdminModificarPlan(){
@@ -18,25 +18,32 @@ public class ControllerAdminModificarPlan{
     }
 
     public void setViewAdminAgregarMatAPlan(ViewAdminModificarPlan viewAdminAgregarMatAPlan){
-        this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
+        this.viewAdminModificarPlan = viewAdminAgregarMatAPlan;
     }
 
     public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
-        this.viewPrincipalAdministrador = viewPrincipalAdministrador;
+        this.viewAdminPrincipal = viewPrincipalAdministrador;
     }
 
     public void regresarMenuPrincipalAdmin(){
-        viewPrincipalAdministrador.mostrarse();
+        viewAdminPrincipal.mostrarse();
     }
 
-    public void agregarMatAPlan(Materia materia, Plan plan){ 
-        try {
+    public void agregarMateriaAPlan(Plan plan, Materia materia){
+        try{
             DatabaseImpl.savePlanMateria(plan, materia);
-            viewAdminAgregarMatAPlan.operacionExitosa("Registro exitoso", "Materia agregada en plan.");
-        } catch (Exception e) {
-            viewAdminAgregarMatAPlan.operacionFallida("Error: ", e.getMessage());
+            viewAdminModificarPlan.operacionExitosa("Exito", "Materia agregada al plan exitosamente.");
+        }catch(Exception e){
+            viewAdminModificarPlan.operacionFallida("Error al agregar materia", e.getMessage());
         }
     }
 
-    
+    public void eliminarMateriaDePlan(Plan plan, Materia materia){
+        try{
+            DatabaseImpl.deletePlanMateria(plan, materia);
+            viewAdminModificarPlan.operacionExitosa("Exito", "Materia elminiada del plan exitosamente.");
+        } catch(Exception e){
+            viewAdminModificarPlan.operacionFallida("Error al eliminar materia", e.getMessage());
+        }
+    }
 }

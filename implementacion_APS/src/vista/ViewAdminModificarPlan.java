@@ -20,7 +20,7 @@ import modelo.Plan;
 public class ViewAdminModificarPlan extends JPanel {
 
 	private MainWindow mainWindow;
-    private ControllerAdminModificarPlan controllerAdminAgregarMatAPlan;
+    private ControllerAdminModificarPlan controllerAdminModificarPlan;
 
     private JButton btnCancelar, btnAgregarMateria, btnEliminarMateria;
     private JLabel lblAgregarMatAPlan, lblElegirPlanCarrera, lblElegirMateria;
@@ -33,7 +33,7 @@ public class ViewAdminModificarPlan extends JPanel {
 	
 	public ViewAdminModificarPlan(MainWindow mainWindow, ControllerAdminModificarPlan controllerAdminAgregarMatAPlan) {
         this.mainWindow = mainWindow;
-        this.controllerAdminAgregarMatAPlan = controllerAdminAgregarMatAPlan;
+        this.controllerAdminModificarPlan = controllerAdminAgregarMatAPlan;
         this.setBounds(100, 100, 1000, 600);
         setLayout(null);
                 
@@ -77,32 +77,37 @@ public class ViewAdminModificarPlan extends JPanel {
 
         btnAgregarMateria.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent) {
-                String plan = cbElegirPlan.getSelectedItem().toString();
-                try{
-                    
-                } catch(Exception e){
-                    operacionFallida("Error", e.getMessage());
-                }
+                Plan plan = planes.get(cbElegirPlan.getSelectedIndex());
+                Materia materia = materias.get(cbElegirMateria.getSelectedIndex());
 
-                //controllerAdminAgregarMatAPlan.agregarMateriaAPlan( );
+                controllerAdminModificarPlan.agregarMateriaAPlan(plan, materia);
+            }
+        });
+
+        btnEliminarMateria.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent) {
+                Plan plan = planes.get(cbElegirPlan.getSelectedIndex());
+                Materia materia = materias.get(cbElegirMateria.getSelectedIndex());
+
+                controllerAdminModificarPlan.eliminarMateriaDePlan(plan, materia);
             }
         });
 
         btnCancelar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerAdminAgregarMatAPlan.regresarMenuPrincipalAdmin();
+                controllerAdminModificarPlan.regresarMenuPrincipalAdmin();
             }
         });
     }
 
     private void armarComboBoxPlanes(){
         cbElegirPlan = new JComboBox<String>();
-        cbElegirPlan.setBounds(389, 137, 200, 21);
+        cbElegirPlan.setBounds(389, 137, 300, 21);
         add(cbElegirPlan);
         try{
             planes = DatabaseImpl.getPlanesDeCarreras();
             for(Plan plan : planes){
-                cbElegirPlan.addItem("codigo carrera: " + plan.codCarrera +" - año: "+ plan.anio);
+                cbElegirPlan.addItem("codigo carrera: " + plan.codCarrera +" - año plan: "+ plan.anio);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());
@@ -111,12 +116,12 @@ public class ViewAdminModificarPlan extends JPanel {
 
     private void armarComboBoxMaterias(){
         cbElegirMateria = new JComboBox<String>();
-        cbElegirMateria.setBounds(389, 167, 200, 21);
+        cbElegirMateria.setBounds(389, 167, 300, 21);
         add(cbElegirMateria);
         try{
             materias = DatabaseImpl.getMaterias();
             for(Materia materia : materias){
-                cbElegirMateria.addItem("Mombre: "+ materia.nombre + " - codigo : " + materia.codigo);
+                cbElegirMateria.addItem("Nombre: "+ materia.nombre + " - codigo : " + materia.codigo);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());
