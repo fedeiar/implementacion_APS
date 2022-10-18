@@ -25,7 +25,7 @@ public class ViewAdminPrincipal extends JPanel{
     private JButton btnDarDeAltaPlan;
     private JButton btnDarDeAltaCursada;
     private JButton btnModificarPlan;
-    private JButton btnAgergarMateria;
+    private JButton btnDarDeAltaMateria;
 
 
 	public ViewAdminPrincipal(MainWindow mainWindow, ControllerAdminPrincipal controllerPrincipalAdministrador) {
@@ -65,9 +65,9 @@ public class ViewAdminPrincipal extends JPanel{
         btnModificarPlan.setBounds(470, 385, 162, 23);
         add(btnModificarPlan);
 
-        btnAgergarMateria = new JButton("Crear Materia");
-        btnAgergarMateria.setBounds(670, 385, 162, 23);
-        add(btnAgergarMateria);
+        btnDarDeAltaMateria = new JButton("Crear Materia");
+        btnDarDeAltaMateria.setBounds(670, 385, 162, 23);
+        add(btnDarDeAltaMateria);
 
         btnLogOut = new JButton("Logout");
         btnLogOut.setBounds(70, 500, 162, 23);
@@ -101,13 +101,13 @@ public class ViewAdminPrincipal extends JPanel{
         
         btnModificarPlan.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerAdminPrincipal.cambiarVentanaAgregarMatAPlan();
+                controllerAdminPrincipal.cambiarVentanaModificarPlan();
             }
         });
 
-        btnAgergarMateria.addActionListener(new ActionListener(){
+        btnDarDeAltaMateria.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                //TODO:
+                controllerAdminPrincipal.cambiarVentanaAltaMateria();
             }
         });
 

@@ -94,6 +94,20 @@ public class DatabaseImpl{
         }
     }
 
+    public static void saveMateria(Materia materia) throws Exception {
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            if (statement != null) {
+                statement.executeUpdate("replace into materia values('" + materia.codigo + "', '" + fixIncompatibleSyntax(materia.nombre) + "')");
+            }
+        } catch(SQLException e){
+            throw new Exception("An error occurred during saving.");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
 
     public static Administrador getAdmin(int legajo_administrador) throws Exception{
         Administrador admin = null;

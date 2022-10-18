@@ -1,7 +1,8 @@
 package controlador;
 
-import vista.ViewAdminAltaAlumno;
+import vista.ViewAdminAltaMateria;
 import vista.ViewLoginUsuario;
+import vista.ViewAdminAltaAlumno;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaCursada;
 import vista.ViewAdminAltaPlan;
@@ -15,8 +16,9 @@ public class ControllerAdminPrincipal{
     private ViewLoginUsuario viewLoginUsuario;
     private ViewAdminAltaCarrera viewAdminAltaCarrera;
     private ViewAdminAltaPlan viewAdminAltaPlan;
-    private ViewAdminModificarPlan viewAdminAgregarMatAPlan;
+    private ViewAdminModificarPlan viewAdminAgregarModificarPlan;
     private ViewAdminAltaCursada viewAdminAltaCursada;
+    private ViewAdminAltaMateria viewAdminAltaMateria;
     
     public ControllerAdminPrincipal(){
 
@@ -42,12 +44,16 @@ public class ControllerAdminPrincipal{
         this.viewAdminAltaPlan = viewAdminAltaPlan;
     }
 
-    public void setViewAdminAgregarMatAPlan(ViewAdminModificarPlan viewAdminAgregarMatAPlan){
-        this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
+    public void setViewAdminModificarPlan(ViewAdminModificarPlan viewAdminModificarPlan){
+        this.viewAdminAgregarModificarPlan = viewAdminModificarPlan;
     }
 
     public void setViewAdminAltaCursada(ViewAdminAltaCursada viewAdminAltaCursada){
         this.viewAdminAltaCursada = viewAdminAltaCursada;
+    }
+
+    public void setViewAdminAltaMateria(ViewAdminAltaMateria viewAdminAltaMateria){
+        this.viewAdminAltaMateria = viewAdminAltaMateria;
     }
 
     public void cambiarVentanaAltaAlumno(){
@@ -66,8 +72,12 @@ public class ControllerAdminPrincipal{
         this.viewAdminAltaPlan.mostrarse();
     }
 
-    public void cambiarVentanaAgregarMatAPlan(){
-        this.viewAdminAgregarMatAPlan.mostrarse();
+    public void cambiarVentanaModificarPlan(){
+        this.viewAdminAgregarModificarPlan.mostrarse();
+    }
+
+    public void cambiarVentanaAltaMateria(){
+        this.viewAdminAltaMateria.mostrarse();
     }
 
     public void cambiarVentanaAdminAltaCursada(){

@@ -2,13 +2,12 @@ package vista;
 
 import javax.swing.JFrame;
 
-import controlador.ControllerAdminAltaAlumno;
+import controlador.ControllerAdminAltaMateria;
 import controlador.ControllerAdminAltaAlumno;
 import controlador.ControllerAdminAltaCarrera;
 import controlador.ControllerAdminAltaCursada;
 import controlador.ControllerAdminAltaPlan;
 import controlador.ControllerAdminModificarPlan;
-import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerAdminPrincipal;
 import controlador.ControllerAlumnoInscripcionCarrera;
@@ -63,17 +62,23 @@ public class MainWindow extends JFrame{
         controllerAdminAltaPlan.setViewPrincipalAdministrador(viewAdminPrincipal);
         controllerAdminPrincipal.setViewAdminAltaPlan(viewAdminAltaPlan);
 
-        ControllerAdminModificarPlan controllerAdminAgregarMatAPlan = new ControllerAdminModificarPlan();
-        ViewAdminModificarPlan viewAdminAgregarMatAPlan = new ViewAdminModificarPlan(this, controllerAdminAgregarMatAPlan);
-        controllerAdminAgregarMatAPlan.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);
-        controllerAdminAgregarMatAPlan.setViewPrincipalAdministrador(viewAdminPrincipal);
-        controllerAdminPrincipal.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);
+        ControllerAdminModificarPlan controllerAdminModificarPlan = new ControllerAdminModificarPlan();
+        ViewAdminModificarPlan viewAdminAgregarMatAPlan = new ViewAdminModificarPlan(this, controllerAdminModificarPlan);
+        controllerAdminModificarPlan.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);
+        controllerAdminModificarPlan.setViewPrincipalAdministrador(viewAdminPrincipal);
+        controllerAdminPrincipal.setViewAdminModificarPlan(viewAdminAgregarMatAPlan);
 
         ControllerAdminAltaCursada controllerAdminAltaCursada = new ControllerAdminAltaCursada();
         ViewAdminAltaCursada viewAdminAltaCursada = new ViewAdminAltaCursada(this, controllerAdminAltaCursada);
         controllerAdminAltaCursada.setViewAdminAltaCursada(viewAdminAltaCursada);
         controllerAdminAltaCursada.setViewAdminPrincipal(viewAdminPrincipal);
         controllerAdminPrincipal.setViewAdminAltaCursada(viewAdminAltaCursada);
+
+        ControllerAdminAltaMateria controllerAdminAltaMateria = new ControllerAdminAltaMateria();
+        ViewAdminAltaMateria viewAdminAltaMateria = new ViewAdminAltaMateria(this, controllerAdminAltaMateria);
+        controllerAdminAltaMateria.setViewAdminAltaMateria(viewAdminAltaMateria);
+        controllerAdminAltaMateria.setViewPrincipalAdministrador(viewAdminPrincipal);
+        controllerAdminPrincipal.setViewAdminAltaMateria(viewAdminAltaMateria);
 
 
         // FUNCIONALIDAD DEL ALUMNO
