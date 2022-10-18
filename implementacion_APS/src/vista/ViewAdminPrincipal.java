@@ -60,7 +60,7 @@ public class ViewAdminPrincipal extends JPanel{
         add(btnDarDeAltaCursada);
 
         btnAgregarMatAPlan = new JButton("Agregar nueva materia a un plan");
-        btnAgregarMatAPlan.setBounds(274, 500, 250, 23);
+        btnAgregarMatAPlan.setBounds(365, 385, 250, 23);
         add(btnAgregarMatAPlan);
 
         btnLogOut = new JButton("Logout");

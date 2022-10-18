@@ -238,15 +238,14 @@ public class DatabaseImpl{
         }
     }
 
-    public static List<String> getPlanesDeCarreras() throws Exception{
-        List<String> plans = new ArrayList<>();
+    public static List<Plan> getPlanesDeCarreras() throws Exception{
+        List<Plan> plans = new ArrayList<>();
         Statement statement = null;
         try{
             statement = connectToDB();
             ResultSet resultSet = statement.executeQuery("select * from plan");
             while(resultSet.next()) {
-                String p = "plan: " + resultSet.getInt("anio") + " carrera: " +  resultSet.getInt("codigo_carrera");
-                plans.add(p);
+                plans.add(new Plan(resultSet.getInt("anio"), resultSet.getInt("codigo_carrera")));
             }
         } catch(SQLException e){
             throw new Exception("An error occurred while recovering plans.");

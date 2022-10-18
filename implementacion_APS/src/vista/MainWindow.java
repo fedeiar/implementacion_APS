@@ -7,7 +7,7 @@ import controlador.ControllerAdminAltaAlumno;
 import controlador.ControllerAdminAltaCarrera;
 import controlador.ControllerAdminAltaCursada;
 import controlador.ControllerAdminAltaPlan;
-import controlador.ControllerAdminAgregarMatAPlan;
+import controlador.ControllerAdminModificarPlan;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerAdminPrincipal;
@@ -63,8 +63,8 @@ public class MainWindow extends JFrame{
         controllerAdminAltaPlan.setViewPrincipalAdministrador(viewAdminPrincipal);
         controllerAdminPrincipal.setViewAdminAltaPlan(viewAdminAltaPlan);
 
-        ControllerAdminAgregarMatAPlan controllerAdminAgregarMatAPlan = new ControllerAdminAgregarMatAPlan();
-        ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan = new ViewAdminAgregarMatAPlan(this, controllerAdminAgregarMatAPlan);
+        ControllerAdminModificarPlan controllerAdminAgregarMatAPlan = new ControllerAdminModificarPlan();
+        ViewAdminModificarPlan viewAdminAgregarMatAPlan = new ViewAdminModificarPlan(this, controllerAdminAgregarMatAPlan);
         controllerAdminAgregarMatAPlan.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);
         controllerAdminAgregarMatAPlan.setViewPrincipalAdministrador(viewAdminPrincipal);
         controllerAdminPrincipal.setViewAdminAgregarMatAPlan(viewAdminAgregarMatAPlan);

@@ -11,20 +11,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controlador.ControllerAdminAgregarMatAPlan;
+import controlador.ControllerAdminModificarPlan;
 import modelo.DatabaseImpl;
+import modelo.Plan;
 
-public class ViewAdminAgregarMatAPlan extends JPanel {
+public class ViewAdminModificarPlan extends JPanel {
 
 	private MainWindow mainWindow;
-    private ControllerAdminAgregarMatAPlan controllerAdminAgregarMatAPlan;
+    private ControllerAdminModificarPlan controllerAdminAgregarMatAPlan;
 
     private JButton btnCancelar, btnCrearYAgregarMateria;
     private JLabel lblAgregarMatAPlan, lblElegirPlanCarrera;
     private JComboBox<String> cbElegirPlan;
     
 	
-	public ViewAdminAgregarMatAPlan(MainWindow mainWindow, ControllerAdminAgregarMatAPlan controllerAdminAgregarMatAPlan) {
+	public ViewAdminModificarPlan(MainWindow mainWindow, ControllerAdminModificarPlan controllerAdminAgregarMatAPlan) {
         this.mainWindow = mainWindow;
         this.controllerAdminAgregarMatAPlan = controllerAdminAgregarMatAPlan;
         this.setBounds(100, 100, 1000, 600);
@@ -35,7 +36,7 @@ public class ViewAdminAgregarMatAPlan extends JPanel {
 	}
 	
 	private void inicializarComponentes(){
-        lblAgregarMatAPlan = new JLabel("Agregar materia a plan");
+        lblAgregarMatAPlan = new JLabel("Modificar plan");
         lblAgregarMatAPlan.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblAgregarMatAPlan.setHorizontalAlignment(SwingConstants.CENTER);
         lblAgregarMatAPlan.setBounds(358, 31, 210, 29);
@@ -62,19 +63,7 @@ public class ViewAdminAgregarMatAPlan extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 String plan = cbElegirPlan.getSelectedItem().toString();
                 try{
-                    int i = 6; String anio_plan = "";
-                    while(plan.charAt(i) != ' ') {
-                        anio_plan += plan.charAt(i);
-                        System.out.println(anio_plan);
-                        i++;
-                    }
-                    i += 9;
-                    String nombre_carrera = "";
-                    while(i < plan.length()-1) {
-                        nombre_carrera += plan.charAt(i);
-                        System.out.println(nombre_carrera);
-                        i++;
-                    }
+                    
                 } catch(Exception e){
                     operacionFallida("Error", e.getMessage());
                 }
@@ -91,11 +80,11 @@ public class ViewAdminAgregarMatAPlan extends JPanel {
     }
 
     private void armarComboBoxPlanesAsocACarrera(){
-        cbElegirPlan = new JComboBox<String>();
+        cbElegirPlan = new JComboBox<Plan>();
         cbElegirPlan.setBounds(389, 167, 160, 21);
         add(cbElegirPlan);
         try{
-            for(String plan : DatabaseImpl.getPlanesDeCarreras()){
+            for(Plan plan : DatabaseImpl.getPlanesDeCarreras()){
                 cbElegirPlan.addItem(plan);
             }
         } catch(Exception e){

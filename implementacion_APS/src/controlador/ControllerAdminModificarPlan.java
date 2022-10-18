@@ -3,21 +3,21 @@ package controlador;
 import modelo.DatabaseImpl;
 import modelo.Materia;
 import modelo.Plan;
-import vista.ViewAdminAgregarMatAPlan;
+import vista.ViewAdminModificarPlan;
 import vista.ViewAdminPrincipal;
 
-public class ControllerAdminAgregarMatAPlan{
+public class ControllerAdminModificarPlan{
     
 
-    private ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan;
+    private ViewAdminModificarPlan viewAdminAgregarMatAPlan;
     private ViewAdminPrincipal viewPrincipalAdministrador;
 
 
-    public ControllerAdminAgregarMatAPlan(){
+    public ControllerAdminModificarPlan(){
 
     }
 
-    public void setViewAdminAgregarMatAPlan(ViewAdminAgregarMatAPlan viewAdminAgregarMatAPlan){
+    public void setViewAdminAgregarMatAPlan(ViewAdminModificarPlan viewAdminAgregarMatAPlan){
         this.viewAdminAgregarMatAPlan = viewAdminAgregarMatAPlan;
     }
 
