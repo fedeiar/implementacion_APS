@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -17,8 +16,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import controlador.ControllerAdminAltaCursada;
-import controlador.ControllerAlumnoInscripcionCarrera;
-import modelo.Alumno;
 import modelo.Carrera;
 import modelo.Cursada;
 import modelo.DatabaseImpl;

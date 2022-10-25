@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.Cursada;
+import modelo.DatabaseImpl;
 import vista.ViewAdminAltaCursada;
 import vista.ViewAdminPrincipal;
 
@@ -26,6 +27,12 @@ public class ControllerAdminAltaCursada {
     }
 
     public void darDeAltaCursada(Cursada cursada){
-        //TODO: hacer
+        try {
+            //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
+            DatabaseImpl.saveCursada(cursada);
+            viewAdminAltaCursada.operacionExitosa("Registro exitoso", "Una cursada fue registrada exitosamente.");
+        } catch (Exception e) {
+            viewAdminAltaCursada.operacionFallida("Error: ", e.getMessage());
+        }
     }
 }

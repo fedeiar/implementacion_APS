@@ -8,7 +8,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import controlador.ControllerAdminAltaMateria;
-import modelo.Materia;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
