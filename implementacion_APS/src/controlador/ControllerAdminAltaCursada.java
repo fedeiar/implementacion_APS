@@ -28,7 +28,7 @@ public class ControllerAdminAltaCursada {
 
     public void darDeAltaCursada(Cursada cursada){
         try {
-            //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
+            
             DatabaseImpl.saveCursada(cursada);
             viewAdminAltaCursada.operacionExitosa("Registro exitoso", "Una cursada fue registrada exitosamente.");
         } catch (Exception e) {
