@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -17,11 +16,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import controlador.ControllerAdminAltaCursada;
-import controlador.ControllerAlumnoInscripcionCarrera;
-import modelo.Alumno;
-import modelo.Carrera;
 import modelo.Cursada;
 import modelo.DatabaseImpl;
+import modelo.Materia;
 import modelo.Profesor;
 
 
@@ -31,11 +28,11 @@ public class ViewAdminAltaCursada extends JPanel{
     private ControllerAdminAltaCursada controllerAdminAltaCursada;
 
     private JButton btnCancelar, btnDarDeAltaCursada;
-    private JLabel lblAltaCursada, lblElijaCarrera, lblElijaProfesor, lblIngreseAnio, lblIngreseCuatrimestre;
+    private JLabel lblAltaCursada, lblElijaMateria, lblElijaProfesor, lblIngreseAnio, lblIngreseCuatrimestre;
     private JTextField tfAnio;
-    private JComboBox<String> cbElegirCarrera, cbProfesores, cbElegirCuatrimestre;
+    private JComboBox<String> cbElegirMateria, cbProfesores, cbElegirCuatrimestre;
 
-    private List<Carrera> carreras;
+    private List<Materia> materias;
     private List<Profesor> profesores;
 
     public ViewAdminAltaCursada(MainWindow mainWindow, ControllerAdminAltaCursada controllerAdminAltaCursada){
@@ -55,11 +52,11 @@ public class ViewAdminAltaCursada extends JPanel{
         lblAltaCursada.setBounds(365, 36, 255, 60);
         add(lblAltaCursada);
 
-        lblElijaCarrera = new JLabel("Elija una carrera:");
-        lblElijaCarrera.setBounds(265, 169, 200, 17);
-        add(lblElijaCarrera);
+        lblElijaMateria = new JLabel("Elija una materia:");
+        lblElijaMateria.setBounds(265, 169, 200, 17);
+        add(lblElijaMateria);
 
-        armarComboBoxCarreras();
+        armarComboBoxMaterias();
 
         lblElijaProfesor = new JLabel("Elija un profesor:");
         lblElijaProfesor.setBounds(265, 210, 200, 17);
@@ -99,7 +96,7 @@ public class ViewAdminAltaCursada extends JPanel{
 
         btnDarDeAltaCursada.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                int codigo_carrera = carreras.get(cbElegirCarrera.getSelectedIndex()).codigo;
+                int codigo_materia = materias.get(cbElegirMateria.getSelectedIndex()).codigo;
                 int legajo_profesor = profesores.get(cbProfesores.getSelectedIndex()).legajo_docente;
                 if(!utils.Utilities.isFieldInteger(tfAnio.getText())){ 
                     operacionFallida("Error: año", "El año debe ser un numero entero");
@@ -108,7 +105,7 @@ public class ViewAdminAltaCursada extends JPanel{
                 int anio = Integer.parseInt(tfAnio.getText());
                 int cuatrimestre = Integer.parseInt(cbElegirCuatrimestre.getSelectedItem().toString());
 
-                Cursada cursada = new Cursada(codigo_carrera, legajo_profesor, anio, cuatrimestre);
+                Cursada cursada = new Cursada(codigo_materia, legajo_profesor, anio, cuatrimestre);
 
                 controllerAdminAltaCursada.darDeAltaCursada(cursada);
             }
@@ -121,14 +118,14 @@ public class ViewAdminAltaCursada extends JPanel{
         });
     }
 
-    private void armarComboBoxCarreras(){
-        cbElegirCarrera = new JComboBox<String>();
-        cbElegirCarrera.setBounds(389, 167, 200, 21);
-        add(cbElegirCarrera);
+    private void armarComboBoxMaterias(){
+        cbElegirMateria = new JComboBox<String>();
+        cbElegirMateria.setBounds(389, 167, 200, 21);
+        add(cbElegirMateria);
         try{
-            carreras = DatabaseImpl.getCarreras();
-            for(Carrera carrera : carreras){
-                cbElegirCarrera.addItem(carrera.nombre);
+            materias = DatabaseImpl.getMaterias();
+            for(Materia materia : materias){
+                cbElegirMateria.addItem(materia.nombre);
             }
         } catch(Exception e){
             this.operacionFallida("Error", e.getMessage());

@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import controlador.ControllerAdminAltaPlan;
 import modelo.Carrera;
 import modelo.DatabaseImpl;
-import modelo.Plan;
 
 public class ViewAdminAltaPlan extends JPanel{
 
