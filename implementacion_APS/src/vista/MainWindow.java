@@ -9,6 +9,7 @@ import controlador.ControllerAdminAltaCursada;
 import controlador.ControllerAdminAltaPlan;
 import controlador.ControllerAdminModificarPlan;
 import controlador.ControllerLoginUsuario;
+import controlador.ControllerProfesorPrincipal;
 import controlador.ControllerAdminPrincipal;
 import controlador.ControllerAlumnoInscripcionCarrera;
 import controlador.ControllerAlumnoInscripcionCursada;
@@ -43,7 +44,7 @@ public class MainWindow extends JFrame{
         ViewAdminPrincipal viewAdminPrincipal = new ViewAdminPrincipal(this, controllerAdminPrincipal);
         controllerAdminPrincipal.setViewPrincipalAdministrador(viewAdminPrincipal);
         controllerAdminPrincipal.setViewLoginUsuario(viewLoginUsuario);
-        controllerLoginUsuario.setViewPrincipalAdministrador(viewAdminPrincipal);
+        controllerLoginUsuario.setViewAdminPrincipal(viewAdminPrincipal);
 
         ControllerAdminAltaAlumno controllerAdminAltaAlumno = new ControllerAdminAltaAlumno();
         ViewAdminAltaAlumno viewAdminAltaAlumno = new ViewAdminAltaAlumno(this, controllerAdminAltaAlumno);
@@ -88,7 +89,7 @@ public class MainWindow extends JFrame{
         ViewAlumnoPrincipal viewAlumnoPrincipal = new ViewAlumnoPrincipal(this, controllerPrincipalAlumno);
         controllerPrincipalAlumno.setViewPrincipalAlumno(viewAlumnoPrincipal);
         controllerPrincipalAlumno.setViewLoginUsuario(viewLoginUsuario);
-        controllerLoginUsuario.setViewPrincipalAlumno(viewAlumnoPrincipal);
+        controllerLoginUsuario.setViewAlumnoPrincipal(viewAlumnoPrincipal);
 
         ControllerAlumnoInscripcionCarrera controllerAlumnoInscripcionPlan = new ControllerAlumnoInscripcionCarrera();
         ViewAlumnoInscripcionCarrera viewAlumnoInscripcionCarrera = new ViewAlumnoInscripcionCarrera(this, controllerAlumnoInscripcionPlan);
@@ -101,6 +102,14 @@ public class MainWindow extends JFrame{
         controllerAlumnoInscripcionCursada.setViewAlumnoInscripcionCursada(viewAlumnoInscripcionCursada);
         controllerAlumnoInscripcionCursada.setViewAlumnoPrincipal(viewAlumnoPrincipal);
         controllerPrincipalAlumno.setViewAlumnoInscripcionCursada(viewAlumnoInscripcionCursada);
+
+        // FUNCIONALIDAD PROFESOR
+
+        ControllerProfesorPrincipal controllerProfesorPrincipal = new ControllerProfesorPrincipal();
+        ViewProfesorPrincipal viewProfesorPrincipal = new ViewProfesorPrincipal(this, controllerProfesorPrincipal);
+        controllerProfesorPrincipal.setViewLoginUsuario(viewLoginUsuario);
+        controllerProfesorPrincipal.setViewProfesorPrincipal(viewProfesorPrincipal);
+        controllerLoginUsuario.setViewProfesorPrincipal(viewProfesorPrincipal);
 
         // INICIALMENTE SE MUESTRA EL LOGIN
 

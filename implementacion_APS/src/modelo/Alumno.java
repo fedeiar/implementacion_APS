@@ -3,8 +3,8 @@ package modelo;
 public class Alumno {
     public String email;
     public String password;
-    public String apellido;
     public String nombre;
+    public String apellido;
     public int legajo_alumno;
 
     public Alumno(String email, String password, String nombre, String apellido, int legajo_alumno) {

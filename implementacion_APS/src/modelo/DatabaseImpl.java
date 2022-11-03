@@ -31,7 +31,7 @@ public class DatabaseImpl{
         try{
             statement = connectToDB();
             if(statement != null){
-                ResultSet resultSet = statement.executeQuery("select * from carrera");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM carrera");
                 while (resultSet.next()){
                     carreras.add(new Carrera(resultSet.getString("nombre"), resultSet.getInt("codigo")));
                 }
@@ -49,7 +49,7 @@ public class DatabaseImpl{
         try{
             Statement statement = connectToDB();
 
-            ResultSet resultSet = statement.executeQuery("select * from carrera WHERE nombre = '" + nombreCarrera + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM carrera WHERE nombre = '" + nombreCarrera + "'");
             if(resultSet.next()){
                 codigoCarrera = resultSet.getInt("codigo");
             }
@@ -85,7 +85,7 @@ public class DatabaseImpl{
         try{
             statement = connectToDB();
             if (statement != null) {
-                statement.executeUpdate("replace into carrera values('" + carrera.codigo + "', '" + fixIncompatibleSyntax(carrera.nombre) + "')");
+                statement.executeUpdate("REPLACE INTO carrera VALUES('" + carrera.codigo + "', '" + fixIncompatibleSyntax(carrera.nombre) + "')");
             }
         } catch(SQLException e){
             throw new Exception("An error occurred during saving.");
@@ -99,7 +99,7 @@ public class DatabaseImpl{
         try{
             Statement statement = connectToDB();
 
-            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo = '" + legajo_administrador + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM administrador WHERE legajo = '" + legajo_administrador + "'");
             if(resultSet.next()){
                 admin = new Administrador(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_administrador);
             }
@@ -117,7 +117,7 @@ public class DatabaseImpl{
         try{
             Statement statement = connectToDB();
             
-            ResultSet resultSet = statement.executeQuery("select * from administrador WHERE legajo = '" + legajo_administrador + "' AND contrasenia = '"+ password +"'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM administrador WHERE legajo = '" + legajo_administrador + "' AND contrasenia = '"+ password +"'");
             if(resultSet.next()){ // Ya que es una sola fila, si hubo match es porque coincide la contraseña, sino devuelve false
                 password_matches = true;
             }
@@ -134,7 +134,7 @@ public class DatabaseImpl{
         try {
             statement = connectToDB();
             if (statement != null) {
-                statement.executeUpdate("replace into administrador values('" + fixIncompatibleSyntax(admin.email)
+                statement.executeUpdate("REPLACE INTO administrador VALUES('" + fixIncompatibleSyntax(admin.email)
                         + "', '" + fixIncompatibleSyntax(admin.password) + "', '"
                         + fixIncompatibleSyntax(admin.nombre) + "', '" + fixIncompatibleSyntax(admin.apellido)
                         + "', '" + admin.legajo_administrador + "')");
@@ -152,12 +152,12 @@ public class DatabaseImpl{
         try{
             statement = connectToDB();
             
-            ResultSet resultSet = statement.executeQuery("select * from alumno WHERE legajo = '" + legajo_alumno + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM alumno WHERE legajo = '" + legajo_alumno + "'");
             if(resultSet.next()){
                 alumno = new Alumno(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_alumno);
             }
         } catch(SQLException e){
-            throw new Exception("An error occurred while recovering student.");
+            throw new Exception("Sucedio un error al recuperar al alumno.");
         } finally{
             closeConnection(statement);
         }
@@ -176,7 +176,7 @@ public class DatabaseImpl{
 
             closeConnection(statement);
         } catch(SQLException e){
-            throw new Exception("An error occurred while checking password");
+            throw new Exception("Sucedio un error al verificar la contraseña.");
         }
         return password_matches;
     }
@@ -193,10 +193,46 @@ public class DatabaseImpl{
             
         } catch(SQLException e){
             e.printStackTrace();
-            throw new Exception("An error occurred during saving a student.");
+            throw new Exception("Sucedio un error al dar de alta un alumno.");
         } finally {
             closeConnection(statement);
         }
+    }
+
+    public static Profesor getProfesor(int legajo_profesor) throws Exception{
+        Profesor profesor = null;
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM profesor WHERE legajo = '" + legajo_profesor + "'");
+            if(resultSet.next()){
+                profesor = new Profesor(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), legajo_profesor);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Sucedio un error al recuperar al profesor.");
+        } finally{
+            closeConnection(statement);
+        }
+        return profesor;
+    }
+
+    public static boolean checkProfesorPassword(int legajo_profesor, String password) throws Exception{
+        boolean password_matches = false;
+        try{
+            Statement statement = connectToDB();
+            
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM profesor WHERE legajo = '" + legajo_profesor + "' AND contrasenia = '"+ password +"'");
+            if(resultSet.next()){ // Ya que es una sola fila, si hubo match es porque coincide la contraseña, sino devuelve false
+                password_matches = true;
+            }
+
+            closeConnection(statement);
+        } catch(SQLException e){
+            throw new Exception("Sucedio un error al verificar la contraseña.");
+        }
+        return password_matches;
     }
 
     public static ArrayList<Profesor> getProfesores() throws Exception{
@@ -207,7 +243,7 @@ public class DatabaseImpl{
             if(statement != null){
                 ResultSet resultSet = statement.executeQuery("select * from profesor");
                 while (resultSet.next()){
-                    profesores.add(new Profesor(resultSet.getString("email"), resultSet.getString("password"), resultSet.getString("nombre"), resultSet.getString("apellido"), resultSet.getInt("legajo")));
+                    profesores.add(new Profesor(resultSet.getString("email"), resultSet.getString("contrasenia"), resultSet.getString("nombre"), resultSet.getString("apellido"), resultSet.getInt("legajo")));
                 }
             }
         } catch(SQLException e){

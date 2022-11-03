@@ -3,18 +3,22 @@ package controlador;
 import modelo.Administrador;
 import modelo.Alumno;
 import modelo.DatabaseImpl;
+import modelo.Profesor;
 import vista.ViewLoginUsuario;
+import vista.ViewProfesorPrincipal;
 import vista.ViewAdminPrincipal;
 import vista.ViewAlumnoPrincipal;
 
 public class ControllerLoginUsuario{
     
     private ViewLoginUsuario viewLoginUsuario;
-    private ViewAdminPrincipal viewPrincipalAdministrador;
-    private ViewAlumnoPrincipal viewPrincipalAlumno;
+    private ViewAdminPrincipal viewAdminPrincipal;
+    private ViewAlumnoPrincipal viewAlumnoPrincipal;
+    private ViewProfesorPrincipal viewProfesorPrincipal;
 
     private Administrador admin;
     private Alumno alumno;
+    private Profesor profesor;
 
     public ControllerLoginUsuario(){
 
@@ -24,12 +28,16 @@ public class ControllerLoginUsuario{
         this.viewLoginUsuario = viewLoginUsuario;
     }
 
-    public void setViewPrincipalAdministrador(ViewAdminPrincipal viewPrincipalAdministrador){
-        this.viewPrincipalAdministrador = viewPrincipalAdministrador;
+    public void setViewAdminPrincipal(ViewAdminPrincipal viewAdminPrincipal){
+        this.viewAdminPrincipal = viewAdminPrincipal;
     }
 
-    public void setViewPrincipalAlumno(ViewAlumnoPrincipal viewPrincipalAlumno){
-        this.viewPrincipalAlumno = viewPrincipalAlumno;
+    public void setViewAlumnoPrincipal(ViewAlumnoPrincipal viewAlumnoPrincipal){
+        this.viewAlumnoPrincipal = viewAlumnoPrincipal;
+    }
+
+    public void setViewProfesorPrincipal(ViewProfesorPrincipal viewProfesorPrincipal){
+        this.viewProfesorPrincipal = viewProfesorPrincipal;
     }
 
     public void autenticarUsuarioAdministrador(int legajo, String password) {
@@ -37,7 +45,7 @@ public class ControllerLoginUsuario{
             if(existeAdministrador(legajo)){ 
                 if(DatabaseImpl.checkAdminPassword(legajo, password)){ 
                     // si necesitacemos los datos del admin, podriamos pasarselos aca a la vista.
-                    viewPrincipalAdministrador.mostrarse();
+                    viewAdminPrincipal.mostrarse();
                 } else{
                     viewLoginUsuario.operacionFallida("Error: contraseña incorrecta", "Reingrese su contraseña");
                 }
@@ -64,8 +72,8 @@ public class ControllerLoginUsuario{
         try{
             if(existeAlumno(username)){
                 if(DatabaseImpl.checkAlumnoPassword(username, password)){
-                    viewPrincipalAlumno.setAlumno(alumno);
-                    viewPrincipalAlumno.mostrarse();
+                    viewAlumnoPrincipal.setAlumno(alumno);
+                    viewAlumnoPrincipal.mostrarse();
                 } else{
                     viewLoginUsuario.operacionFallida("Error: contraseña incorrecta", "Reingrese su contraseña");
                 }
@@ -82,6 +90,34 @@ public class ControllerLoginUsuario{
         try{
             alumno = DatabaseImpl.getAlumno(legajo);
             encontrado = alumno != null;
+        }catch(Exception e){
+            viewLoginUsuario.operacionFallida("Error", e.getMessage());
+        }
+        return encontrado;
+    }
+
+    public void autenticarUsuarioProfesor(int username, String password){
+        try{
+            if(existeProfesor(username)){
+                if(DatabaseImpl.checkProfesorPassword(username, password)){
+                    viewProfesorPrincipal.setProfesor(profesor);
+                    viewProfesorPrincipal.mostrarse();
+                } else{
+                    viewProfesorPrincipal.operacionFallida("Error: contraseña incorrecta", "Reingrese su contraseña");
+                }
+            }else{
+                viewProfesorPrincipal.operacionFallida("Error: usuario profesor inexistente", "El usuario profesor ingresado no existe o no está registrado");
+            }
+        } catch(Exception e){
+            viewLoginUsuario.operacionFallida("Error", e.getMessage());
+        }
+    }
+
+    private boolean existeProfesor(int legajo){
+        boolean encontrado = false;
+        try{
+            profesor = DatabaseImpl.getProfesor(legajo);
+            encontrado = profesor != null;
         }catch(Exception e){
             viewLoginUsuario.operacionFallida("Error", e.getMessage());
         }

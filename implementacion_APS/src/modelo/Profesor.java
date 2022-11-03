@@ -4,8 +4,8 @@ public class Profesor {
     
     public String email;
     public String password;
-    public String apellido;
     public String nombre;
+    public String apellido;
     public int legajo_docente;
 
     public Profesor(String email, String password, String nombre, String apellido, int legajo_docente) {

@@ -17,7 +17,7 @@ public class ViewAlumnoPrincipal extends JPanel{
     
 
     private MainWindow mainWindow;
-    private ControllerAlumnoPrincipal controllerPrincipalAlumno;
+    private ControllerAlumnoPrincipal controllerAlumnoPrincipal;
 
     private JLabel lblBienvenidoAlumno;
     private JButton btnLogOut, btnInscripcionCarrera, btnInscripcionCursada;
@@ -26,7 +26,7 @@ public class ViewAlumnoPrincipal extends JPanel{
 
     public ViewAlumnoPrincipal(MainWindow mainWindow, ControllerAlumnoPrincipal controllerPrincipalAlumno){
         this.mainWindow = mainWindow;
-        this.controllerPrincipalAlumno = controllerPrincipalAlumno;
+        this.controllerAlumnoPrincipal = controllerPrincipalAlumno;
 
         this.setBounds(100, 100, 1000, 600);
         setLayout(null);
@@ -36,7 +36,7 @@ public class ViewAlumnoPrincipal extends JPanel{
     }
 
     private void inicializarComponentes(){
-        lblBienvenidoAlumno = new JLabel("Bienvenido Alumno.");
+        lblBienvenidoAlumno = new JLabel("Bienvenido alumno.");
         lblBienvenidoAlumno.setHorizontalAlignment(SwingConstants.LEFT);
         lblBienvenidoAlumno.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblBienvenidoAlumno.setBounds(365, 36, 255, 60);
@@ -58,20 +58,20 @@ public class ViewAlumnoPrincipal extends JPanel{
     private void inicializarListeners(){
         btnInscripcionCarrera.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAlumno.cambiarVentanaInscripcionCarrera();
+                controllerAlumnoPrincipal.cambiarVentanaInscripcionCarrera();
             }
         });
 
         btnInscripcionCursada.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAlumno.cambiarVentanaInscripcionCursada();
+                controllerAlumnoPrincipal.cambiarVentanaInscripcionCursada();
             }
         });
 
 
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                controllerPrincipalAlumno.cambiarVentanaLogin();
+                controllerAlumnoPrincipal.cambiarVentanaLogin();
             }
         });
     }

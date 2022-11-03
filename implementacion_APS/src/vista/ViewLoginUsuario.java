@@ -29,6 +29,7 @@ public class ViewLoginUsuario extends JPanel{
     private JLabel lblSeleccionUsuario;
     private JRadioButton RBAdministrador;
     private JRadioButton RBAlumno;
+    private JRadioButton RBProfesor;
     private ButtonGroup BGgrupoUsuarios;
     private JButton btnLogin;
 	
@@ -67,12 +68,17 @@ public class ViewLoginUsuario extends JPanel{
         add(RBAdministrador);
         
         RBAlumno = new JRadioButton("Alumno");
-        RBAlumno.setBounds(647, 191, 109, 23);
+        RBAlumno.setBounds(647, 190, 109, 23);
         add(RBAlumno);
+
+        RBProfesor = new JRadioButton("Profesor");
+        RBProfesor.setBounds(647, 220, 109, 23);
+        add(RBProfesor);
 
         BGgrupoUsuarios = new ButtonGroup();
         BGgrupoUsuarios.add(RBAlumno);
         BGgrupoUsuarios.add(RBAdministrador);
+        BGgrupoUsuarios.add(RBProfesor);
         
         lblSeleccionUsuario = new JLabel("Elija que tipo de usuario es:");
         lblSeleccionUsuario.setBounds(651, 139, 164, 14);
@@ -93,8 +99,10 @@ public class ViewLoginUsuario extends JPanel{
                 int legajo = Integer.parseInt(TFLogin.getText());  // TODO: bloquear solo int
                 if(RBAdministrador.isSelected()){
                     controllerLoginUsuario.autenticarUsuarioAdministrador(legajo, new String(TFContrasena.getPassword()));
-                } else{
+                } else if(RBAlumno.isSelected()){
                     controllerLoginUsuario.autenticarUsuarioAlumno(legajo, new String(TFContrasena.getPassword()));
+                } else{
+                    controllerLoginUsuario.autenticarUsuarioProfesor(legajo, new String(TFContrasena.getPassword()));
                 }
             }
         });

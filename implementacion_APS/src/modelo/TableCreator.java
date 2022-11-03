@@ -50,7 +50,7 @@ public class TableCreator {
         statement.executeUpdate(
             "CREATE TABLE IF NOT EXISTS profesor(" +
                 "email STRING," +
-                "password CHAR(32)," +
+                "contrasenia CHAR(32)," +
                 "nombre STRING," +
                 "apellido STRING," +
                 "legajo INTEGER PRIMARY KEY )"
