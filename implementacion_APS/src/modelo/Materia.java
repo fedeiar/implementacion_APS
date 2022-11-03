@@ -9,4 +9,9 @@ public class Materia{
     public Materia(String nombre){
         this.nombre = nombre;
     }
+
+    public Materia(int codigo, String nombre){
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
 }

@@ -14,8 +14,8 @@ public class ControllerAlumnoInscripcionCarrera{
 
     }
 
-    public void setViewAlumnoInscripcionPlan(ViewAlumnoInscripcionCarrera viewAlumnoInscripcionPlan){
-        this.viewAlumnoInscripcionCarrera = viewAlumnoInscripcionPlan;
+    public void setViewAlumnoInscripcionCarrera(ViewAlumnoInscripcionCarrera viewAlumnoInscripcionCarrera){
+        this.viewAlumnoInscripcionCarrera = viewAlumnoInscripcionCarrera;
     }
 
     public void setViewAlumnoPrincipal(ViewAlumnoPrincipal viewAlumnoPrincipal){

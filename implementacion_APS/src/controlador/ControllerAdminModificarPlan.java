@@ -31,7 +31,7 @@ public class ControllerAdminModificarPlan{
 
     public void agregarMateriaAPlan(Plan plan, Materia materia){
         try{
-            DatabaseImpl.savePlanMateria(plan, materia);
+            DatabaseImpl.savePlanMateria(plan, materia.codigo);
             viewAdminModificarPlan.operacionExitosa("Exito", "Materia agregada al plan exitosamente.");
         }catch(Exception e){
             viewAdminModificarPlan.operacionFallida("Error al agregar materia", e.getMessage());

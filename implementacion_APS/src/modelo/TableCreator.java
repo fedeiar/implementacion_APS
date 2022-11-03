@@ -70,7 +70,7 @@ public class TableCreator {
             "legajo_alumno INTEGER," +
             "anio_plan INTEGER," +
             "codigo_carrera INTEGER," +
-            "PRIMARY KEY (legajo_alumno, anio_plan, codigo_carrera)," + 
+            "PRIMARY KEY(legajo_alumno, anio_plan, codigo_carrera)," + 
             "FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(anio_plan, codigo_carrera) REFERENCES plan(anio, codigo_carrera) ON DELETE CASCADE ON UPDATE CASCADE )"
         );
@@ -81,9 +81,21 @@ public class TableCreator {
             "legajo_profesor INTEGER," +
             "anio INTEGER," +
             "cuatrimestre INTEGER," +
-            "PRIMARY KEY (legajo_profesor, anio, cuatrimestre)," + 
+            "PRIMARY KEY(codigo_materia, legajo_profesor, anio, cuatrimestre)," + 
             "FOREIGN KEY(codigo_materia) REFERENCES materia(codigo) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(legajo_profesor) REFERENCES profesor(legajo) ON DELETE CASCADE ON UPDATE CASCADE )"
+        );
+
+        statement.executeUpdate(
+            "CREATE TABLE IF NOT EXISTS cursada_alumno(" +
+            "codigo_materia INTEGER," +
+            "legajo_profesor INTEGER," +
+            "anio INTEGER," +
+            "cuatrimestre INTEGER," +
+            "legajo_alumno INTEGER," +
+            "PRIMARY KEY(codigo_materia, legajo_profesor, anio, cuatrimestre, legajo_alumno)," + 
+            "FOREIGN KEY(codigo_materia, legajo_profesor, anio, cuatrimestre) REFERENCES cursada(codigo_materia, legajo_profesor, anio, cuatrimestre) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(legajo_alumno) REFERENCES alumno(legajo) ON DELETE CASCADE ON UPDATE CASCADE )"
         );
     
         addInfoToDB(statement);
@@ -95,21 +107,32 @@ public class TableCreator {
         Administrador admin = DatabaseImpl.getAdmin(1);
         if(admin == null){
             DatabaseImpl.saveAdmin(new Administrador("fulano1@gmail.com", "1234", "Pablo", "Suarez", 1));
-            DatabaseImpl.saveAdmin(new Administrador("fulano2@gmail.com", "5678", "Juan", "Perez", 2));
-            DatabaseImpl.saveAlumno(new Alumno("fulano3@hotmail.com", "4321", "Rodrigo", "Gonzalez", 1));
-            DatabaseImpl.saveAlumno(new Alumno("fulano4@hotmail.com", "8765", "Patricio", "Rodriguez", 2));
+            DatabaseImpl.saveAdmin(new Administrador("fulano2@gmail.com", "1234", "Juan", "Perez", 2));
+            DatabaseImpl.saveAlumno(new Alumno("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 1));
+            DatabaseImpl.saveAlumno(new Alumno("fulano4@hotmail.com", "1234", "Patricio", "Rodriguez", 2));
             DatabaseImpl.saveProfesor(new Profesor("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 1));
             DatabaseImpl.saveProfesor(new Profesor("fulano3@hotmail.com", "1234", "Rodrigo", "Gonzalez", 2));
+           
             DatabaseImpl.saveCarrera(new Carrera("Licenciatura en Aprender a Leer",1));
             DatabaseImpl.saveCarrera(new Carrera("Licenciatura en Sumar Enteros", 2));
+           
             DatabaseImpl.savePlan(new Plan(2012, 1));
-            DatabaseImpl.savePlan(new Plan(2010, 2));
             DatabaseImpl.savePlan(new Plan(2022, 1));
-
-            //TODO: solo le paso el nombre porque el codigo se autonicrementa al ser llave primaria, nose que opinan.
+            DatabaseImpl.savePlan(new Plan(2015, 2));
+            
+            
             DatabaseImpl.saveMateria("Matematica 1");
             DatabaseImpl.saveMateria("Algebra");
             DatabaseImpl.saveMateria("Estadistica");
+
+            DatabaseImpl.savePlanMateria(new Plan(2022, 1), 1);
+            DatabaseImpl.savePlanMateria(new Plan(2022, 1), 2);
+            DatabaseImpl.savePlanMateria(new Plan(2015, 2), 3);
+
+            DatabaseImpl.saveInscripcion(1, new Plan(2022, 1));
+        
+            DatabaseImpl.saveCursada(new Cursada(1, 1, 2022, 1));
+            DatabaseImpl.saveCursada(new Cursada(2, 1, 2022, 2));
         }
     }
 

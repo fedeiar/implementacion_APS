@@ -7,6 +7,8 @@ public class Cursada {
     public int anio;
     public int cuatrimestre;
 
+    public String nombreMateria;
+
     public Cursada(int codigoMateria, int legajoProfesor, int anio, int cuatrimestre){
         this.codigoMateria = codigoMateria;
         this.legajoProfesor = legajoProfesor;

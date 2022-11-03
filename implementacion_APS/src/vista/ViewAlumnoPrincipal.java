@@ -20,7 +20,7 @@ public class ViewAlumnoPrincipal extends JPanel{
     private ControllerAlumnoPrincipal controllerPrincipalAlumno;
 
     private JLabel lblBienvenidoAlumno;
-    private JButton btnLogOut, btnInscripcionCarrera;
+    private JButton btnLogOut, btnInscripcionCarrera, btnInscripcionCursada;
 
     public Alumno alumno;
 
@@ -46,6 +46,10 @@ public class ViewAlumnoPrincipal extends JPanel{
         btnInscripcionCarrera.setBounds(70, 450, 200, 23);
         add(btnInscripcionCarrera);
 
+        btnInscripcionCursada = new JButton("Inscribirse a una cursada");
+        btnInscripcionCursada.setBounds(300, 450, 200, 23);
+        add(btnInscripcionCursada);
+
         btnLogOut = new JButton("Logout");
         btnLogOut.setBounds(70, 500, 162, 23);
         add(btnLogOut);
@@ -57,6 +61,13 @@ public class ViewAlumnoPrincipal extends JPanel{
                 controllerPrincipalAlumno.cambiarVentanaInscripcionCarrera();
             }
         });
+
+        btnInscripcionCursada.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerPrincipalAlumno.cambiarVentanaInscripcionCursada();
+            }
+        });
+
 
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){

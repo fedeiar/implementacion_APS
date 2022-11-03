@@ -11,6 +11,7 @@ import controlador.ControllerAdminModificarPlan;
 import controlador.ControllerLoginUsuario;
 import controlador.ControllerAdminPrincipal;
 import controlador.ControllerAlumnoInscripcionCarrera;
+import controlador.ControllerAlumnoInscripcionCursada;
 import controlador.ControllerAlumnoPrincipal;
 import modelo.DatabaseImpl;
 
@@ -91,12 +92,19 @@ public class MainWindow extends JFrame{
 
         ControllerAlumnoInscripcionCarrera controllerAlumnoInscripcionPlan = new ControllerAlumnoInscripcionCarrera();
         ViewAlumnoInscripcionCarrera viewAlumnoInscripcionCarrera = new ViewAlumnoInscripcionCarrera(this, controllerAlumnoInscripcionPlan);
-        controllerAlumnoInscripcionPlan.setViewAlumnoInscripcionPlan(viewAlumnoInscripcionCarrera);
+        controllerAlumnoInscripcionPlan.setViewAlumnoInscripcionCarrera(viewAlumnoInscripcionCarrera);
         controllerAlumnoInscripcionPlan.setViewAlumnoPrincipal(viewAlumnoPrincipal);
         controllerPrincipalAlumno.setViewAlumnoInscripcionCarrera(viewAlumnoInscripcionCarrera);
 
+        ControllerAlumnoInscripcionCursada controllerAlumnoInscripcionCursada = new ControllerAlumnoInscripcionCursada();
+        ViewAlumnoInscripcionCursada viewAlumnoInscripcionCursada = new ViewAlumnoInscripcionCursada(this, controllerAlumnoInscripcionCursada);
+        controllerAlumnoInscripcionCursada.setViewAlumnoInscripcionCursada(viewAlumnoInscripcionCursada);
+        controllerAlumnoInscripcionCursada.setViewAlumnoPrincipal(viewAlumnoPrincipal);
+        controllerPrincipalAlumno.setViewAlumnoInscripcionCursada(viewAlumnoInscripcionCursada);
+
+        // INICIALMENTE SE MUESTRA EL LOGIN
+
         viewLoginUsuario.mostrarse();
-        
     }
 
 	

@@ -1,6 +1,7 @@
 package controlador;
 
 import vista.ViewAlumnoInscripcionCarrera;
+import vista.ViewAlumnoInscripcionCursada;
 import vista.ViewAlumnoPrincipal;
 import vista.ViewLoginUsuario;
 
@@ -10,6 +11,7 @@ public class ControllerAlumnoPrincipal{
     private ViewLoginUsuario viewLoginUsuario;
 
     private ViewAlumnoInscripcionCarrera viewAlumnoInscripcionCarrera;
+    private ViewAlumnoInscripcionCursada viewAlumnoInscripcionCursada;
 
     public ControllerAlumnoPrincipal(){
         
@@ -27,6 +29,10 @@ public class ControllerAlumnoPrincipal{
         this.viewAlumnoInscripcionCarrera = viewAlumnoInscripcionCarrera;
     }
 
+    public void setViewAlumnoInscripcionCursada(ViewAlumnoInscripcionCursada viewAlumnoInscripcionCursada){
+        this.viewAlumnoInscripcionCursada = viewAlumnoInscripcionCursada;
+    }
+
     public void cambiarVentanaLogin() {
         this.viewLoginUsuario.mostrarse();
     }
@@ -34,5 +40,10 @@ public class ControllerAlumnoPrincipal{
     public void cambiarVentanaInscripcionCarrera(){
         viewAlumnoInscripcionCarrera.setAlumno(viewPrincipalAlumno.alumno);
         viewAlumnoInscripcionCarrera.mostrarse();
+    }
+
+    public void cambiarVentanaInscripcionCursada(){
+        viewAlumnoInscripcionCursada.setAlumno(viewPrincipalAlumno.alumno);
+        viewAlumnoInscripcionCursada.mostrarse();
     }
 }

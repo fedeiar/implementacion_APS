@@ -322,14 +322,15 @@ public class DatabaseImpl{
         }
     }
 
-    public static void savePlanMateria(Plan plan, Materia materia) throws Exception {
+    public static void savePlanMateria(Plan plan, int codigoMateria) throws Exception {
         Statement statement = null;
         try {
             statement = connectToDB();
             
-            statement.executeUpdate("INSERT INTO plan_materia VALUES('" + plan.anio + "', '" + plan.codCarrera + "', '"+ materia.codigo +"')");
+            statement.executeUpdate("INSERT INTO plan_materia VALUES('" + plan.anio + "', '" + plan.codCarrera + "', '"+ codigoMateria +"')");
             
         } catch(SQLException e){
+            e.printStackTrace();
             throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
         } finally {
             closeConnection(statement);
@@ -383,6 +384,30 @@ public class DatabaseImpl{
         }
     }
 
+    public static List<Cursada> getCursadasParaAlumno(int legajo_alumno) throws Exception {
+        List<Cursada> cursadas = new ArrayList<>();
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            ResultSet resultSet = statement.executeQuery("SELECT cursada.codigo_materia, materia.nombre, cursada.legajo_profesor, cursada.anio, cursada.cuatrimestre FROM ((inscripcion NATURAL JOIN plan_materia) NATURAL JOIN cursada) NATURAL JOIN materia WHERE inscripcion.legajo_alumno = '"+ legajo_alumno + "' AND cursada.codigo_materia = materia.codigo");
+            
+            if(!resultSet.isBeforeFirst()){
+                throw new Exception("El alumno no esta inscrito en ninguna carrera");
+            }
+            while(resultSet.next()) {
+                Cursada cursada = new Cursada(resultSet.getInt("codigo_materia"), resultSet.getInt("legajo_profesor"), resultSet.getInt("anio"), resultSet.getInt("cuatrimestre"));
+                cursada.nombreMateria = resultSet.getString("nombre");
+                cursadas.add(cursada);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Sucedio un error al recuperar las cursadas.");
+        } finally{
+            closeConnection(statement);
+        }
+        return cursadas;
+    }
+
     public static void saveCursada(Cursada cursada) throws Exception {
         Statement statement = null;
         try {
@@ -391,7 +416,21 @@ public class DatabaseImpl{
             statement.executeUpdate("INSERT INTO cursada VALUES('" + cursada.codigoMateria + "', '" + cursada.legajoProfesor + "', '"+ cursada.anio +"', '"+ cursada.cuatrimestre +"' )");
             
         } catch(SQLException e){
-            throw new Exception("No puede crearse mas de un plan para la misma carrera en el mismo año.");
+            throw new Exception("No puede crearse mas de una cursada para el mismo año, mismo cuatrimestre, dada por el mismo profesor");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
+    public static void saveInscripcionCursada(Cursada cursada, int legajoAlumno) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("INSERT INTO cursada_alumno VALUES('" + cursada.codigoMateria + "', '" + cursada.legajoProfesor + "', '"+ cursada.anio +"', '"+ cursada.cuatrimestre +"', '"+ legajoAlumno +"' )");
+            
+        } catch(SQLException e){
+            throw new Exception("Error en la inscripción del alumno a la cursada.");
         } finally {
             closeConnection(statement);
         }
