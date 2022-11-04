@@ -472,6 +472,44 @@ public class DatabaseImpl{
         }
     }
 
+    public static List<Cursada> getCursadasDictPorProfesor(int legajo_profesor) throws Exception {
+        List<Cursada> cursadas = new ArrayList<>();
+        Statement statement = null;
+        try{
+            statement = connectToDB();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM (cursada NATURAL JOIN materia) WHERE legajo_profesor = "+ legajo_profesor);
+            
+            if(!resultSet.isBeforeFirst()){
+                throw new Exception("El profesor no dicto ninguna materia");
+            }
+            while(resultSet.next()) {
+                Cursada cursada = new Cursada(resultSet.getInt("codigo_materia"), resultSet.getInt("legajo_profesor"), resultSet.getInt("anio"), resultSet.getInt("cuatrimestre"));
+                cursada.nombreMateria = resultSet.getString("nombre");
+                cursadas.add(cursada);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Sucedio un error al recuperar las cursadas.");
+        } finally{
+            closeConnection(statement);
+        }
+        return cursadas;
+    }
+
+    public static void saveExamenFinal(ExamenFinal examenFinal) throws Exception {
+        Statement statement = null;
+        try {
+            statement = connectToDB();
+            
+            statement.executeUpdate("INSERT INTO examenfinal VALUES('" + examenFinal.codigoMateria + "', '" + examenFinal.legajoProfesor + "', '"+ examenFinal.fecha +"' )");
+            
+        } catch(SQLException e){
+            throw new Exception("No puede crearse mas de un examen final para la misma fecha, misma materia, dada por el mismo profesor");
+        } finally {
+            closeConnection(statement);
+        }
+    }
+
 
     // Methods for connection and disconnection from db
 

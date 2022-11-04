@@ -87,6 +87,16 @@ public class TableCreator {
         );
 
         statement.executeUpdate(
+            "CREATE TABLE IF NOT EXISTS examenfinal(" +
+            "codigo_materia INTEGER," +
+            "legajo_profesor INTEGER," +
+            "fecha STRING," +
+            "PRIMARY KEY(codigo_materia, legajo_profesor)," + 
+            "FOREIGN KEY(codigo_materia) REFERENCES materia(codigo) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(legajo_profesor) REFERENCES profesor(legajo) ON DELETE CASCADE ON UPDATE CASCADE )"
+        );
+
+        statement.executeUpdate(
             "CREATE TABLE IF NOT EXISTS cursada_alumno(" +
             "codigo_materia INTEGER," +
             "legajo_profesor INTEGER," +
@@ -119,7 +129,6 @@ public class TableCreator {
             DatabaseImpl.savePlan(new Plan(2012, 1));
             DatabaseImpl.savePlan(new Plan(2022, 1));
             DatabaseImpl.savePlan(new Plan(2015, 2));
-            
             
             DatabaseImpl.saveMateria("Matematica 1");
             DatabaseImpl.saveMateria("Algebra");

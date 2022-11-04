@@ -7,8 +7,10 @@ import controlador.ControllerAdminAltaAlumno;
 import controlador.ControllerAdminAltaCarrera;
 import controlador.ControllerAdminAltaCursada;
 import controlador.ControllerAdminAltaPlan;
+import controlador.ControllerAdminAltaProfesor;
 import controlador.ControllerAdminModificarPlan;
 import controlador.ControllerLoginUsuario;
+import controlador.ControllerProfesorAltaExamenFinal;
 import controlador.ControllerProfesorPrincipal;
 import controlador.ControllerAdminPrincipal;
 import controlador.ControllerAlumnoInscripcionCarrera;
@@ -82,6 +84,11 @@ public class MainWindow extends JFrame{
         controllerAdminAltaMateria.setViewPrincipalAdministrador(viewAdminPrincipal);
         controllerAdminPrincipal.setViewAdminAltaMateria(viewAdminAltaMateria);
 
+        ControllerAdminAltaProfesor controllerAdminAltaProfesor = new ControllerAdminAltaProfesor();
+        ViewAdminAltaProfesor viewAdminAltaProfesor = new ViewAdminAltaProfesor(this, controllerAdminAltaProfesor);
+        controllerAdminAltaProfesor.setViewAdminAltaProfesor(viewAdminAltaProfesor);
+        controllerAdminAltaProfesor.setViewPrincipalAdministrador(viewAdminPrincipal);
+        controllerAdminPrincipal.setViewAdminAltaProfesor(viewAdminAltaProfesor);
 
         // FUNCIONALIDAD DEL ALUMNO
 
@@ -110,6 +117,12 @@ public class MainWindow extends JFrame{
         controllerProfesorPrincipal.setViewLoginUsuario(viewLoginUsuario);
         controllerProfesorPrincipal.setViewProfesorPrincipal(viewProfesorPrincipal);
         controllerLoginUsuario.setViewProfesorPrincipal(viewProfesorPrincipal);
+
+        ControllerProfesorAltaExamenFinal controllerProfesorAltaExamenFinal = new ControllerProfesorAltaExamenFinal();
+        ViewProfesorAltaExamenFinal viewProfesorAltaExamenFinal = new ViewProfesorAltaExamenFinal(this, controllerProfesorAltaExamenFinal);
+        controllerProfesorAltaExamenFinal.setViewProfesorAltaExamenFinal(viewProfesorAltaExamenFinal);
+        controllerProfesorAltaExamenFinal.setViewProfesorPrincipal(viewProfesorPrincipal);
+        controllerProfesorPrincipal.setViewProfesorAltaExamenFinal(viewProfesorAltaExamenFinal);
 
         // INICIALMENTE SE MUESTRA EL LOGIN
 

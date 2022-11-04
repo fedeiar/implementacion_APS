@@ -1,8 +1,6 @@
 package controlador;
 
-import modelo.Alumno;
 import modelo.DatabaseImpl;
-import modelo.Materia;
 import vista.ViewAdminAltaMateria;
 import vista.ViewAdminPrincipal;
 
@@ -31,7 +29,6 @@ public class ControllerAdminAltaMateria{
 
     public void darDeAltaMateria(String nombre){ 
         try {
-            //TODO: habria que registrar que no estemos pisando a un alumno que ya existia? o ya fue?
             DatabaseImpl.saveMateria(nombre);
             viewAdminAltaMateria.operacionExitosa("Registro exitoso", "Una materia registrado exitosamente.");
         } catch (Exception e) {

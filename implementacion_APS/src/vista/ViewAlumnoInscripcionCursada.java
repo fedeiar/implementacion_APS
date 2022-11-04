@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 
 import controlador.ControllerAlumnoInscripcionCursada;
 import modelo.Alumno;
-import modelo.Carrera;
 import modelo.Cursada;
 import modelo.DatabaseImpl;
 

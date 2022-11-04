@@ -15,5 +15,6 @@ public class Profesor {
         this.apellido = apellido;
         this.legajo_docente = legajo_docente;
     }
+
 }
 

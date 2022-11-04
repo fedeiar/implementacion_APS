@@ -26,6 +26,7 @@ public class ViewAdminPrincipal extends JPanel{
     private JButton btnDarDeAltaCursada;
     private JButton btnModificarPlan;
     private JButton btnDarDeAltaMateria;
+    private JButton btnDarDeAltaProfesor;
 
 
 	public ViewAdminPrincipal(MainWindow mainWindow, ControllerAdminPrincipal controllerPrincipalAdministrador) {
@@ -69,6 +70,10 @@ public class ViewAdminPrincipal extends JPanel{
         btnDarDeAltaMateria.setBounds(670, 385, 162, 23);
         add(btnDarDeAltaMateria);
 
+        btnDarDeAltaProfesor = new JButton("Dar de alta profesor");
+        btnDarDeAltaProfesor.setBounds(270, 385, 162, 23);
+        add(btnDarDeAltaProfesor);
+
         btnLogOut = new JButton("Logout");
         btnLogOut.setBounds(70, 500, 162, 23);
         add(btnLogOut);
@@ -108,6 +113,12 @@ public class ViewAdminPrincipal extends JPanel{
         btnDarDeAltaMateria.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 controllerAdminPrincipal.cambiarVentanaAltaMateria();
+            }
+        });
+
+        btnDarDeAltaProfesor.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerAdminPrincipal.cambiarVentanaAdminAltaProfesor();
             }
         });
 

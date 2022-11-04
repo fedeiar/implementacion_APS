@@ -6,6 +6,7 @@ import vista.ViewAdminAltaAlumno;
 import vista.ViewAdminAltaCarrera;
 import vista.ViewAdminAltaCursada;
 import vista.ViewAdminAltaPlan;
+import vista.ViewAdminAltaProfesor;
 import vista.ViewAdminPrincipal;
 import vista.ViewAdminModificarPlan;
 
@@ -19,6 +20,7 @@ public class ControllerAdminPrincipal{
     private ViewAdminModificarPlan viewAdminAgregarModificarPlan;
     private ViewAdminAltaCursada viewAdminAltaCursada;
     private ViewAdminAltaMateria viewAdminAltaMateria;
+    private ViewAdminAltaProfesor viewAdminAltaProfesor;
     
     public ControllerAdminPrincipal(){
 
@@ -56,6 +58,10 @@ public class ControllerAdminPrincipal{
         this.viewAdminAltaMateria = viewAdminAltaMateria;
     }
 
+    public void setViewAdminAltaProfesor(ViewAdminAltaProfesor viewAdminAltaProfesor){
+        this.viewAdminAltaProfesor = viewAdminAltaProfesor;
+    }
+
     public void cambiarVentanaAltaAlumno(){
         this.viewAdminAltaAlumno.mostrarse();
     }
@@ -82,5 +88,9 @@ public class ControllerAdminPrincipal{
 
     public void cambiarVentanaAdminAltaCursada(){
         viewAdminAltaCursada.mostrarse();
+    }
+
+    public void cambiarVentanaAdminAltaProfesor(){
+        viewAdminAltaProfesor.mostrarse();
     }
 }

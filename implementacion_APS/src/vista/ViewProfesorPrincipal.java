@@ -9,9 +9,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import controlador.ControllerAlumnoPrincipal;
 import controlador.ControllerProfesorPrincipal;
-import modelo.Alumno;
 import modelo.Profesor;
 
 
@@ -22,6 +20,7 @@ public class ViewProfesorPrincipal extends JPanel{
     private ControllerProfesorPrincipal controllerProfesorPrincipal;
 
     private JLabel lblBienvenidoProfesor;
+    private JButton btnDarDeAltaExamenFinal;
     private JButton btnLogOut;
 
     public Profesor profesor;
@@ -44,12 +43,22 @@ public class ViewProfesorPrincipal extends JPanel{
         lblBienvenidoProfesor.setBounds(365, 36, 255, 60);
         add(lblBienvenidoProfesor);
 
+        btnDarDeAltaExamenFinal = new JButton("Dar de alta examen final");
+        btnDarDeAltaExamenFinal.setBounds(415, 445, 200, 23);
+        add(btnDarDeAltaExamenFinal);
+
         btnLogOut = new JButton("Logout");
         btnLogOut.setBounds(70, 500, 162, 23);
         add(btnLogOut);
     }
 
     private void inicializarListeners(){
+        btnDarDeAltaExamenFinal.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent actionEvent){
+                controllerProfesorPrincipal.cambiarVentanaAltaExamenFinal();
+            }
+        });
+
         btnLogOut.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
                 controllerProfesorPrincipal.cambiarVentanaLogin();
@@ -75,4 +84,5 @@ public class ViewProfesorPrincipal extends JPanel{
         lblBienvenidoProfesor.setSize(profesor.nombre.length() + profesor.apellido.length() * 50, 60);
         lblBienvenidoProfesor.setText("Bienvenido profesor " + profesor.nombre + " " + profesor.apellido);
     }
+    
 }
