@@ -91,7 +91,7 @@ public class TableCreator {
             "codigo_materia INTEGER," +
             "legajo_profesor INTEGER," +
             "fecha STRING," +
-            "PRIMARY KEY(codigo_materia, legajo_profesor)," + 
+            "PRIMARY KEY(codigo_materia, legajo_profesor, fecha)," + 
             "FOREIGN KEY(codigo_materia) REFERENCES materia(codigo) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(legajo_profesor) REFERENCES profesor(legajo) ON DELETE CASCADE ON UPDATE CASCADE )"
         );
