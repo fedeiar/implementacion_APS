@@ -477,7 +477,7 @@ public class DatabaseImpl{
         Statement statement = null;
         try{
             statement = connectToDB();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM (cursada NATURAL JOIN materia) WHERE legajo_profesor = "+ legajo_profesor);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM (cursada NATURAL JOIN materia) WHERE materia.codigo = cursada.codigo_materia AND legajo_profesor = "+ legajo_profesor);
             
             if(!resultSet.isBeforeFirst()){
                 throw new Exception("El profesor no dicto ninguna materia");
